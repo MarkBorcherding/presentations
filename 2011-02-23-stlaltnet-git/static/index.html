@@ -1,0 +1,514 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Git to the Dark Side</title>
+
+  <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
+  <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
+
+  <script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="./js/jquery.cycle.all.js"></script>
+	<script type="text/javascript" src="./js/jquery-print.js"></script>
+  <script type="text/javascript" src="./js/jquery.batchImageLoad.js"></script>
+
+  <script type="text/javascript" src="./js/jquery.doubletap-0.1.js"></script>
+
+  <script type="text/javascript" src="./js/fg.menu.js"></script>
+  <script type="text/javascript" src="./js/showoff.js"></script>
+  <script type="text/javascript" src="./js/jTypeWriter.js"> </script>
+  <script type="text/javascript" src="./js/sh_main.min.js"></script>
+  <script type="text/javascript" src="./js/core.js"></script>
+  <script type="text/javascript" src="./js/showoffcore.js"></script>
+
+  <link type="text/css" href="./css/fg.menu.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/theme/ui.all.css" media="screen" rel="stylesheet" />
+  <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
+
+  
+    <link rel="stylesheet" href="file/extra.css" type="text/css"/>
+  
+
+  
+
+  <script type="text/javascript">
+  $(function(){
+    setupPreso(false, './');
+  });
+  </script>
+</head>
+
+<body>
+
+
+<a tabindex="0" href="#search-engines" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="navmenu"><span class="ui-icon ui-icon-triangle-1-s"></span>slides</a>
+<div id="navigation" class="hidden"></div>
+
+<div id="help">
+  <table>
+    <tr><td class="key">space, &rarr;</td><td>next slide</td></tr>
+    <tr><td class="key">&larr;</td><td>previous slide</td></tr>
+    <tr><td class="key">d</td><td>debug mode</td></tr>
+    <tr><td class="key">## &lt;ret&gt;</td><td>go to slide #</td></tr>
+    <tr><td class="key">c</td><td>table of contents (vi)</td></tr>
+    <tr><td class="key">f</td><td>toggle footer</td></tr>
+    <tr><td class="key">r</td><td>reload slides</td></tr>
+    <tr><td class="key">z</td><td>toggle help (this)</td></tr>
+  </table>
+</div>
+
+<div id="preso">loading presentation...</div>
+<div id="footer">
+  <span id="slideInfo"></span>
+  <span id="debugInfo"></span>
+</div>
+
+<div id="slides" class="offscreen" style="display:none;">
+<div class="slide" data-transition="none"><div class="content center" ref="title/title/1">
+<h1>Git to the Dark Side</h1>
+
+<h3>Darth Vader Control System</h3>
+
+<p><img src="./file/title/vader.jpg" alt="vader"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="title/title/2">
+<h1>http://bit.ly/stl-altnet-git</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="about-me/about-me/1">
+<h1>About me</h1>
+
+<p><img src="./file/about-me/../git-dark-side/office.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="about-me/about-me/2">
+<h1>Mark Borcherding</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="about-me/about-me/3">
+<h1>I work with Nick</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="about-me/about-me/4">
+<h1>@ Fpweb.net</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="about-me/about-me/5">
+<h1>Contact Info</h1>
+
+<ul>
+<li><h3>MarkBorcherding@gmail.com</h3></li>
+<li><h3>@MarkBorcherding</h3></li>
+<li><h3>fooberry.com</h3></li>
+</ul>
+
+
+<p>Very creative handles</p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/1">
+<h1>Source Control Survey</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/2">
+<h1>Who doesn't use source control?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/3">
+<h1>Git?</h1>
+
+<p><img src="./file/git-dark-side/git.png" alt="git"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/4">
+<h1>Visual Source Safe?</h1>
+
+<p><img src="./file/git-dark-side/source-safe.jpg" alt="vss"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/5">
+<h1>TFS?</h1>
+
+<p><img src="./file/git-dark-side/tfs.png" alt="tfs"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/6">
+<h1>SVN?</h1>
+
+<p><img src="./file/git-dark-side/svn.png" alt="svn"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/7">
+<h1>hg?</h1>
+
+<p><img src="./file/git-dark-side/hg.png" alt="hg"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/8">
+<h1>Other?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/9">
+<h1>What's wrong with X?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/10">
+<h1>Slow</h1>
+
+<p><img src="./file/git-dark-side/c3p0.jpg" alt="c3p0"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/11">
+<h1>Heavy</h1>
+
+<p><img src="./file/git-dark-side/jabba.jpg" alt="heavy"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/12">
+<h1>Unfriendly</h1>
+
+<p><img src="./file/git-dark-side/tusken.jpg" alt="tusken"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/13">
+<h1>Restrictive</h1>
+
+<p><img src="./file/git-dark-side/stormtrooper.jpg" alt="stormtrooper"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/14">
+<h1>Unstable</h1>
+
+<p><img src="./file/git-dark-side/jarjar.jpg" alt="jarjar"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="git-dark-side/git-dark-side/15">
+<h1>What do we want</h1>
+
+<h1>our VCS to be?</h1>
+
+<ul>
+<li><img src="./file/git-dark-side/han.jpg" alt="han"/></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/16">
+<h1>...or maybe</h1>
+
+<p><img src="./file/git-dark-side/bobbafett.jpg" alt="bobba"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="git-dark-side/git-dark-side/17">
+<h1>DVCS</h1>
+
+<ul>
+<li><img src="./file/git-dark-side/vader.jpg" alt=""/> Darth Vader Control System</li>
+<li>Distributed Version Control System</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center incremental bullets" ref="git-dark-side/git-dark-side/18">
+<h1>No central server</h1>
+
+<ul>
+<li>...but typically we treat one as canonical</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/19">
+<h1>Every machine is an exact copy</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/20">
+<h1>All work is local</h1></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="git-dark-side/git-dark-side/21">
+<h1>Why is git better than <em>x</em>?</h1>
+
+<ul>
+<li><a href="http://whygitisbetterthanx.com/">http://whygitisbetterthanx.com/</a></li>
+<li>Built by Scott Chacon (a Githubber)</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/22">
+<h1>Why do <em>I</em> like git?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/23">
+<h1>It's fast</h1>
+
+<p><img src="./file/git-dark-side/falcon.jpg" alt="falcon"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/24">
+<h1>It's agile</h1>
+
+<p><img src="./file/git-dark-side/speeder.jpg" alt="speeder"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/25">
+<h1>It's powerful</h1>
+
+<p><img src="./file/git-dark-side/powerful.jpeg" alt="yoda"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/26">
+<h1>Branching is light</h1>
+
+<p><img src="./file/git-dark-side/light.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/27">
+<h1>Essentially</h1>
+
+<p><img src="./file/git-dark-side/han.jpg" alt="han"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/28">
+<h1>...or maybe</h1>
+
+<p><img src="./file/git-dark-side/bobbafett.jpg" alt="bobba"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/29">
+<h1>Enough fluff</h1>
+
+<h1>Let's get started</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/30">
+<h1>Installing Git</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="git-dark-side/git-dark-side/31">
+<h1>Linux &amp; Mac OSX</h1>
+
+<ul>
+<li>via package manager</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/32">
+<h1>msysgit on Windows</h1>
+
+<h2>http://code.google.com/p/msysgit/</h2>
+
+<p><img src="./file/git-dark-side/msysgitlogo.png" alt="logo"/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/33">
+<h1>Warning! Command line!</h1>
+
+<p><img src="./file/git-dark-side/calm.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content incremental commandline" ref="git-dark-side/git-dark-side/34">
+<h1>Minimal Setup</h1>
+
+<pre><code><code class="command">$ git config --global user.name 'Darth Vader'</code><code class="result">
+</code><code class="command">$ git config --global user.email dvader23@deathstar.org</code><code class="result">
+</code><code class="command">$ git config --global color.ui true</code><code class="result">
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/35">
+<h1>Created the <code>~/.gitconfig</code></h1>
+
+<pre><code>[user]
+    email = dvader23@deathstar.org
+    name = Darth Vader
+[color]
+    ui = true
+</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="git-dark-side/git-dark-side/36">
+<h1>Config locations</h1>
+
+<ul>
+<li>Global = <code>~/.gitconfig</code></li>
+<li>Per Project =  <code>my-project/.git/config</code></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/37">
+<h1>Create the repository</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/38">
+<h1>git init</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets whatthe" ref="git-dark-side/git-dark-side/39">
+<h1>What did that do?</h1>
+
+<ul>
+<li>It created  <code>.git</code> directory</li>
+<li>In that directory <em>is</em> the repository</li>
+<li>Commits, branches, tags, config end up here</li>
+<li>We'll look more at this later</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/40">
+<h1>Copy a repository</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/41">
+<h1>git clone</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets whatthe" ref="git-dark-side/git-dark-side/42">
+<h1>What did that do?</h1>
+
+<ul>
+<li>Copies every commit from the other repository</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/43">
+<h1>See what changed</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/44">
+<h1>git status</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental commandline" ref="git-dark-side/git-dark-side/45">
+<pre><code><code class="command">$ git status</code><code class="result">
+On branch master
+Changed but not updated:
+  (use "git add &lt;file&gt;..." to update what will be committed)
+  (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+
+        modified:   extra.css
+        modified:   git-dark-side/git-dark-side.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/46">
+<h1>What lines actually changed?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/47">
+<h1>git diff</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/48">
+<h1>Select files to commit</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/49">
+<h1>git add</h1></div>
+</div><div class="slide" data-transition="none"><div class="content whatthe" ref="git-dark-side/git-dark-side/50">
+<h1>WTF did that do?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="git-dark-side/git-dark-side/51">
+<h1>The Staging Area</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/52">
+<h1>Commit the files</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/53">
+<h1>git commit</h1></div>
+</div><div class="slide" data-transition="none"><div class="content incremental commandline" ref="git-dark-side/git-dark-side/54">
+<pre><code><code class="command">$ git commit -m 'more changes'</code><code class="result">
+[master 464f706] more changes
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/55">
+<h1>Revert uncommited mistakes</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/56">
+<h1>git reset</h1></div>
+</div><div class="slide" data-transition="none"><div class="content whatthe" ref="git-dark-side/git-dark-side/57">
+<h1>Reverts any files git <strong>is</strong> tracking to their last known state.</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/58">
+<h1>git clean</h1></div>
+</div><div class="slide" data-transition="none"><div class="content whatthe" ref="git-dark-side/git-dark-side/59">
+<h1>Deletes any files git <strong>is not</strong> currently tracking.</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/60">
+<h1>Tracked vs Untracked Files</h1>
+
+<p><img src="./file/git-dark-side/track.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/61">
+<h1>Create a branch</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/62">
+<h1>git branch</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/63">
+<h1>Switch branches</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/64">
+<h1>git checkout</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/65">
+<h1><code>checkout</code> to the <em>working area</em></h1>
+
+<h1>from the <code>.git</code> repository</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/66">
+<h1>Merge two branches</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/67">
+<h1>git merge</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/68">
+<h1>Share changes</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/69">
+<h1>git push</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/70">
+<h1>See other's changes</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/71">
+<h1>git fetch</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/72">
+<h1>Rewrite history</h1></div>
+</div><div class="slide" data-transition="none"><div class="content powercmd" ref="git-dark-side/git-dark-side/73">
+<h1>git rebase</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/74">
+<h1>More about <code>rebase</code> later</h1>
+
+<p><img src="./file/git-dark-side/rebase.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/75">
+<p><img src="./file/git-dark-side/rebaseaccident.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/76">
+<h1>What have we learned?</h1></div>
+</div><div class="slide" data-transition="none"><div class="content code bullets incremental small" ref="git-dark-side/git-dark-side/77">
+<ul>
+<li>git init</li>
+<li>git clone</li>
+<li>git add</li>
+<li>git commit</li>
+<li>git reset</li>
+<li>git clean</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content code bullets incremental small" ref="git-dark-side/git-dark-side/78">
+<ul>
+<li>git branch</li>
+<li>git checkout</li>
+<li>git merge</li>
+<li>git push</li>
+<li>get fetch</li>
+<li>get rebase</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/79">
+<h1>Let's see it in action</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/80">
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/81">
+<h1><code>rebase</code></h1>
+
+<p><img src="./file/git-dark-side/rebase.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/82">
+<h1>Never <code>rebase</code> after it's left your machine</h1></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="git-dark-side/git-dark-side/83">
+<h1>Always <code>pull --rebase</code> if you <code>pull</code></h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/84">
+<h1>Squash the noise away</h1>
+
+<p><img src="./file/git-dark-side/wampa.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/85">
+<h1>tags</h1>
+
+<p><img src="./file/git-dark-side/tags.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content incremental commandline" ref="git-dark-side/git-dark-side/86">
+<h1>log</h1>
+
+<pre><code><code class="command">$ git log --oneline old-branch..master</code><code class="result">
+42047c0 adding a few more images
+4cf8760 adding tools
+edaf8a2 more images
+b901401 adding how changed lives
+1b63c94 git everything
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content incremental commandline" ref="git-dark-side/git-dark-side/87">
+<pre><code><code class="command">$ git log --oneline --graph --decorate </code><code class="result">
+*   b8d1fe8 (HEAD, master) Merge branch 'b'
+|\  
+| * 4a78951 (b) trying to do foo
+* | b4ebdfd fixing bug 23
+* | 4eb392c adding feature b
+|/  
+* cad93e9 initial commit
+</code></code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/88">
+<h2><code>bisect</code></h2>
+
+<p><img src="./file/git-dark-side/bisect.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/89">
+<h1>Hooks</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/90">
+<h1>Github</h1>
+
+<p><img src="./file/git-dark-side/octocat.png" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/91">
+<h1>Fork and Pull Request</h1>
+
+<p><img src="./file/git-dark-side/fork.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/92">
+<p><img src="./file/git-dark-side/githubgraph.png" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/93">
+<h1>Tooling</h1>
+
+<p><img src="./file/git-dark-side/tooling.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content incremental bullets" ref="git-dark-side/git-dark-side/94">
+<h1>Tooling for Tools</h1>
+
+<h1>is Amazing</h1>
+
+<ul>
+<li>CI Server</li>
+<li>Github integration</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/95">
+<h1>Git Extensions</h1>
+
+<p><img src="./file/git-dark-side/gitextensions.png" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/96">
+<h1>Git Source Control Provider</h1>
+
+<p><img src="./file/git-dark-side/vsssolutionexplorer.png" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/97">
+<h1>How Git will change your life</h1>
+
+<p><img src="./file/git-dark-side/BattleDamagedDarthVader.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/98">
+<h1>Git everything</h1>
+
+<p><img src="./file/git-dark-side/LegoDeathStar.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/99">
+<h1>Commit often</h1>
+
+<p><img src="./file/git-dark-side/pick.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/100">
+<h1>Branch for everything</h1>
+
+<p><img src="./file/git-dark-side/atat.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/101">
+<h1>Joining the Dark Side</h1>
+
+<p><img src="./file/git-dark-side/emperor.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/102">
+<h2>You won't loose your history...maybe</h2>
+
+<ul>
+<li><img src="./file/git-dark-side/history.jpeg" alt=""/></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/103">
+<h1>You don't <em>have</em> to use git</h1>
+
+<h2>You can use several client tools w/ github</h2>
+
+<p><img src="./file/git-dark-side/playnice.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/104">
+<h1>You don't have to stop using <em>X</em></h1>
+
+<h2>You can run git on top of just about anything</h2>
+
+<p><img src="./file/git-dark-side/hide.jpeg" alt=""/></p></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="git-dark-side/git-dark-side/105">
+<p><img src="./file/git-dark-side/shhh.jpeg" alt=""/></p></div>
+</div>
+</div>
+
+</body>
+</html>
