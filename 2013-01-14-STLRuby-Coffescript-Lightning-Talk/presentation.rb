@@ -109,10 +109,10 @@ foo [
 """
 show.add code language: "javascript", source: <<-SOURCE
 foo([
-      { a: 1},
-      { a: 2},
-      { a: 3},
-      { a: 4}
+      {a: 1},
+      {a: 2},
+      {a: 3},
+      {a: 4}
     ]);
 SOURCE
 
@@ -125,10 +125,10 @@ foo [
 """
 show.add code language: "javascript", source: <<-SOURCE
 foo([
-      { a: 1},
-      { a: 2},
-      { a: 3},
-      { a: 4} }
+      {a: 1},
+      {a: 2},
+      {a: 3},
+      {a: 4}
     ]);
 SOURCE
 
@@ -145,10 +145,10 @@ foo [
 """
 show.add code language: "javascript", source: <<-SOURCE
 foo([
-      { a: 1, b: 'b'},
-      { a: 2, b: 'b'},
-      { a: 3, b: 'b'},
-      { a: 4, b: 'b'}
+      {a: 1, b: 'b'},
+      {a: 2, b: 'b'},
+      {a: 3, b: 'b'},
+      {a: 4, b: 'b'}
     ]);
 SOURCE
 
