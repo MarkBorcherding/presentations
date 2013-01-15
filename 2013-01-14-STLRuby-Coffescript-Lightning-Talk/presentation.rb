@@ -21,6 +21,14 @@ show.add text title: "> whoami",
 github.com/MarkBorcherding
 """
 
+show.add text content: """
+  throw new Tomato unless language == 'ruby'
+"""
+
+show.add text content: """
+  throw new Tomato unless ['ruby', 'coffeescript'].include? language
+"""
+
 show.add text content: "Everyone likes Hubot."
 
 show.add text title: "Everyone likes extending Hubot.", content: """
@@ -35,8 +43,8 @@ show.add text content: "CoffeeScript can be pretty sexy."
 
 show.add code language: "text", source: <<-SOURCE
  describe 'Old lady down the street', ->
-   it 'should be a crazy cat lady',
-     user.pets.should.have.lengthOf(44)
+   it 'should be a crazy cat lady', ->
+     user.pets.should.have.lengthOf 42
 SOURCE
 
 show.add code language: "javascript", source: <<-SOURCE
