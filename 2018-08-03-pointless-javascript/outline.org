@@ -8,28 +8,236 @@
 ** elevating the readability of JavaScript or Scala using functional composition, partial function application and currying....and without function parameters.
 * Disclaimer
 ** I'm not sure coworkers have really taken to this
-* talk about point free
-** What are "points"
+* What is Point Free programming
+ ...it's tacit programming
+* What is tacit programming
+ ...writing function that don't deine arguments
 ** Example function
+   const strikeOut = function(strikes) { return strikes === 3; };
+   
+   const strikeOut = equals(3)
+   // strikeOut = Number -> Boolean
+   
 ** Mention how we are going to remove the points and the code will be easier to read
+   Small, multipurpose functions and build up more complex ones
+
 * Example or _really_ bad JS
+
 * Example of better JS
+
 ** Better even still with lodash
 * Example of how we think about it
-** Write out the steps we are going to do
-** wrap things in a compose
+*** Write out the steps
+  querystringify
+    remove missing parameters
+    encode the keys and values
+    join keys and values with equals
+
+*** give it a name
+  querystringify = 
+    removeMissingParameters
+    encodeTheKeysAndValues
+    joinKeysAndValuesWithEquals
+
+*** give it a name
+  querystringify = pipe(
+    remove missing parameters,
+    encode the keys and values,
+    join keys and values with equals)
+
+*** give it a name
+  querystringify = pipe(
+    removeMissingParameters,
+    encodeTheKeysAndValues,
+    joinKeysAndValuesWithEquals)
+
 * Quick explanation of functional composition
+  pipe takes a functions f:x->y, g:y->z 
+  return a new funtion that x->z
+
+  return g(f(x))
+  
+*** give it a name
+  const querystringify = pipe(
+    removeMissingParameters,
+    encodeTheKeysAndValues,
+    joinKeysAndValuesWithEquals
+  )
+
+
 * Show how pipe works
+---maybe no
+
 ** basically a reduce over a collection of functions
+   [f,g,h].reduce...
+
 * show it in other languages
+  bash
+  
+  ps -ef | grep java | awk '{print $2}' | kill
+  
+  scala
+  
+    val queryStringify = 
+      removeMissingParameters
+        .andThen(encodeTheKeysAndValues)
+        .andThen(joinKeysAndValuesWithEquals)
+    
+    methods vs function
+
+  
+  elixir
+  "Elixir rocks" |> 
+  String.upcase() |> 
+  String.split()
+  
+* pipe vs compose
+
+  pipe(a,b,c) = c(b(a(x)))
+  
+  compose(a,b,c) = a(b(c(x)))
+  
+
+* review where we left it
+
+*** give it a name
+
+  const querystringify = pipe(
+    removeMissingParameters,
+    encodeTheKeysAndValues,
+    joinKeysAndValuesWithEquals
+  )
+
+*** better naems
+
+  const querystringify = pipe(
+    removeMissing,
+    encodeTheKeysAndValues,
+    joinKeysAndValuesWithEquals
+  )
+
+  const querystringify = pipe(
+    removeMissing,
+    encode,
+    joinKeysAndValuesWithEquals
+  )
+
+  const querystringify = pipe(
+    removeMissing,
+    encode,
+    joinEquals
+  )
+
 * A quick explanation of curry
+  A function that returns another funcion
+  
+  const join = function(j){
+    return function(list) {
+      return list.join(j);
+    }
+  }
+  
+  const join = j => list => list.join(j)
+
 * show it in other languages
+  def join(j: String)(list: Seq[String]) = list.mkString(j)
+  
+  val join = (j:String) => (list:Seq[String]) = list.mkString(j)
+
+  val join = ((j:String, list:Seq[String]) = list.mkString(j)).curried
+  
+  val join = (_:Seq[String]).mkString(_:String)
+  
+
 * show how we use it
+  const join = j => list => list.join(j)
+
+  const querystringify = pipe(
+    removeMissing,
+    encode,
+    join("=")
+  )
+
 * talk about lodash
+*** https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
+    
+https://lodash.com
+
+
 * talk about how this all available in lodash
+  
+  _.join(array, [separator=','])
+  
+* two problems
+
+1 data comes first
+2 varargs makes it hard to query
+
+* lodash fp
+
+fp button
+
+https://github.com/lodash/lodash/wiki/FP-Guide
+
 * talk about lodash fp 
-* show some of the lodash fp things
-* show the fix arity and why varargs is hard to curry
+  data last
+  fixed arity
+  
+* rework
+  const pipe = require('lodash/fp/pipe')
+  const join = require('lodash/fp/join')
+  
+*
+  const pipe = require('lodash/fp/pipe')
+  const join = require('lodash/fp/join')
+
+  const querystringify = pipe(
+    removeMissing,
+    encode,
+    join("=")
+  )
+
+* ....add array to avoid var args
+  const {pipe, join} = require('lodash/fp')
+
+  const querystringify = pipe([
+    removeMissing,
+    encode,
+    join("=")
+  ])
+
+* ....add array to avoid var args
+  const fp = require('lodash/fp')
+  
+  const removeMissing = fp.filter(...)
+  const encode = fp.map(libary.urlEncode)
+
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    join("=")
+  ])
+
+* show some of the other lodash fp things
+  fp.cond([
+    [predicateFunction, applicativeFunction], 
+    [ (x => x < 0), (x) => console.log(x, "is less than zero")], 
+    [ fp.equals(0), someOtherFunction ], 
+    [ fp.T,         thisIsTheDefaultFunction ]
+  ])
+
+* show some of the other lodash fp things
+  const action = name => (action, state) => name === action
+  const incrementCount = (action, state) => state + 1
+  export default = fp.cond([
+    [action("CLICK_UP"),   incrementCount], 
+    [action("CLICK_DOWN"), decrementCount], 
+    [fp.T,                 previousState ]
+  ])
+  
+
+
+
 * show partial function application
 * show it in other languages
 * show using it in our example
