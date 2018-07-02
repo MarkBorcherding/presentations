@@ -50,7 +50,7 @@ https://lodash.com
 ** Better even still with lodash
   const ?????? = (params) => {
     _.chain(params)
-     .map(params, (v,k) => [k,v])
+     .toPairs
      .filter(([k, v]) => ! _.isUndefined(v))
      .map(([k, v]) => [lib.encode(k), lib.encode(v)])
      .map((pair) => pair.join("="))
@@ -60,7 +60,7 @@ https://lodash.com
 
   const querystringify = (params) => {
     _.chain(params)
-     .map(params, (v,k) => [k,v])
+     .toPairs
      .filter(([k, v]) => ! _.isUndefined(v))
      .map(([k, v]) => [lib.encode(k), lib.encode(v)])
      .map((pair) => pair.join("="))
@@ -244,14 +244,14 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
 * talk about lodash fp 
   data last
-  fixed arity
+  fixed arity ... no variadic 
   fixed arity spawns aliases
   
-* rework
+* need two things
   const pipe = require('lodash/fp/pipe')
   const join = require('lodash/fp/join')
   
-*
+* 
   const pipe = require('lodash/fp/pipe')
   const join = require('lodash/fp/join')
 
@@ -274,8 +274,6 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
 * ....add array to avoid var args
   const fp = require('lodash/fp')
-  
-  const encode = fp.map(libary.urlEncode)
 
   const querystringify = fp.pipe([
     removeMissing,
@@ -334,6 +332,74 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("="),
     fp.join("&")
   ])
+  
+* Event simpler
+
+  const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
+  ])
+
+* Deal with encode
+
+  const encode = fp.map((v, k) => [lib.urlEncode(k), lib.urlEncode(v)]) 
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
+  ])
+
+* Deal with encode
+
+  const encode = fp.pipe(
+                   fp.toPairs,
+                   fp.map(
+                    fp.map(lib.urlEncode)))
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
+  ])
+  
+* Review all
+
+  const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
+
+  const encode = fp.pipe(
+                   fp.toPairs,
+                   fp.map(
+                    fp.map(lib.urlEncode)))
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
+  ])
+
+* Review all
+
+  const removeMissing = pickBy(fp.negate(fp.isUndefined))
+
+  const encode = pipe(
+                   toPairs,
+                   map(
+                    map(lib.urlEncode)))
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    join("="),
+    join("&")
+  ])
 
 * show some of the other lodash fp things
   fp.cond([
@@ -344,25 +410,44 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   ])
 
 * show some of the other lodash fp things
-  const action = name => (action, state) => name === action
+  const isAction = name => (action, state) => name === action
   const incrementCount = (action, state) => state + 1
+
   export default = fp.cond([
-    [action("CLICK_UP"),   incrementCount], 
-    [action("CLICK_DOWN"), decrementCount], 
-    [fp.T,                 previousState ]
+    [isAction("CLICK_UP"),   incrementCount], 
+    [isAction("CLICK_DOWN"), decrementCount], 
+    [fp.T,                   previousState ]
   ])
   
 
-
-
 * show partial function application
-* show it in other languages
-* show using it in our example
+  
+ _ placeholder in lodash 
+ 
+ const f = fp.curry((a,b,c,d) => console.log({a,b,c,d}))
+
+ > f(1,2,3,4)
+ { a: 1, b: 2, c: 3, d: 4 }
+ 
+ const g = f(1, fp.__, 3, fp.__)
+ 
+ > g('b', 'd')
+ { a: 1, b: 'b', c: 3, d: 'd' }
+
 * show the example in scala
+  val f = doSomething(1, _, 2)
+
 * talk about ramda
+
 * show a bit of the rambda things
 * talk about sanctuary
 * talk about trade offs
 * show debugging trick
+  fp.pipe(
+    doSomething, 
+    fp.tap(debugger),
+    otherThing)
+   
+  
 * mention to use this when you want...not always
 * questions
