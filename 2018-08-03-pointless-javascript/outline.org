@@ -22,34 +22,75 @@
    Small, multipurpose functions and build up more complex ones
 
 * Example or _really_ bad JS
+const ???????? = function(params) {
+  const provided = []
+  for(var key in params) {
+    if(params[key] != undefined){
+      provided.push(lib.encode(key) + "=" + lib.encode(params[key]))
+    }
+  }
+  return provided.join("&")
+}
+
+
+* talk about lodash
+*** https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
+    
+https://lodash.com
 
 * Example of better JS
+  const ?????? = (params) => {
+    const a = _.map(params, (v,k) => [k,v])
+    const b = _.filter(a, ([k, v]) => ! _.isUndefined(v))
+    const c = _.map(b, ([k, v]) => [lib.encode(k), lib.encode(v)])
+    const d = _.map(c, (pair) => pair.join("="))
+    return d.join("&")
+  }
 
 ** Better even still with lodash
+  const ?????? = (params) => {
+    _.chain(params)
+     .map(params, (v,k) => [k,v])
+     .filter(([k, v]) => ! _.isUndefined(v))
+     .map(([k, v]) => [lib.encode(k), lib.encode(v)])
+     .map((pair) => pair.join("="))
+     .join("&")
+     .value()
+  }
+
+  const querystringify = (params) => {
+    _.chain(params)
+     .map(params, (v,k) => [k,v])
+     .filter(([k, v]) => ! _.isUndefined(v))
+     .map(([k, v]) => [lib.encode(k), lib.encode(v)])
+     .map((pair) => pair.join("="))
+     .join("&")
+     .value()
+  }
+
 * Example of how we think about it
 *** Write out the steps
   querystringify
     remove missing parameters
     encode the keys and values
     join keys and values with equals
-
-*** give it a name
-  querystringify = 
-    removeMissingParameters
-    encodeTheKeysAndValues
-    joinKeysAndValuesWithEquals
+    join the parameters with ampersand
 
 *** give it a name
   querystringify = pipe(
     remove missing parameters,
     encode the keys and values,
-    join keys and values with equals)
+    join keys and values with equals, 
+    join the parameters with ampersand
+  )
 
 *** give it a name
   querystringify = pipe(
     removeMissingParameters,
     encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals)
+    joinKeysAndValuesWithEquals, 
+    joinParametersWithAmpersand
+  )
 
 * Quick explanation of functional composition
   pipe takes a functions f:x->y, g:y->z 
@@ -61,7 +102,8 @@
   const querystringify = pipe(
     removeMissingParameters,
     encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals
+    joinKeysAndValuesWithEquals,
+    joinParametersWithAmpersand
   )
 
 
@@ -82,6 +124,7 @@
       removeMissingParameters
         .andThen(encodeTheKeysAndValues)
         .andThen(joinKeysAndValuesWithEquals)
+        .andThen(joinParametersWithAmpersand)
     
     methods vs function
 
@@ -97,6 +140,15 @@
   
   compose(a,b,c) = a(b(c(x)))
   
+  depends on how you think
+  pipe = the steps I'm taking
+  pipe(step1, step2, step3)
+
+  compose = reads more like english
+  compose(top5, nationalLeague, cathers)
+  
+  typically pick up one and stick with it
+  
 
 * review where we left it
 
@@ -105,7 +157,8 @@
   const querystringify = pipe(
     removeMissingParameters,
     encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals
+    joinKeysAndValuesWithEquals,
+    joinParametersWithAmpersand
   )
 
 *** better naems
@@ -113,20 +166,25 @@
   const querystringify = pipe(
     removeMissing,
     encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals
+    joinKeysAndValuesWithEquals, 
+    joinParametersWithAmpersand
   )
 
   const querystringify = pipe(
     removeMissing,
     encode,
-    joinKeysAndValuesWithEquals
+    joinKeysAndValuesWithEquals, 
+    joinParametersWithAmpersand
   )
 
   const querystringify = pipe(
     removeMissing,
     encode,
-    joinEquals
+    joinEquals,
+    joinAmpersand,
   )
+
+* spoon on the curry
 
 * A quick explanation of curry
   A function that returns another funcion
@@ -138,6 +196,15 @@
   }
   
   const join = j => list => list.join(j)
+  
+* lodash curry
+
+  const fancy = _.curry((j,list) => list.join(j))
+  fancy("-") // [Function]
+  fancy("-", [1,2,3]) // String: '1-2-3'
+
+* limitations with lodash curry
+  only fixed arity function
 
 * show it in other languages
   def join(j: String)(list: Seq[String]) = list.mkString(j)
@@ -155,13 +222,9 @@
   const querystringify = pipe(
     removeMissing,
     encode,
-    join("=")
+    join("="),
+    join("&")
   )
-
-* talk about lodash
-*** https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
-    
-https://lodash.com
 
 
 * talk about how this all available in lodash
@@ -182,6 +245,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 * talk about lodash fp 
   data last
   fixed arity
+  fixed arity spawns aliases
   
 * rework
   const pipe = require('lodash/fp/pipe')
@@ -194,7 +258,8 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   const querystringify = pipe(
     removeMissing,
     encode,
-    join("=")
+    join("="), 
+    join("&")
   )
 
 * ....add array to avoid var args
@@ -203,19 +268,71 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   const querystringify = pipe([
     removeMissing,
     encode,
-    join("=")
+    join("="),
+    join("&")
   ])
 
 * ....add array to avoid var args
   const fp = require('lodash/fp')
   
-  const removeMissing = fp.filter(...)
   const encode = fp.map(libary.urlEncode)
 
   const querystringify = fp.pipe([
     removeMissing,
     encode,
-    join("=")
+    fp.join("="),
+    fp.join("&")
+  ])
+
+* ....add array to avoid var args
+
+  const removeMissing = fp.pipe([
+    fp.pairs, 
+    fp.filter(([k,v]) => ! fp.isUndefined(v))
+  ])
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
+  ])
+
+* Maybe too far
+
+  const removeMissing = fp.pipe([
+    fp.pairs, 
+    fp.filter(
+      fp.negate(
+        fp.pipe(
+          fp.at(1),
+          fp.isUndefined)))
+  ])
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
+  ])
+
+* Give it a name
+  
+  const valueIsUndefined = fp.pipe(
+                            fp.at(1),
+                            fp.isUndefined))
+
+  const removeMissing = fp.pipe([
+    fp.pairs, 
+    fp.filter(
+      fp.negate(valueIsUndefined))
+  ])
+  
+  const querystringify = fp.pipe([
+    removeMissing,
+    encode,
+    fp.join("="),
+    fp.join("&")
   ])
 
 * show some of the other lodash fp things
