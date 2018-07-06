@@ -126,7 +126,7 @@ https://lodash.com
   #+END_SRC
 
 * Quick explanation of functional composition
-  pipe takes a functions f:x->y, g:y->z
+  pipe takes a functions x->y, y->z
   return a new funtion that x->z
 
 * A really dumb version
@@ -137,6 +137,12 @@ https://lodash.com
         return g(f(x))
       }
     }
+  #+END_SRC
+
+* A really dumb version
+
+  #+BEGIN_SRC javascript
+    const pipe = (f,g) => x => g(f(x))
   #+END_SRC
   
 *** give it a name
@@ -192,6 +198,13 @@ https://lodash.com
   
   compose(a,b,c) = a(b(c(x)))
   
+* silly library
+  
+  flow = pipe
+  flowRight = compose
+  
+  ...called by no one...ever.
+  
 * Why have two difference
 
   depends on how you think
@@ -232,7 +245,7 @@ https://lodash.com
 
   const querystringify = pipe(
     removeMissing,
-    encode,
+    urlEncode,
     joinKeysAndValuesWithEquals, 
     joinParametersWithAmpersand
   )
@@ -240,7 +253,7 @@ https://lodash.com
 * Even more betterest
   const querystringify = pipe(
     removeMissing,
-    encode,
+    urlEncode,
     joinEquals,
     joinAmpersand,
   )
@@ -248,7 +261,7 @@ https://lodash.com
 * point out the join methods sound similar
   const querystringify = pipe(
     removeMissing,
-    encode,
+    urlEncode,
     joinEquals,
     joinAmpersand,
   )
@@ -304,7 +317,7 @@ https://lodash.com
 
   const querystringify = pipe(
     removeMissing,
-    encode,
+    urlEncode,
     join("="),
     join("&")
   )
@@ -355,7 +368,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
   const querystringify = pipe(
     removeMissing,
-    encode,
+    urlEncode,
     join("="), 
     join("&")
   )
@@ -365,7 +378,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
   const querystringify = pipe([
     removeMissing,
-    encode,
+    urlEncode,
     join("="),
     join("&")
   ])
@@ -375,7 +388,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
@@ -407,7 +420,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
@@ -426,7 +439,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
@@ -437,7 +450,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
@@ -449,7 +462,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
@@ -463,7 +476,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
@@ -472,32 +485,52 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
   const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
 
-  const encode = fp.pipe(
-                   fp.toPairs,
-                   fp.map(
-                    fp.map(lib.urlEncode)))
+  const urlEncode = fp.pipe(
+                      fp.toPairs,
+                      fp.flatMap(lib.urlEncode),
+                      fp.chunk(2))
+
   
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
+    urlEncode,
     fp.join("="),
     fp.join("&")
   ])
 
 * Review all
 
-  const removeMissing = pickBy(fp.negate(fp.isUndefined))
-
-  const encode = pipe(
-                   toPairs,
-                   map(
-                    map(lib.urlEncode)))
+  const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
   
+  const mapKeyValue = f => fp.pipe(
+                            fp.toPairs,
+                            fp.flatMap(f),
+                            fp.chunk(2))
+
   const querystringify = fp.pipe([
     removeMissing,
-    encode,
-    join("="),
-    join("&")
+    mapKeyValue(lib.urlEncode),
+    fp.join("="),
+    fp.join("&")
+  ])
+
+
+* Review all
+
+  // resuseable functions
+  const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
+  
+  const mapKeyValue = f => fp.pipe(
+                            fp.toPairs,
+                            fp.flatMap(f),
+                            fp.chunk(2))
+
+  // business code terse expressive
+  const querystringify = fp.pipe([
+    removeMissing,
+    mapKeyValue(lib.urlEncode),
+    fp.join("="),
+    fp.join("&")
   ])
 
 * show some of the other lodash fp things
@@ -582,6 +615,10 @@ const inverseCaptcha = R.compose(
 
 * talk about sanctuary
 * talk about trade offs
+  typescript 
+
+ shrug
+
 * show debugging trick
   fp.pipe(
     doSomething, 
