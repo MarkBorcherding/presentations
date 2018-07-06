@@ -10,33 +10,68 @@
 * I'm not sure coworkers have really taken to this
 * What is Point Free programming
  ...it's tacit programming
+ 
 * What is tacit programming
  ...writing function that don't deine arguments
-** Example function
-   const strikeOut = function(strikes) { return strikes === 3; };
+ 
+mandatory wikipedia quote:
+ 
+ Tacit programming, also called point-free style, is a programming paradigm in
+ which function definitions do not identify the arguments (or "points") on which
+ they operate. Instead the definitions merely compose other functions, among
+ which are combinators that manipulate the arguments.
+ 
+ - https://en.wikipedia.org/wiki/Tacit_programming
+ 
+* Example function
    
-   const strikeOut = equals(3)
-   // strikeOut = Number -> Boolean
+  #+BEGIN_SRC js
+    const struckOut = function(strikes) { return strikes === 3; };
+  #+END_SRC
+  
+* Point out the points
    
-** Mention how we are going to remove the points and the code will be easier to read
-   Small, multipurpose functions and build up more complex ones
+  #+BEGIN_SRC js
+    const struckOut = function(strikes) { return strikes === 3; };
+    //                         ^^^^^^^^         
+  #+END_SRC
 
-* Example of bad JS
-const ???????? = function(params) {
-  var provided = []
-  for(var key in params) {
-    if(params[key] != undefined){
-      provided.push(lib.encode(key) + "=" + lib.encode(params[key]))
+* Point-free
+   
+  #+BEGIN_SRC js
+    const struckOut = equals(3)
+    // struckOut = Number -> Boolean
+
+    const numberOfStrikes = 3
+    struckOut(numberOfStrikes) // => true
+  #+END_SRC
+   
+* Mention how we are going to remove the points and the code will be easier to read
+  Small, multipurpose functions and build up more complex ones
+
+* What does it do?
+  
+  #+BEGIN_SRC js
+    const ???????? = function(params) {
+      var provided = []
+      for(var key in params) {
+        if(params[key] != undefined){
+          provided.push(lib.encode(key) + "=" + lib.encode(params[key]))
+        }
+      }
+      return provided.join("&")
     }
-  }
-  return provided.join("&")
-}
+  #+END_SRC
+  
 
 
-* talk about lodash
+* Hello Lodash
+  Who doesn't love lodash?
+  
 *** https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
     
 https://lodash.com
+
 
 * Example of better JS
 
@@ -145,25 +180,28 @@ https://lodash.com
     const pipe = (f,g) => x => g(f(x))
   #+END_SRC
   
-*** give it a name
+* give it a name
 
-  #+BEGIN_SRC javascript
-    const querystringify = pipe(
-      removeMissingParameters,
-      encodeTheKeysAndValues,
-      joinKeysAndValuesWithEquals,
-      joinParametersWithAmpersand
-    )
+#+BEGIN_SRC javascript
+  const querystringify = pipe(
+    removeMissingParameters,
+    encodeTheKeysAndValues,
+    joinKeysAndValuesWithEquals,
+    joinParametersWithAmpersand
+  )
+#+END_SRC
+
+* basically a reduce over a collection of functions
+
+  #+BEGIN_SRC js
+  const pipe = funcs => x => funcs.reduce((v, f) => f(v), x)
   #+END_SRC
 
-** basically a reduce over a collection of functions
-
-   [f,g,h].reduce...
-
 * show it in other languages
-  bash
   
+  #+BEGIN_SRC sh
   ps -ef | grep java | awk '{print $2}' | kill
+  #+END_SRC
   
 * in scala
 
@@ -483,6 +521,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   
 * Review all
 
+  #+BEGIN_SRC javascript
   const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
 
   const urlEncode = fp.pipe(
@@ -497,41 +536,52 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("="),
     fp.join("&")
   ])
+  #+END_SRC
 
 * Review all
 
-  const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
-  
-  const mapKeyValue = f => fp.pipe(
-                            fp.toPairs,
-                            fp.flatMap(f),
-                            fp.chunk(2))
 
-  const querystringify = fp.pipe([
-    removeMissing,
-    mapKeyValue(lib.urlEncode),
-    fp.join("="),
-    fp.join("&")
-  ])
+  #+BEGIN_SRC javascript 
+    const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
+
+    const mapKeyValue = f => fp.pipe(
+                              fp.toPairs,
+                              fp.flatMap(f),
+                              fp.chunk(2))
+
+    const querystringify = fp.pipe([
+      removeMissing,
+      mapKeyValue(lib.urlEncode),
+      fp.join("="),
+      fp.join("&")
+    ])
+  #+END_SRC
 
 
 * Review all
 
-  // resuseable functions
-  const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
-  
-  const mapKeyValue = f => fp.pipe(
-                            fp.toPairs,
-                            fp.flatMap(f),
-                            fp.chunk(2))
+  #+BEGIN_SRC javascript 
 
-  // business code terse expressive
-  const querystringify = fp.pipe([
-    removeMissing,
-    mapKeyValue(lib.urlEncode),
-    fp.join("="),
-    fp.join("&")
-  ])
+    // resuseable functions
+
+    // {a: 1, b: undefined} -> {a: 1}
+    const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
+
+    // f -> {k: v, ...} -> [[f(k), f(v)], ...]
+    const mapKeyValue = f => fp.pipe(
+                              fp.toPairs,
+                              fp.flatMap(f),
+                              fp.chunk(2))
+
+    // business code terse expressive
+    const querystringify = fp.pipe([
+      removeMissing,
+      mapKeyValue(lib.urlEncode),
+      fp.join("="),
+      fp.join("&")
+    ])
+
+  #+END_SRC
 
 * show some of the other lodash fp things
   fp.cond([
