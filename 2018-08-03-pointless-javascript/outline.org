@@ -1,13 +1,13 @@
 * Intro
-** Who am I
-** My contact information
+* Who am I
+* My contact information
 * Other title 
-** Point Free JavaScript
-** elevating the readability of JavaScript using functional composition, partial function application and currying....and without function parameters.
-** mention other languages
-** elevating the readability of JavaScript or Scala using functional composition, partial function application and currying....and without function parameters.
+* Point Free JavaScript
+* elevating the readability of JavaScript using functional composition, partial function application and currying....and without function parameters.
+* mention other languages
+* elevating the readability of JavaScript or Scala using functional composition, partial function application and currying....and without function parameters.
 * Disclaimer
-** I'm not sure coworkers have really taken to this
+* I'm not sure coworkers have really taken to this
 * What is Point Free programming
  ...it's tacit programming
 * What is tacit programming
@@ -21,9 +21,9 @@
 ** Mention how we are going to remove the points and the code will be easier to read
    Small, multipurpose functions and build up more complex ones
 
-* Example or _really_ bad JS
+* Example of bad JS
 const ???????? = function(params) {
-  const provided = []
+  var provided = []
   for(var key in params) {
     if(params[key] != undefined){
       provided.push(lib.encode(key) + "=" + lib.encode(params[key]))
@@ -39,78 +39,119 @@ const ???????? = function(params) {
 https://lodash.com
 
 * Example of better JS
-  const ?????? = (params) => {
-    const a = _.map(params, (v,k) => [k,v])
-    const b = _.filter(a, ([k, v]) => ! _.isUndefined(v))
-    const c = _.map(b, ([k, v]) => [lib.encode(k), lib.encode(v)])
-    const d = _.map(c, (pair) => pair.join("="))
-    return d.join("&")
-  }
 
-** Better even still with lodash
-  const ?????? = (params) => {
-    _.chain(params)
-     .toPairs
-     .filter(([k, v]) => ! _.isUndefined(v))
-     .map(([k, v]) => [lib.encode(k), lib.encode(v)])
-     .map((pair) => pair.join("="))
-     .join("&")
-     .value()
-  }
+  #+BEGIN_SRC javascript 
+    const ?????? = (params) => {
+      const a = _.map(params, (v,k) => [k,v])
+      const b = _.filter(a, ([k, v]) => ! _.isUndefined(v))
+      const c = _.map(b, ([k, v]) => [lib.encode(k), lib.encode(v)])
+      const d = _.map(c, (pair) => pair.join("="))
+      return d.join("&")
+    }
+  #+END_SRC
+  
+* Notice Shape
 
-  const querystringify = (params) => {
-    _.chain(params)
-     .toPairs
-     .filter(([k, v]) => ! _.isUndefined(v))
-     .map(([k, v]) => [lib.encode(k), lib.encode(v)])
-     .map((pair) => pair.join("="))
-     .join("&")
-     .value()
-  }
+  #+BEGIN_SRC javascript
+    const a = f(x)
+    const b = g(a)
+    const c = h(b)
+  #+END_SRC
+
+* Better even still with lodash
+
+  #+BEGIN_SRC javascript
+    const ?????? = (params) => {
+      _.chain(params)
+       .toPairs
+       .filter(([k, v]) => ! _.isUndefined(v))
+       .map(([k, v]) => [lib.encode(k), lib.encode(v)])
+       .map((pair) => pair.join("="))
+       .join("&")
+       .value()
+    }
+  #+END_SRC
+
+* Give function a name
+
+  #+BEGIN_SRC javascript
+    const querystringify = (params) => {
+      _.chain(params)
+       .toPairs
+       .filter(([k, v]) => ! _.isUndefined(v))
+       .map(([k, v]) => [lib.encode(k), lib.encode(v)])
+       .map((pair) => pair.join("="))
+       .join("&")
+       .value()
+    }
+  #+END_SRC
 
 * Example of how we think about it
-*** Write out the steps
+  
+
+* Write out the steps
   querystringify
     remove missing parameters
     encode the keys and values
     join keys and values with equals
     join the parameters with ampersand
 
-*** give it a name
-  querystringify = pipe(
-    remove missing parameters,
-    encode the keys and values,
-    join keys and values with equals, 
-    join the parameters with ampersand
-  )
+* We need something like pipe for bash
 
-*** give it a name
-  querystringify = pipe(
-    removeMissingParameters,
-    encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals, 
-    joinParametersWithAmpersand
-  )
+  #+BEGIN_SRC sh
+    ps -ef | grep "java" | awk '{ print $2}' | xargs kill -9
+  #+END_SRC
+    
+
+* make up pipe
+
+  #+BEGIN_SRC javascript
+    querystringify = pipe(
+      remove missing parameters,
+      encode the keys and values,
+      join keys and values with equals, 
+      join the parameters with ampersand
+    )
+  #+END_SRC
+
+* get a little closer to javascript
+
+  #+BEGIN_SRC javascript
+    querystringify = pipe(
+      removeMissingParameters,
+      encodeTheKeysAndValues,
+      joinKeysAndValuesWithEquals, 
+      joinParametersWithAmpersand
+    )
+  #+END_SRC
 
 * Quick explanation of functional composition
-  pipe takes a functions f:x->y, g:y->z 
+  pipe takes a functions f:x->y, g:y->z
   return a new funtion that x->z
 
-  return g(f(x))
+* A really dumb version
+
+  #+BEGIN_SRC javascript
+    const pipe = (f,g) => {
+      (x) => {
+        return g(f(x))
+      }
+    }
+  #+END_SRC
   
 *** give it a name
-  const querystringify = pipe(
-    removeMissingParameters,
-    encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals,
-    joinParametersWithAmpersand
-  )
 
-
-* Show how pipe works
----maybe no
+  #+BEGIN_SRC javascript
+    const querystringify = pipe(
+      removeMissingParameters,
+      encodeTheKeysAndValues,
+      joinKeysAndValuesWithEquals,
+      joinParametersWithAmpersand
+    )
+  #+END_SRC
 
 ** basically a reduce over a collection of functions
+
    [f,g,h].reduce...
 
 * show it in other languages
@@ -118,57 +159,76 @@ https://lodash.com
   
   ps -ef | grep java | awk '{print $2}' | kill
   
-  scala
-  
+* in scala
+
+  #+BEGIN_SRC scala
     val queryStringify = 
       removeMissingParameters
         .andThen(encodeTheKeysAndValues)
         .andThen(joinKeysAndValuesWithEquals)
         .andThen(joinParametersWithAmpersand)
+  #+END_SRC
     
-    methods vs function
+  NOTE: methods vs function
 
   
-  elixir
-  "Elixir rocks" |> 
-  String.upcase() |> 
-  String.split()
+* in Elixir
+
+  #+BEGIN_SRC elixir 
+    "Elixir rocks" |> 
+    String.upcase() |> 
+    String.split()
+  #+END_SRC
   
-* pipe vs compose
+* pipe
+  
+  left to right evaluation
 
   pipe(a,b,c) = c(b(a(x)))
   
+* compose is the 
+  
+  right to left evaluation
+  
   compose(a,b,c) = a(b(c(x)))
   
-  depends on how you think
-  pipe = the steps I'm taking
-  pipe(step1, step2, step3)
+* Why have two difference
 
-  compose = reads more like english
-  compose(top5, nationalLeague, cathers)
+  depends on how you think
   
-  typically pick up one and stick with it
+* Pipe thinks in steps of operations
+
+  pipe(step1, step2, step3, step4)
+
+* Compose reads more like english
+
+  compose(average, homeruns, nationalLeague, catchers)
   
+* Pick one and stick with it
 
 * review where we left it
 
-*** give it a name
+  #+BEGIN_SRC javascript
+    const querystringify = pipe(
+      removeMissingParameters,
+      encodeTheKeysAndValues,
+      joinKeysAndValuesWithEquals,
+      joinParametersWithAmpersand
+    )
+  #+END_SRC
 
-  const querystringify = pipe(
-    removeMissingParameters,
-    encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals,
-    joinParametersWithAmpersand
-  )
+* give them better names
 
-*** better naems
+  #+BEGIN_SRC javascript
+    const querystringify = pipe(
+      removeMissing,
+      encodeTheKeysAndValues,
+      joinKeysAndValuesWithEquals, 
+      joinParametersWithAmpersand
+    )
+  #+END_SRC
 
-  const querystringify = pipe(
-    removeMissing,
-    encodeTheKeysAndValues,
-    joinKeysAndValuesWithEquals, 
-    joinParametersWithAmpersand
-  )
+* more better
 
   const querystringify = pipe(
     removeMissing,
@@ -177,6 +237,15 @@ https://lodash.com
     joinParametersWithAmpersand
   )
 
+* Even more betterest
+  const querystringify = pipe(
+    removeMissing,
+    encode,
+    joinEquals,
+    joinAmpersand,
+  )
+
+* point out the join methods sound similar
   const querystringify = pipe(
     removeMissing,
     encode,
@@ -189,22 +258,37 @@ https://lodash.com
 * A quick explanation of curry
   A function that returns another funcion
   
-  const join = function(j){
-    return function(list) {
-      return list.join(j);
+
+  #+BEGIN_SRC javascript
+    const join = function(delim){
+      return function(list) {
+        return list.join(delim);
+      }
     }
-  }
+  #+END_SRC
+
+* how we'd write it today
   
-  const join = j => list => list.join(j)
+  #+BEGIN_SRC javascript
+    const join = delim => list => list.join(delim)
+  #+END_SRC
+  
+* Why aren't we using lodash?
   
 * lodash curry
 
-  const fancy = _.curry((j,list) => list.join(j))
-  fancy("-") // [Function]
-  fancy("-", [1,2,3]) // String: '1-2-3'
+  #+BEGIN_SRC javascript
+    const fancy = _.curry((j,list) => list.join(j))
+    fancy("-", [1,2,3]) // String: '1-2-3'
+    fancy("-")([1,2,3]) // String: '1-2-3'
+    const f = fancy("-") // [Function]
+    f([1,2,3]) // String: '1-2-3'
+  #+END_SRC
 
 * limitations with lodash curry
   only fixed arity function
+  
+  variadic functions wouldn't know to execute or return function
 
 * show it in other languages
   def join(j: String)(list: Seq[String]) = list.mkString(j)
@@ -214,7 +298,6 @@ https://lodash.com
   val join = ((j:String, list:Seq[String]) = list.mkString(j)).curried
   
   val join = (_:Seq[String]).mkString(_:String)
-  
 
 * show how we use it
   const join = j => list => list.join(j)
@@ -226,15 +309,18 @@ https://lodash.com
     join("&")
   )
 
+* why didn't we use _.join
 
-* talk about how this all available in lodash
-  
   _.join(array, [separator=','])
   
 * two problems
 
 1 data comes first
-2 varargs makes it hard to query
+2 variadic functions makes it -hard- impossible to curry
+
+* example
+
+  const f = _.join([1,2,3]) // [Function] or "1,2,3"
 
 * lodash fp
 
@@ -243,10 +329,22 @@ fp button
 https://github.com/lodash/lodash/wiki/FP-Guide
 
 * talk about lodash fp 
-  data last
+  
+  
+* data last
+
+  fp.join(separator, array)
+  
+* fixed arity
   fixed arity ... no variadic 
+
+  _.get(object, path, [defaultValue])
+  
   fixed arity spawns aliases
   
+  fp.get(path, object)
+  fp.getOr(path, object, defaultValue)
+
 * need two things
   const pipe = require('lodash/fp/pipe')
   const join = require('lodash/fp/join')
@@ -272,7 +370,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     join("&")
   ])
 
-* ....add array to avoid var args
+* Just bring in all fp for now to show what we're using
   const fp = require('lodash/fp')
 
   const querystringify = fp.pipe([
@@ -282,7 +380,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("&")
   ])
 
-* ....add array to avoid var args
+* Use pipe again to build out removeMissing
 
   const removeMissing = fp.pipe([
     fp.pairs, 
@@ -296,7 +394,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("&")
   ])
 
-* Maybe too far
+* Remove points
 
   const removeMissing = fp.pipe([
     fp.pairs, 
@@ -343,6 +441,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("="),
     fp.join("&")
   ])
+  
 
 * Deal with encode
 
@@ -419,6 +518,23 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     [fp.T,                   previousState ]
   ])
   
+* firehose
+
+ const average = fp.compose(fp.spread(fp.divide), fp.over([fp.sum, fp.size]))
+ average([1,2]) // 1.5
+ 
+* spread 
+
+  fp.spread = (x,y,z,... -> A) -> [x,y,z,...] -> A
+  
+  fp.spread(fp.divide) ([10,5]) // 2
+  
+* over
+  
+  fp.over = [(a->x), (a->y), ...] -> a -> [x,y]
+  
+  fp.over([fp.sum, fp.size]) ([10, 5]) // [15, 2]
+
 
 * show partial function application
   
@@ -438,8 +554,32 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   val f = doSomething(1, _, 2)
 
 * talk about ramda
+  more methods
+
 
 * show a bit of the rambda things
+// https://adventofcode.com/2017/day/1 
+
+const first = R.map(R.head)
+const sum = R.sum
+const matching = R.filter(([a, b]) => a === b)
+const pairWith = f => R.converge(R.zip, [f, R.identity])
+
+const cycle = R.curry((n, list) => {
+  const [head, tail] = R.splitAt(n)(list)
+  return [...tail, ...head]
+})
+
+const neighbors = cycle(1)
+
+const inverseCaptcha = R.compose(
+  sum,
+  first,
+  matching,
+  pairWith(neighbors),
+) 
+
+
 * talk about sanctuary
 * talk about trade offs
 * show debugging trick
@@ -448,6 +588,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.tap(debugger),
     otherThing)
    
+* eslint for lodash fp
   
 * mention to use this when you want...not always
 * questions
