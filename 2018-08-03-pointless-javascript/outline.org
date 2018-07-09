@@ -1,13 +1,27 @@
 * Intro
-* Who am I
+  Pointless JavaScript
+  Mark Borcherding
 * My contact information
+  :slack: mark.borcherding
+  :octocat: mark.borcherding
 * Other title 
-* Point Free JavaScript
-* elevating the readability of JavaScript using functional composition, partial function application and currying....and without function parameters.
-* mention other languages
-* elevating the readability of JavaScript or Scala using functional composition, partial function application and currying....and without function parameters.
+** Point Free JavaScript
+* Other Other Title
+** elevating the readability of JavaScript using functional composition, partial function application and currying....and without function parameters.
+* Other^3 Title
+** elevating the readability of JavaScript or Scala using functional composition, partial function application and currying....and without function parameters.
 * Disclaimer
+  not a js expert
+  not a functional expert
+  not an expert
 * I'm not sure coworkers have really taken to this
+  it's unfamiliar
+  
+   > Familiarity can be acquired; complexity is intrinsic.
+    - https://sanctuary.js.org
+    
+  it feels less clear
+* How could this fail with an introduction like that
 * What is Point Free programming
  ...it's tacit programming
  
@@ -26,24 +40,66 @@ mandatory wikipedia quote:
 * Example function
    
   #+BEGIN_SRC js
-    const struckOut = function(strikes) { return strikes === 3; };
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
   #+END_SRC
   
-* Point out the points
+* Find the point
+** The dots?
    
   #+BEGIN_SRC js
-    const struckOut = function(strikes) { return strikes === 3; };
-    //                         ^^^^^^^^         
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
+    //                                             ?                       ?
   #+END_SRC
+  
+** Nope
+   
+  #+BEGIN_SRC js
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
+    //                                             X                       X
+  #+END_SRC
+  
+** The stabby arrows?
+   
+  #+BEGIN_SRC js
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
+    //                          ??                            ??
+  #+END_SRC
+  
+** Nope
+   
+  #+BEGIN_SRC js
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
+    //                          XX                            XX
+  #+END_SRC
+  
+** Everything you're saying?
+   
+  #+BEGIN_SRC js
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
+    //    ?????????????????????????????????????????????????????????????????????????????????
+  #+END_SRC
+  
+** Maybe....but no.
+   
+  #+BEGIN_SRC js
+    const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
+    //    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  #+END_SRC
+  
+** The function arguments
+   
+  #+begin_src js
+    const struckout = (pitches) => { return pitches.filter( x => x === 'k').length === 3 };
+    //                ^^^^^^^^^                             ^  
+  #+end_src
 
 * Point-free
    
   #+BEGIN_SRC js
-    const struckOut = equals(3)
+    const struckOut = compose(isEqual(3), count, where(isStrike))
     // struckOut = Number -> Boolean
 
-    const numberOfStrikes = 3
-    struckOut(numberOfStrikes) // => true
+    struckOut(2) // => false
   #+END_SRC
    
 * Mention how we are going to remove the points and the code will be easier to read
@@ -63,15 +119,12 @@ mandatory wikipedia quote:
     }
   #+END_SRC
   
-
-
 * Hello Lodash
   Who doesn't love lodash?
   
 *** https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
     
 https://lodash.com
-
 
 * Example of better JS
 
@@ -123,7 +176,6 @@ https://lodash.com
 
 * Example of how we think about it
   
-
 * Write out the steps
   querystringify
     remove missing parameters
@@ -131,13 +183,12 @@ https://lodash.com
     join keys and values with equals
     join the parameters with ampersand
 
-* We need something like pipe for bash
+* We need something like pipe in bash
 
   #+BEGIN_SRC sh
     ps -ef | grep "java" | awk '{ print $2}' | xargs kill -9
   #+END_SRC
     
-
 * make up pipe
 
   #+BEGIN_SRC javascript
@@ -151,7 +202,7 @@ https://lodash.com
 
 * get a little closer to javascript
 
-  #+BEGIN_SRC javascript
+  #+BEGIN_SRC js
     querystringify = pipe(
       removeMissingParameters,
       encodeTheKeysAndValues,
@@ -161,23 +212,23 @@ https://lodash.com
   #+END_SRC
 
 * Quick explanation of functional composition
-  pipe takes a functions x->y, y->z
-  return a new funtion that x->z
+  pipe takes a functions ~x->y~, ~y->z~
+  return a new funtion that ~x->z~
 
 * A really dumb version
 
   #+BEGIN_SRC javascript
-    const pipe = (f,g) => {
+    const pipe = (f,g,h) => {
       (x) => {
-        return g(f(x))
+        return h(g(f(x)))
       }
     }
   #+END_SRC
-
+  
 * A really dumb version
 
   #+BEGIN_SRC javascript
-    const pipe = (f,g) => x => g(f(x))
+    const pipe = (f,g,h) => x => h(g(f(x)))
   #+END_SRC
   
 * give it a name
@@ -191,10 +242,16 @@ https://lodash.com
   )
 #+END_SRC
 
-* basically a reduce over a collection of functions
-
+* a reduce over a collection of functions
+  
   #+BEGIN_SRC js
   const pipe = funcs => x => funcs.reduce((v, f) => f(v), x)
+  #+END_SRC
+* a reduce over a collection of functions
+
+  #+BEGIN_SRC js
+  const f = pipe([x=>x+1, x=>x*10, x=> x +"!"])
+  f(10) // '110!'
   #+END_SRC
 
 * show it in other languages
@@ -215,7 +272,6 @@ https://lodash.com
     
   NOTE: methods vs function
 
-  
 * in Elixir
 
   #+BEGIN_SRC elixir 
@@ -237,9 +293,8 @@ https://lodash.com
   compose(a,b,c) = a(b(c(x)))
   
 * silly library
-  
-  flow = pipe
-  flowRight = compose
+      pipe = flow 
+   compose = flowRight 
   
   ...called by no one...ever.
   
@@ -253,7 +308,7 @@ https://lodash.com
 
 * Compose reads more like english
 
-  compose(average, homeruns, nationalLeague, catchers)
+  compose(average, homeruns, top10, nationalLeague, catchers)
   
 * Pick one and stick with it
 
@@ -269,7 +324,7 @@ https://lodash.com
   #+END_SRC
 
 * give them better names
-
+** 1
   #+BEGIN_SRC javascript
     const querystringify = pipe(
       removeMissing,
@@ -278,8 +333,7 @@ https://lodash.com
       joinParametersWithAmpersand
     )
   #+END_SRC
-
-* more better
+** more better
 
   const querystringify = pipe(
     removeMissing,
@@ -288,7 +342,7 @@ https://lodash.com
     joinParametersWithAmpersand
   )
 
-* Even more betterest
+** Even more betterest
   const querystringify = pipe(
     removeMissing,
     urlEncode,
@@ -318,7 +372,7 @@ https://lodash.com
     }
   #+END_SRC
 
-* how we'd write it today
+* how normal people write it
   
   #+BEGIN_SRC javascript
     const join = delim => list => list.join(delim)
@@ -332,8 +386,8 @@ https://lodash.com
     const fancy = _.curry((j,list) => list.join(j))
     fancy("-", [1,2,3]) // String: '1-2-3'
     fancy("-")([1,2,3]) // String: '1-2-3'
-    const f = fancy("-") // [Function]
-    f([1,2,3]) // String: '1-2-3'
+    const hyphenate = fancy("-") // [Function]
+    hyphenate([1,2,3]) // String: '1-2-3'
   #+END_SRC
 
 * limitations with lodash curry
@@ -380,7 +434,6 @@ fp button
 https://github.com/lodash/lodash/wiki/FP-Guide
 
 * talk about lodash fp 
-  
   
 * data last
 
@@ -432,18 +485,22 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   ])
 
 * Use pipe again to build out removeMissing
+  
+#+BEGIN_SRC js
 
   const removeMissing = fp.pipe([
     fp.pairs, 
     fp.filter(([k,v]) => ! fp.isUndefined(v))
   ])
-  
+
   const querystringify = fp.pipe([
     removeMissing,
     encode,
     fp.join("="),
     fp.join("&")
   ])
+
+#+END_SRC
 
 * Remove points
 
@@ -482,7 +539,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("&")
   ])
   
-* Event simpler
+* Even simpler
 
   const removeMissing = fp.pickBy(fp.negate(fp.isUndefined))
   
@@ -493,7 +550,6 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     fp.join("&")
   ])
   
-
 * Deal with encode
 
   const encode = fp.map((v, k) => [lib.urlEncode(k), lib.urlEncode(v)]) 
@@ -538,7 +594,7 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   ])
   #+END_SRC
 
-* Review all
+* Extract new function
 
 
   #+BEGIN_SRC javascript 
@@ -556,7 +612,6 @@ https://github.com/lodash/lodash/wiki/FP-Guide
       fp.join("&")
     ])
   #+END_SRC
-
 
 * Review all
 
@@ -582,29 +637,40 @@ https://github.com/lodash/lodash/wiki/FP-Guide
     ])
 
   #+END_SRC
+  
+* show some of the other lodash fp things
+  
+  #+BEGIN_SRC js
+    fp.cond([
+      [predicateFunction, applicativeFunction], 
+      [ (x => x < 0), (x) => console.log(x, "is less than zero")], 
+      [ fp.equals(0), someOtherFunction ], 
+      [ fp.T,         thisIsTheDefaultFunction ]
+    ])
+  #+END_SRC
 
 * show some of the other lodash fp things
-  fp.cond([
-    [predicateFunction, applicativeFunction], 
-    [ (x => x < 0), (x) => console.log(x, "is less than zero")], 
-    [ fp.equals(0), someOtherFunction ], 
-    [ fp.T,         thisIsTheDefaultFunction ]
-  ])
+  
+  #+BEGIN_SRC javascript
+    const isAction = name => (action, state) => name === action
+    const incrementCount = (action, state) => state + 1
 
-* show some of the other lodash fp things
-  const isAction = name => (action, state) => name === action
-  const incrementCount = (action, state) => state + 1
-
-  export default = fp.cond([
-    [isAction("CLICK_UP"),   incrementCount], 
-    [isAction("CLICK_DOWN"), decrementCount], 
-    [fp.T,                   previousState ]
-  ])
+    export default = fp.cond([
+      [isAction("CLICK_UP"),   incrementCount], 
+      [isAction("CLICK_DOWN"), decrementCount], 
+      [fp.T,                   previousState ]
+    ])
+  #+END_SRC
   
 * firehose
 
- const average = fp.compose(fp.spread(fp.divide), fp.over([fp.sum, fp.size]))
- average([1,2]) // 1.5
+  #+BEGIN_SRC js 
+    const average = fp.compose(
+                      fp.spread(fp.divide), 
+                      fp.over([fp.sum, fp.size]))
+
+    average([1,2]) // 1.5
+  #+END_SRC
  
 * spread 
 
@@ -617,7 +683,6 @@ https://github.com/lodash/lodash/wiki/FP-Guide
   fp.over = [(a->x), (a->y), ...] -> a -> [x,y]
   
   fp.over([fp.sum, fp.size]) ([10, 5]) // [15, 2]
-
 
 * show partial function application
   
@@ -638,7 +703,6 @@ https://github.com/lodash/lodash/wiki/FP-Guide
 
 * talk about ramda
   more methods
-
 
 * show a bit of the rambda things
 // https://adventofcode.com/2017/day/1 
@@ -661,7 +725,6 @@ const inverseCaptcha = R.compose(
   matching,
   pairWith(neighbors),
 ) 
-
 
 * talk about sanctuary
 * talk about trade offs
