@@ -6,6 +6,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "spectacle-code-slide": "^0.5.2",
+    "spectacle-image-slide": "^1.0.1",
     "spectacle-scripts": "2.0.0"
   },
   "scripts": {
