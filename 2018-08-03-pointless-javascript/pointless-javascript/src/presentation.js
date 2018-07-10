@@ -1,5 +1,6 @@
 // Import React
 import React from 'react';
+import CodeSlide from 'spectacle-code-slide'
 
 // Import Spectacle Core tags
 import {
@@ -22,8 +23,9 @@ require('normalize.css');
 
 const theme = createTheme(
   {
-    primary: 'white',
-    secondary: '#1F2022',
+    primary: 'black',
+    //secondary: '#1F2022',
+    secondary: '#bac0cc', 
     tertiary: '#03A9FC',
     quartenary: '#CECECE',
   },
@@ -36,18 +38,23 @@ const theme = createTheme(
 export default class Presentation extends React.Component {
   render() {
     return (
-      <Deck
-        transition={['zoom', 'slide']}
-        transitionDuration={500}
-        theme={theme}
-      >
+      <Deck theme={theme} textColor="secondary">
         <Slide transition={['zoom']} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            Spectacle Boilerplate
+            Pointless JavaScript
           </Heading>
-          <Text margin="10px 0 0" textColor="tertiary" size={1} fit bold>
-            open the presentation/index.js file to get started
+          <Text margin="10px 0 0" textColor="tertiary" size={4}>
+            Mark Borcherding
           </Text>
+        </Slide>
+        <Slide>
+          <Heading size={1} fit>
+            Mark Borcherding
+          </Heading>
+          <Heading size={4} textColor="secondary">
+            :slack @mark.borcherding
+            :octocat:/markborcherding
+          </Heading>
         </Slide>
         <Slide transition={['fade']} bgColor="tertiary">
           <Heading size={6} textColor="primary" caps>
