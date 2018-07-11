@@ -6,6 +6,8 @@ import {
   Appear,
   BlockQuote,
   Cite,
+  Code,
+  CodePane,
   Deck,
   Heading,
   ListItem,
@@ -214,8 +216,321 @@ export default class Presentation extends React.Component {
             { loc: [0, 9], title: "Typical code" },
           ]}/>
 
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+          code={require("./sourceExamples/lodashChainNamed.js.txt")}
+          textSize="0.8em"
+          ranges={[
+            { loc: [0, 9], title: "Let's name it" },
+            { loc: [10, 12], title: "Now things make sense" },
+          ]}/>
+
+        <Slide>
+          <Text>How do we think about the problem</Text>
+        </Slide>
+
+        <Slide>
+          <Heading fit>What are the steps?</Heading>
+          <Text textAlign="left">queryStringify</Text>
+          <List ordered>
+          <Appear><ListItem>remove missing parameters</ListItem></Appear>
+          <Appear><ListItem>encode keys and values</ListItem></Appear>
+          <Appear><ListItem>join the keys and values with equals</ListItem></Appear>
+          <Appear><ListItem>join the parameters with ampersand</ListItem></Appear>
+          </List>
+        </Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+          code={require("./sourceExamples/lodashChainNamed.js.txt")}
+          textSize="0.8em"
+          ranges={[
+            { loc: [0, 9]},
+            { loc: [2, 4], title: "Remove missing parameters" },
+            { loc: [4, 5], title: "Encode keys and values" },
+            { loc: [5, 6], title: "Join the keys and values with =" },
+            { loc: [6, 7], title: "Join the parameters with &" },
+          ]}/>
+
+        <Slide>
+          <Heading fit>Here's that pattern</Heading>
+          <Text textAlign="left">queryStringify</Text>
+          <List ordered>
+            <ListItem>remove missing parameters</ListItem>
+            <ListItem>encode keys and values</ListItem>
+            <ListItem>join the keys and values with equals</ListItem>
+            <ListItem>join the parameters with ampersand</ListItem>
+          </List>
+        </Slide>
+
+        <Slide>
+          <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
+          <Code textSize="0.8em" padding="1em">
+            {`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `}
+          </Code>
+        </Slide>
+
+        <Slide>
+          <Heading fit>Let's makeup pipe</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
+    querystringify = pipe(
+      remove missing parameters,
+      encode the keys and values,
+      join keys and values with equals, 
+      join the parameters with ampersand
+    ) `}
+            />
+        </Slide>
+
+        <Slide>
+          <Heading fit>A little closer to JS</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
+    querystringify = pipe(
+      removeMissingParameters,
+      encodeTheKeysAndValues,
+      joinKeysAndValuesWithEquals, 
+      joinParametersWithAmpersand
+    ) `}
+            />
+        </Slide>
+
+        <Slide>
+          <Heading fit>Functional Composition in 30s</Heading>
+          <Text>
+            <Code>pipe</Code> takes functions <Code>x→y</Code>,<Code>y→z</Code> 
+          </Text>
+          <Text>and returns a new function <Code>x→z</Code></Text>
+        </Slide>
+
+        <Slide>
+          <Heading fit>A really dumb version</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            padding="1em"
+            source={`
+    const pipe = (f,g,h) => {
+      (x) => {
+        return h(g(f(x)))
+      }
+    }
+          `}
+          />
+        </Slide>
+
+        <Slide>
+        <Heading fit>A really dumb version</Heading>
+        <CodePane
+          lang="js"
+          theme="light"
+          textSize="1em"
+          source={`
+    const pipe = (f,g,h) => x => h(g(f(x)))
+          `}
+          />
+        </Slide>
 
 
+        <Slide>
+        <Heading fit>Now pipe makes sense</Heading>
+        <CodePane
+          lang="js"
+          theme="light"
+          textSize="1em"
+          source={`
+        querystringify = pipe(
+          removeMissingParameters,
+          encodeTheKeysAndValues,
+          joinKeysAndValuesWithEquals, 
+          joinParametersWithAmpersand
+        ) `}
+        />
+        </Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+          textSize="0.8em"
+          code={`
+const pipe = funcs => x => funcs.reduce((v, f) => f(v), x)
+
+
+const f = pipe([x=>x+1,
+                x=>x*10,
+                x=>x +"!"])
+f(10)
+// '110!'
+`}
+          ranges={[
+            { loc: [1, 2], title: "Pipe is reduce over functions"},
+            { loc: [4, 7], title: "Pass pipe some functions"},
+            { loc: [4, 9], title: "And invoke it later" },
+          ]}/>
+
+        <Slide>
+          <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
+          <Code textSize="0.8em" padding="1em">
+            {`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `}
+          </Code>
+        </Slide>
+
+
+        <Slide>
+          <Heading fit>It's native in Scala</Heading>
+          <CodePane
+            lang="java"
+            theme="light"
+            textSize="1em"
+            source={`
+    val queryStringify = 
+      removeMissingParameters
+        .andThen(encodeTheKeysAndValues)
+        .andThen(joinKeysAndValuesWithEquals)
+        .andThen(joinParametersWithAmpersand)
+                `}
+              />
+        </Slide>
+
+        <Slide>
+          <Heading>...and Elixir</Heading>
+          <CodePane
+            lang="elixir"
+            theme="light"
+            textSize="1em"
+            source={`
+    "Elixir rocks"    |> 
+      String.upcase() |> 
+      String.split()
+                `}
+          />
+        </Slide>
+
+        <Slide>
+        <Text padding="1em"
+              textAlign="left"><Code>pipe</Code> is left to right evaluation</Text>
+          <Code>pipe(a,b,c)(x) = c(b(a(x)))</Code>
+          <Appear>
+            <Text>
+              <Text padding="1em" textAlign="left">
+              <Code>compose</Code> is right to left evaluation</Text>
+              <Code>compose(a,b,c)(x) = a(b(c(x)))</Code>
+            </Text>
+          </Appear>
+        </Slide>
+
+        <Slide>
+          <Heading fit>Why do we need two?</Heading>
+          <Text >It depends on how someone would think about the problem.</Text>
+          <Appear>
+            <Text margin="1em" textSize="0.7em"><Code>pipe(step1, step2, step3, step4)</Code></Text>
+          </Appear>
+          <Appear>
+            <Text margin="1em" textSize="0.7em"><Code>compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
+          </Appear>
+        </Slide>
+
+        <Slide >
+          <Heading >Some advice</Heading>
+          <Text >Pick one and stick with it.</Text>
+        </Slide>
+
+        <Slide>
+          <Heading fit>Back to our example</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
+    querystringify = pipe(
+      removeMissingParameters,
+      encodeTheKeysAndValues,
+      joinKeysAndValuesWithEquals, 
+      joinParametersWithAmpersand
+    ) `}
+              />
+        </Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+         code={
+`   querystringify = pipe(
+      removeMissing,
+      urlEncode,
+      joinEquals, 
+      joinAmpersand
+    ) `}
+        ranges={[
+          { loc: [0,7], title: "With less obnoxious names"},
+          { loc: [3,5], title: "These methods sound similar"},
+        ]}
+        />
+
+      <Slide><Heading>Let's curry!</Heading></Slide>
+
+        <Slide>
+          <Heading>Curry in 30s</Heading>
+          <Text>
+            Currying is taking a function that takes multiple arguments,
+            only supplying some and getting back a new function that takes
+            the rest.
+          </Text>
+        </Slide>
+
+
+        <Slide>
+          <Heading>Normal join</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
+    const join = function(delim, list){
+      return list.join(delim);
+    } `}
+        />
+        </Slide>
+      
+        <Slide>
+          <Heading>Curried join</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
+    const join = function(delim){
+      return function(list) {
+        return list.join(delim);
+      }
+`}
+        />
+        </Slide>
+
+        <Slide>
+        <Heading>Curried join</Heading>
+        <CodePane
+          lang="js"
+          theme="light"
+          textSize="1em"
+          margin="1em"
+          source={` const join = delim => list => list.join(delim) `}
+        />
+        </Slide>
 
       </Deck>
     );

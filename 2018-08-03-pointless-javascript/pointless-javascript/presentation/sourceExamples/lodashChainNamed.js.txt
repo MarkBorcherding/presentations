@@ -1,0 +1,12 @@
+const queryStringify = (params) => {
+  _.chain(params)
+   .toPairs
+   .filter(([k, v]) => ! _.isUndefined(v))
+   .map(([k, v]) => [lib.encode(k), lib.encode(v)])
+   .map((pair) => pair.join("="))
+   .join("&")
+   .value()
+}
+
+queryStringify({a:'a a', b: undefined, c:'yea?'})
+// "a=a%20a&c=yea%3f"
