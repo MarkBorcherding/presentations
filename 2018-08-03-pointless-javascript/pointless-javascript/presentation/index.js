@@ -22,6 +22,7 @@ import CodeSlide from 'spectacle-code-slide';
 // Import theme
 import createTheme from "spectacle/lib/themes/default";
 
+require('prismjs/components/prism-scala')
 
 
 // Require CSS
@@ -392,7 +393,7 @@ f(10)
         <Slide>
           <Heading fit>It's native in Scala</Heading>
           <CodePane
-            lang="java"
+            lang="scala"
             theme="light"
             textSize="1em"
             source={`
@@ -576,13 +577,72 @@ f(10)
         <CodeSlide
           bgColor="secondary"
           transition={[]}
-          lang="java"
+          lang="scala"
           code={require("./sourceExamples/scalaCurry.scala.txt")}
           textSize="0.7em"
           ranges={[
             { loc: [0,7], title: "Scala = 4 ways to do everything"},
+            { loc: [0,1], title: "Explicitly in a method"},
+            { loc: [2,3], title: "Explicitly in a function"},
+            { loc: [4,5], title: "Some magic"},
+            { loc: [6,7], title: "Placeholder magic"},
           ]}
         />
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="javascript"
+          code={`
+  const join = j => list => list.join(j)
+
+  const querystringify = pipe(
+    removeMissing,
+    urlEncode,
+    join("="),
+    join("&")
+  )
+`}
+          textSize="0.7em"
+          ranges={[
+            { loc: [1,2], title: "Now we have a curried join"},
+            { loc: [2,9], title: "Use it in our function"},
+            { loc: [6,8], title: "It replaces both usages"},
+          ]}
+        />
+
+        <Slide>
+        <Heading fit>Y U No _.join ?</Heading>
+          <Text margin="2em 0">
+            <Code padding="1em"> _.join(array, [separator=',']) </Code>
+          </Text>
+        </Slide>
+
+      <Slide>
+        <Heading>2 problems</Heading>
+        <List>
+          <Appear><ListItem>the data comes first</ListItem></Appear>
+          <Appear><ListItem>it isn't fixed arity</ListItem></Appear>
+        </List>
+      </Slide>
+
+        <Slide>
+          <Text textAlign="left">Example problem</Text>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
+  const f = _.join([1,2,3])
+  // [Function] or "1,2,3"
+                `}
+          />
+        </Slide>
+
+        <Slide>
+          <Heading>Lodash's secret identity</Heading>
+          
+        </Slide>
 
       </Deck>
     );
