@@ -532,6 +532,58 @@ f(10)
         />
         </Slide>
 
+      <Slide><Heading fit>Why aren't we using Lodash?</Heading></Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+          code={require("./sourceExamples/lodashCurry.js.txt")}
+          textSize="0.7em"
+          ranges={[
+            { loc: [0,1], title: "The old school way"},
+            { loc: [2,3], title: "Let Lodash curry for us"},
+            { loc: [4,5], title: "Or curry the function inline"},
+            { loc: [6,7], title: "Call it with all the params "},
+            { loc: [6,8], title: "..and it evaluate immediately"},
+            { loc: [9,10], title: <span>Call it with <i>some</i> parameters</span>},
+            { loc: [9,10], title: <span>...and then with the rest</span>},
+            { loc: [9,11], title: "And it evaluates"},
+            { loc: [12,14], title: "Save that intermediary function"},
+            { loc: [15,17], title: "And evaluate it later"},
+            { loc: [18,20], title: "And reuse it"},
+          ]}
+        />
+
+
+        <Slide>
+          <Heading fit>Limitations of _.curry</Heading>
+          <Appear><Text textAlign="left">Only fixed arity functions</Text></Appear>
+          <List>
+            <Appear><ListItem>No default parameters</ListItem></Appear>
+            <Appear><ListItem>No args collection</ListItem></Appear>
+          </List>
+        </Slide>
+
+        <Slide>
+          <Text textAlign="left">When would it </Text>
+          <Text textAlign="left"><Code>{`huh = _.curry((x, y=1) => x+y)`}</Code></Text>
+          <Appear>
+            <Text textAlign="left"><Code>huh(1) // Function or 2 </Code></Text>
+          </Appear>
+        </Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="java"
+          code={require("./sourceExamples/scalaCurry.scala.txt")}
+          textSize="0.7em"
+          ranges={[
+            { loc: [0,7], title: "Scala = 4 ways to do everything"},
+          ]}
+        />
+
       </Deck>
     );
   }

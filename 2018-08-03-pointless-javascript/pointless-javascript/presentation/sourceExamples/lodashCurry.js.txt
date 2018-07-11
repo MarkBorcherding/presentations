@@ -1,0 +1,20 @@
+const oldSchool = (j,list) => list.join(j)
+
+const fancyOldSchool = _.curry(oldSchool)
+
+const fancy = _.curry((j,list) => list.join(j))
+
+fancy("-", [1,2,3])
+// String: '1-2-3'
+
+fancy("-")([1,2,3])
+// String: '1-2-3'
+
+const hyphenate = fancy("-")
+// [Function]
+
+hyphenate([1,2,3])
+// String: '1-2-3'
+
+hyphenate([4,5,6])
+// String: '4-5-6'
