@@ -9,7 +9,7 @@ module.exports = {
     "babel-polyfill",
     'webpack-hot-middleware/client',
     "react-hot-loader/patch",
-    "./index"
+    "./index",
   ],
   output: {
     path: path.join(__dirname, "dist"),

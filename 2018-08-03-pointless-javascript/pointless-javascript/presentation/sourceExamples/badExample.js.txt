@@ -1,0 +1,11 @@
+  const ???????? = function(params) {
+    var provided = []
+    for(var key in params) {
+      if(params[key] != undefined){
+        const k = lib.encode(key) 
+        const v = lib.encode(params[key])
+        provided.push(k + "=" + v)
+      }
+    }
+    return provided.join("&")
+  }

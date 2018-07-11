@@ -1,0 +1,6 @@
+const struckOut =
+  compose(isEqual(3), count, where(isStrike))
+// struckOut = Number -> Boolean
+
+struckOut(2)
+// => false
