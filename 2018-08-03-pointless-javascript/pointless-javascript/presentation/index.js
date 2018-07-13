@@ -968,7 +968,7 @@ export default = fp.cond([
                         />
                   </Slide>
 
-                  <Slide><Heading>Turn it up to 11</Heading></Slide>
+                  <Slide><Heading>More. More! MORE!</Heading></Slide>
 
                   <Slide>
                     <Heading fit>Pointfree Average</Heading>
