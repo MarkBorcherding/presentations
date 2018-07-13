@@ -44,7 +44,7 @@ const theme = createTheme(
 export default class Presentation extends React.Component {
   render() {
     return (
-      <Deck theme={theme} transition={[]} transitionDuration={0} progress="bar">
+      <Deck theme={theme} transition={[]} transitionDuration={0} progress="number">
         <Slide bgColor="primary">
           <Heading size={1} fit lineHeight={1} textColor="secondary">
             Pointless JavaScript
@@ -805,8 +805,8 @@ const querystringify = fp.pipe([
   fp.join("&")
 ]) `}
                 ranges={[
-                  { loc: [0,4], title: "Make functions smaller"},
-                  { loc: [7,9], title: "Easier to understand"},
+                  { loc: [0,6], title: "Make functions smaller"},
+                  { loc: [7,11], title: "Easier to understand"},
                 ]}
                 />
 
@@ -818,7 +818,7 @@ const querystringify = fp.pipe([
                   textSize="1em"
                   source={`
     const removeMissing =
-      fp.pickBy(fp.negate(fp.isUndefined))
+      fp.pickBy(fp.negate(fp.isNil))
                   `}
                   />
               </Slide>
@@ -840,7 +840,7 @@ const encode =
                   { loc: [0,2], title: "take an object and return tuple"},
                   { loc: [2,3], title: "familiar pipe"},
                   { loc: [3,4], title: "convert to tuples"},
-                  { loc: [4,5], title: "for each pair"},
+                  { loc: [4,5], title: "for each tuple"},
                   { loc: [5,6], title: "apply the function to both sides"},
                   { loc: [4,6], title: "common pattern"},
                 ]}
@@ -881,6 +881,7 @@ const encode = mapKeyValue(lib.urlEncode) `}
                 ranges={[
                   { loc: [0,6], title: "This is reusable"},
                   { loc: [7,8], title: "...and this is readable"},
+                  { loc: [2,3], title: "We didn't remove all the points"},
                 ]}
                 />
 
@@ -894,7 +895,7 @@ const encode = mapKeyValue(lib.urlEncode) `}
 const removeMissing =
         fp.pickBy(fp.negate(fp.isNil))
 
-// f -> {k: v, ...} → [[f(k), f(v)], ...]
+// f → {k: v, ...} → [[f(k), f(v)], ...]
 const mapKeyValue =
         f => fp.pipe(
                 fp.toPairs,
@@ -918,6 +919,126 @@ const querystringify = fp.pipe([
                     { loc: [11,18], title: "Business Code is 1 Function" },
                   ]}
                   />
+
+
+                  <Slide>
+                    <Heading>More fp!</Heading>
+                  </Slide>
+
+                  <Slide>
+                    <Heading>Even Easier</Heading>
+                    <CodePane
+                      lang="js"
+                      theme="light"
+                      textSize="1em"
+                      source={`
+  fp.cond([
+    [predicateFunction, appliedWhenTrue], 
+    [ (x => x < 0), (x) => log(x, "is bad")], 
+    [ fp.equals(0), someOtherFunction ], 
+    [ fp.T,         thisIsTheDefaultFunction ]
+  ])
+                      `}
+                      />
+                  </Slide>
+
+                  <Slide>
+                    <Heading fit>Works like <code>switch</code></Heading>
+                    <Text>...but it returns</Text>
+                  </Slide>
+
+                  <Slide>
+                    <Heading fit>I've seen this a time or two</Heading>
+                    <CodePane
+                      lang="js"
+                      theme="light"
+                      textSize="0.8em"
+                      source={`
+const isAction =
+        name => (action, state) => name === action
+
+const incrementCount = (action, state) => state + 1
+
+export default = fp.cond([
+  [isAction("CLICK_UP"),   incrementCount], 
+  [isAction("CLICK_DOWN"), decrementCount], 
+  [fp.T,                   previousState ]
+])
+                        `}
+                        />
+                  </Slide>
+
+                  <Slide><Heading>Turn it up to 11</Heading></Slide>
+
+                  <Slide>
+                    <Heading fit>Pointfree Average</Heading>
+                    <CodePane
+                      lang="js"
+                      theme="light"
+                      textSize="1em"
+                      margin="1em 0"
+                      source={
+`// [Number] → Number
+const average = fp.compose(
+                  fp.spread(fp.divide), 
+                  fp.over([fp.sum, fp.size]))
+
+average([1,2]) // 1.5 `}
+                        />
+                  </Slide>
+
+                  <Slide>
+                    <Heading><code>fp.over</code></Heading>
+                    <Text margin="1em 0">
+                      Apply a value over an array of functions</Text>
+                    <CodePane
+                      lang="js"
+                      theme="light"
+                      textSize="1em"
+                      source={`
+  // [(a→x), (b→y), ...] → a → [x,y]
+  
+  fp.over([fp.sum, fp.size]) ([10, 5])
+  // [15, 2]
+                      `}
+                      />
+                  </Slide>
+
+                  <Slide>
+                    <Heading><code>fp.spread</code></Heading>
+                    <Text margin="1em 0">
+                      Apply an array to a function that takes multiple parameters
+                    </Text>
+                    <CodePane
+                      lang="js"
+                      theme="light"
+                      textSize="1em"
+                      source={`
+  // (x,y,z,... → A) → [x,y,z,...] → A
+  
+  fp.divide(15,2) // 7.5
+  fp.spread(fp.divide)([15,2]) // 7.5
+                      `}
+                      />
+                  </Slide>
+
+                  <Slide>
+                    <Heading fit>Pointfree Average</Heading>
+                    <CodePane
+                      lang="js"
+                      theme="light"
+                      textSize="1em"
+                      margin="1em 0"
+                      source={
+`// [Number] → Number
+const average = fp.compose(
+                  fp.spread(fp.divide), 
+                  fp.over([fp.sum, fp.size]))
+
+average([1,2]) // 1.5
+                      `}
+                      />
+                  </Slide>
 
       </Deck>
     );
