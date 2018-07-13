@@ -1,0 +1,6 @@
+querystringify = pipe(
+  removeMissingParameters,
+  encodeTheKeysAndValues,
+  joinKeysAndValuesWithEquals,
+  joinParametersWithAmpersand
+)

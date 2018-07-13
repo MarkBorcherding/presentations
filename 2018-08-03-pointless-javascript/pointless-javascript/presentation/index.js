@@ -142,12 +142,12 @@ export default class Presentation extends React.Component {
           transition={[]}
           lang="js"
           code={require("./sourceExamples/exampleFunction.js.txt")}
-            ranges={[
-              { loc: [0, 7], title: "Find the points" },
-              { loc: [4, 5], title: "The dots?" },
-              { loc: [3, 4], title: "The stabby arrows?" },
-              { loc: [1, 2], title: "The function parameters!" },
-            ]}/>
+          ranges={[
+            { loc: [0, 7], title: "Find the points" },
+            { loc: [4, 5], title: "The dots?" },
+            { loc: [3, 4], title: "The stabby arrows?" },
+            { loc: [1, 2], title: "The function parameters!" },
+          ]}/>
 
         <CodeSlide
           bgColor="secondary"
@@ -236,10 +236,10 @@ export default class Presentation extends React.Component {
           <Heading fit>What are the steps?</Heading>
           <Text textAlign="left">queryStringify</Text>
           <List ordered>
-          <Appear><ListItem>remove missing parameters</ListItem></Appear>
-          <Appear><ListItem>encode keys and values</ListItem></Appear>
-          <Appear><ListItem>join the keys and values with equals</ListItem></Appear>
-          <Appear><ListItem>join the parameters with ampersand</ListItem></Appear>
+            <Appear><ListItem>remove missing parameters</ListItem></Appear>
+            <Appear><ListItem>encode keys and values</ListItem></Appear>
+            <Appear><ListItem>join the keys and values with equals</ListItem></Appear>
+            <Appear><ListItem>join the parameters with ampersand</ListItem></Appear>
           </List>
         </Slide>
 
@@ -281,13 +281,7 @@ export default class Presentation extends React.Component {
             lang="js"
             theme="light"
             textSize="1em"
-            source={`
-    querystringify = pipe(
-      remove missing parameters,
-      encode the keys and values,
-      join keys and values with equals,
-      join the parameters with ampersand
-    ) `}
+            source={require("./sourceExamples/stepsAsText.txt")}
             />
         </Slide>
 
@@ -297,22 +291,17 @@ export default class Presentation extends React.Component {
             lang="js"
             theme="light"
             textSize="1em"
-            source={`
-    querystringify = pipe(
-      removeMissingParameters,
-      encodeTheKeysAndValues,
-      joinKeysAndValuesWithEquals,
-      joinParametersWithAmpersand
-    ) `}
+            source={require("./sourceExamples/stepsAsJs.js.txt")}
             />
         </Slide>
 
         <Slide>
           <Heading fit>Functional Composition in 30s</Heading>
           <Text>
-            <Code>pipe</Code> takes functions <Code>x→y</Code>,<Code>y→z</Code>
+            <Code>pipe</Code> takes functions <Code>x&rarr;y</Code>
+            , <Code>y&rarr;z</Code>
           </Text>
-          <Text>and returns a new function <Code>x→z</Code></Text>
+          <Text>and returns a new function <Code>x&rarr;z</Code></Text>
         </Slide>
 
         <Slide>
@@ -328,37 +317,37 @@ export default class Presentation extends React.Component {
         return h(g(f(x)))
       }
     }
-          `}
-          />
+            `}
+            />
         </Slide>
 
         <Slide>
-        <Heading fit>A really dumb version</Heading>
-        <CodePane
-          lang="js"
-          theme="light"
-          textSize="1em"
-          source={`
+          <Heading fit>A really dumb version</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
     const pipe = (f,g,h) => x => h(g(f(x)))
-          `}
-          />
+            `}
+            />
         </Slide>
 
 
         <Slide>
-        <Heading fit>Now pipe makes sense</Heading>
-        <CodePane
-          lang="js"
-          theme="light"
-          textSize="1em"
-          source={`
+          <Heading fit>Now pipe makes sense</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
         querystringify = pipe(
           removeMissingParameters,
           encodeTheKeysAndValues,
           joinKeysAndValuesWithEquals,
           joinParametersWithAmpersand
         ) `}
-        />
+            />
         </Slide>
 
         <CodeSlide
@@ -375,87 +364,87 @@ const f = pipe([x=>x+1,
                 x=>x +"!"])
 f(10)
 // '110!'
-`}
+          `}
           ranges={[
             { loc: [1, 2], title: "Pipe is reduce over functions"},
             { loc: [4, 7], title: "Pass pipe some functions"},
             { loc: [4, 9], title: "And invoke it later" },
           ]}/>
 
-        <Slide>
-          <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
-          <Code textSize="0.8em" padding="1em">
-            {`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `}
-          </Code>
-        </Slide>
+          <Slide>
+            <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
+            <Code textSize="0.8em" padding="1em">
+              {`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `}
+            </Code>
+          </Slide>
 
 
-        <Slide>
-          <Heading fit>It's native in Scala</Heading>
-          <CodePane
-            lang="scala"
-            theme="light"
-            textSize="1em"
-            source={`
+          <Slide>
+            <Heading fit>It's native in Scala</Heading>
+            <CodePane
+              lang="scala"
+              theme="light"
+              textSize="1em"
+              source={`
     val queryStringify =
       removeMissingParameters
         .andThen(encodeTheKeysAndValues)
         .andThen(joinKeysAndValuesWithEquals)
         .andThen(joinParametersWithAmpersand)
-                `}
+              `}
               />
-        </Slide>
+          </Slide>
 
-        <Slide>
-          <Heading>...and Elixir</Heading>
-          <CodePane
-            lang="elixir"
-            theme="light"
-            textSize="1em"
-            source={`
+          <Slide>
+            <Heading>...and Elixir</Heading>
+            <CodePane
+              lang="elixir"
+              theme="light"
+              textSize="1em"
+              source={`
     "Elixir rocks"    |>
       String.upcase() |>
       String.split()
-                `}
-          />
-        </Slide>
+      `}
+      />
+          </Slide>
 
-        <Slide>
-        <Text padding="1em"
-              textAlign="left"><Code>pipe</Code> is left to right evaluation</Text>
-          <Code>pipe(a,b,c)(x) = c(b(a(x)))</Code>
-          <Appear>
-            <Text>
-              <Text padding="1em" textAlign="left">
-              <Code>compose</Code> is right to left evaluation</Text>
-              <Code>compose(a,b,c)(x) = a(b(c(x)))</Code>
-            </Text>
-          </Appear>
-        </Slide>
+          <Slide>
+            <Text padding="1em"
+                  textAlign="left"><Code>pipe</Code> is left to right evaluation</Text>
+            <Code>pipe(a,b,c)(x) = c(b(a(x)))</Code>
+            <Appear>
+              <Text>
+                <Text padding="1em" textAlign="left">
+                  <Code>compose</Code> is right to left evaluation</Text>
+                <Code>compose(a,b,c)(x) = a(b(c(x)))</Code>
+              </Text>
+            </Appear>
+          </Slide>
 
-        <Slide>
-          <Heading fit>Why do we need two?</Heading>
-          <Text >It depends on how someone would think about the problem.</Text>
-          <Appear>
-            <Text margin="1em" textSize="0.7em"><Code>pipe(step1, step2, step3, step4)</Code></Text>
-          </Appear>
-          <Appear>
-            <Text margin="1em" textSize="0.7em"><Code>compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
-          </Appear>
-        </Slide>
+          <Slide>
+            <Heading fit>Why do we need two?</Heading>
+            <Text >It depends on how someone would think about the problem.</Text>
+            <Appear>
+              <Text margin="1em" textSize="0.7em"><Code>pipe(step1, step2, step3, step4)</Code></Text>
+            </Appear>
+            <Appear>
+              <Text margin="1em" textSize="0.7em"><Code>compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
+            </Appear>
+          </Slide>
 
-        <Slide >
-          <Heading >Some advice</Heading>
-          <Text >Pick one and stick with it.</Text>
-        </Slide>
+          <Slide >
+            <Heading >Some advice</Heading>
+            <Text >Pick one and stick with it.</Text>
+          </Slide>
 
-        <Slide>
-          <Heading fit>Back to our example</Heading>
-          <CodePane
-            lang="js"
-            theme="light"
-            textSize="1em"
-            source={`
+          <Slide>
+            <Heading fit>Back to our example</Heading>
+            <CodePane
+              lang="js"
+              theme="light"
+              textSize="1em"
+              source={`
     querystringify = pipe(
       removeMissingParameters,
       encodeTheKeysAndValues,
@@ -463,137 +452,137 @@ f(10)
       joinParametersWithAmpersand
     ) `}
               />
-        </Slide>
+          </Slide>
 
-        <CodeSlide
-          bgColor="secondary"
-          transition={[]}
-          lang="js"
-         code={
-`   querystringify = pipe(
+          <CodeSlide
+            bgColor="secondary"
+            transition={[]}
+            lang="js"
+            code={
+              `   querystringify = pipe(
       removeMissing,
       urlEncode,
       joinEquals,
       joinAmpersand
-    ) `}
-        ranges={[
-          { loc: [0,7], title: "With less obnoxious names"},
-          { loc: [3,5], title: "These methods sound similar"},
-        ]}
-        />
+            ) `}
+            ranges={[
+              { loc: [0,7], title: "With less obnoxious names"},
+              { loc: [3,5], title: "These methods sound similar"},
+            ]}
+            />
 
-      <Slide><Heading>Let's curry!</Heading></Slide>
+          <Slide><Heading>Let's curry!</Heading></Slide>
 
-        <Slide>
-          <Heading>Curry in 30s</Heading>
-          <Text>
-            Currying is taking a function that takes multiple arguments,
-            only supplying some and getting back a new function that takes
-            the rest.
-          </Text>
-        </Slide>
+          <Slide>
+            <Heading>Curry in 30s</Heading>
+            <Text>
+              Currying is taking a function that takes multiple arguments,
+              only supplying some and getting back a new function that takes
+              the rest.
+            </Text>
+          </Slide>
 
 
-        <Slide>
-          <Heading>Normal join</Heading>
-          <CodePane
-            lang="js"
-            theme="light"
-            textSize="1em"
-            source={`
+          <Slide>
+            <Heading>Normal join</Heading>
+            <CodePane
+              lang="js"
+              theme="light"
+              textSize="1em"
+              source={`
     const join = function(delim, list){
       return list.join(delim);
-    } `}
-        />
-        </Slide>
+              } `}
+              />
+          </Slide>
 
-        <Slide>
-          <Heading>Curried join</Heading>
-          <CodePane
-            lang="js"
-            theme="light"
-            textSize="1em"
-            source={`
+          <Slide>
+            <Heading>Curried join</Heading>
+            <CodePane
+              lang="js"
+              theme="light"
+              textSize="1em"
+              source={`
     const join = function(delim){
       return function(list) {
         return list.join(delim);
-      }
-`}
-        />
-        </Slide>
+    }
+              `}
+              />
+          </Slide>
 
-        <Slide>
-        <Heading>Curried join</Heading>
-        <CodePane
-          lang="js"
-          theme="light"
-          textSize="1em"
-          margin="1em"
-          source={` const join = delim => list => list.join(delim) `}
-        />
-        </Slide>
+          <Slide>
+            <Heading>Curried join</Heading>
+            <CodePane
+              lang="js"
+              theme="light"
+              textSize="1em"
+              margin="1em"
+              source={` const join = delim => list => list.join(delim) `}
+              />
+          </Slide>
 
-      <Slide><Heading fit>Why aren't we using Lodash?</Heading></Slide>
+          <Slide><Heading fit>Why aren't we using Lodash?</Heading></Slide>
 
-        <CodeSlide
-          bgColor="secondary"
-          transition={[]}
-          lang="js"
-          code={require("./sourceExamples/lodashCurry.js.txt")}
-          textSize="0.7em"
-          ranges={[
-            { loc: [0,1], title: "The old school way"},
-            { loc: [2,3], title: "Let Lodash curry for us"},
-            { loc: [4,5], title: "Or curry the function inline"},
-            { loc: [6,7], title: "Call it with all the params "},
-            { loc: [6,8], title: "..and it evaluate immediately"},
-            { loc: [9,10], title: <span>Call it with <i>some</i> parameters</span>},
-            { loc: [9,10], title: <span>...and then with the rest</span>},
-            { loc: [9,11], title: "And it evaluates"},
-            { loc: [12,14], title: "Save that intermediary function"},
-            { loc: [15,17], title: "And evaluate it later"},
-            { loc: [18,20], title: "And reuse it"},
-          ]}
-        />
+          <CodeSlide
+            bgColor="secondary"
+            transition={[]}
+            lang="js"
+            code={require("./sourceExamples/lodashCurry.js.txt")}
+            textSize="0.7em"
+            ranges={[
+              { loc: [0,1], title: "The old school way"},
+              { loc: [2,3], title: "Let Lodash curry for us"},
+              { loc: [4,5], title: "Or curry the function inline"},
+              { loc: [6,7], title: "Call it with all the params "},
+              { loc: [6,8], title: "..and it evaluate immediately"},
+              { loc: [9,10], title: <span>Call it with <i>some</i> parameters</span>},
+              { loc: [9,10], title: <span>...and then with the rest</span>},
+              { loc: [9,11], title: "And it evaluates"},
+              { loc: [12,14], title: "Save that intermediary function"},
+              { loc: [15,17], title: "And evaluate it later"},
+              { loc: [18,20], title: "And reuse it"},
+            ]}
+            />
 
 
-        <Slide>
-          <Heading fit>Limitations of _.curry</Heading>
-          <Appear><Text textAlign="left">Only fixed arity functions</Text></Appear>
-          <List>
-            <Appear><ListItem>No default parameters</ListItem></Appear>
-            <Appear><ListItem>No args collection</ListItem></Appear>
-          </List>
-        </Slide>
+          <Slide>
+            <Heading fit>Limitations of _.curry</Heading>
+            <Appear><Text textAlign="left">Only fixed arity functions</Text></Appear>
+            <List>
+              <Appear><ListItem>No default parameters</ListItem></Appear>
+              <Appear><ListItem>No args collection</ListItem></Appear>
+            </List>
+          </Slide>
 
-        <Slide>
-          <Text textAlign="left">When would it </Text>
-          <Text textAlign="left"><Code>{`huh = _.curry((x, y=1) => x+y)`}</Code></Text>
-          <Appear>
-            <Text textAlign="left"><Code>huh(1) // Function or 2 </Code></Text>
-          </Appear>
-        </Slide>
+          <Slide>
+            <Text textAlign="left">When would it </Text>
+            <Text textAlign="left"><Code>{`huh = _.curry((x, y=1) => x+y)`}</Code></Text>
+            <Appear>
+              <Text textAlign="left"><Code>huh(1) // Function or 2 </Code></Text>
+            </Appear>
+          </Slide>
 
-        <CodeSlide
-          bgColor="secondary"
-          transition={[]}
-          lang="scala"
-          code={require("./sourceExamples/scalaCurry.scala.txt")}
-          textSize="0.7em"
-          ranges={[
-            { loc: [0,7], title: "Scala = 4 ways to do everything"},
-            { loc: [0,1], title: "Explicitly in a method"},
-            { loc: [2,3], title: "Explicitly in a function"},
-            { loc: [4,5], title: "Some magic"},
-            { loc: [6,7], title: "Placeholder magic"},
-          ]}
-        />
+          <CodeSlide
+            bgColor="secondary"
+            transition={[]}
+            lang="scala"
+            code={require("./sourceExamples/scalaCurry.scala.txt")}
+            textSize="0.7em"
+            ranges={[
+              { loc: [0,7], title: "Scala = 4 ways to do everything"},
+              { loc: [0,1], title: "Explicitly in a method"},
+              { loc: [2,3], title: "Explicitly in a function"},
+              { loc: [4,5], title: "Some magic"},
+              { loc: [6,7], title: "Placeholder magic"},
+            ]}
+            />
 
-        <CodeSlide
-          bgColor="secondary"
-          transition={[]}
-          lang="javascript"
-          code={`
+          <CodeSlide
+            bgColor="secondary"
+            transition={[]}
+            lang="javascript"
+            code={`
   const join = j => list => list.join(j)
 
   const querystringify = pipe(
@@ -602,105 +591,333 @@ f(10)
     join("="),
     join("&")
   )
-`}
-          textSize="0.7em"
-          ranges={[
-            { loc: [1,2], title: "Now we have a curried join"},
-            { loc: [2,9], title: "Use it in our function"},
-            { loc: [6,8], title: "It replaces both usages"},
-          ]}
-        />
+            `}
+            textSize="0.7em"
+            ranges={[
+              { loc: [1,2], title: "Now we have a curried join"},
+              { loc: [2,9], title: "Use it in our function"},
+              { loc: [6,8], title: "It replaces both usages"},
+            ]}
+            />
 
-        <Slide>
-        <Heading fit>Y U No _.join ?</Heading>
-          <Text margin="2em 0">
-            <Code padding="1em"> _.join(array, [separator=',']) </Code>
-          </Text>
-        </Slide>
+            <Slide>
+              <Heading fit>Y U No _.join ?</Heading>
+              <Text margin="2em 0">
+                <Code padding="1em"> _.join(array, [separator=',']) </Code>
+              </Text>
+            </Slide>
 
-      <Slide>
-        <Heading>2 problems</Heading>
-        <List>
-          <Appear><ListItem>the data comes first</ListItem></Appear>
-          <Appear><ListItem>it isn't fixed arity</ListItem></Appear>
-        </List>
-      </Slide>
+            <Slide>
+              <Heading>2 problems</Heading>
+              <List>
+                <Appear><ListItem>the data comes first</ListItem></Appear>
+                <Appear><ListItem>it isn't fixed arity</ListItem></Appear>
+              </List>
+            </Slide>
 
-        <Slide>
-          <Text textAlign="left">Example problem</Text>
-          <CodePane
-            lang="js"
-            theme="light"
-            textSize="1em"
-            source={`
+            <Slide>
+              <Text textAlign="left">Example problem</Text>
+              <CodePane
+                lang="js"
+                theme="light"
+                textSize="1em"
+                source={`
   const f = _.join([1,2,3])
   // [Function] or "1,2,3"
                 `}
-          />
-        </Slide>
+                />
+            </Slide>
 
-        <Slide>
-          <Heading fit>Lodash's secret identity</Heading>
-        </Slide>
+            <Slide>
+              <Heading fit>Lodash's secret identity</Heading>
+            </Slide>
 
-        <Slide>
-          <Heading fit>Lodash FP</Heading>
-        </Slide>
+            <Slide>
+              <Heading fit>Lodash FP</Heading>
+            </Slide>
 
-        <Slide>
-          <Text>show lodash fp button the lodash homepage</Text>
-        </Slide>
+            <Slide>
+              <Text>show lodash fp button the lodash homepage</Text>
+            </Slide>
 
-        <Slide>
-          <Heading>Data Last</Heading>
-          <Text
-            textAlign="left"
-            margin="1em 0"
-          >
-            <Code>_.join(array, [separator = ","])</Code> </Text>
-          <Appear>
-            <Text textAlign="left"><Code>fp.join(separator, array)</Code> </Text>
-          </Appear>
-        </Slide>
+            <Slide>
+              <Heading>Data Last</Heading>
+              <Text
+                textAlign="left"
+                margin="1em 0"
+                >
+                <Code>_.join(array, [separator = ","])</Code> </Text>
+              <Appear>
+                <Text textAlign="left"><Code>fp.join(separator, array)</Code> </Text>
+              </Appear>
+            </Slide>
 
-        <Slide>
-          <Heading>Simple Curry</Heading>
-          <Text
-            textAlign="left"
-            margin="1em 0" >
-            <Code> dashIt = _.curry(_.join)(_._, "-")</Code></Text>
-          <Appear><Text textAlign="left"><Code>dashIt = fp.join("-")</Code> </Text></Appear>
-        </Slide>
+            <Slide>
+              <Heading>Simple Curry</Heading>
+              <Text
+                textAlign="left"
+                margin="1em 0" >
+                <Code> dashIt = _.curry(_.join)(_._, "-")</Code></Text>
+              <Appear><Text textAlign="left"><Code>dashIt = fp.join("-")</Code> </Text></Appear>
+            </Slide>
 
-        <Slide>
-          <Heading>Fixed Arity</Heading>
-          <Text>Fixed arity means no default args.</Text>
-          <Text textAlign="left" margin="1em 0">
-            <Code> _.get(object, path, [defaultValue])</Code>
-          </Text>
-        </Slide>
+            <Slide>
+              <Heading>Fixed Arity</Heading>
+              <Text>Fixed arity means no default args.</Text>
+              <Text textAlign="left" margin="1em 0">
+                <Code> _.get(object, path, [defaultValue])</Code>
+              </Text>
+            </Slide>
 
-        <Slide>
-          <Heading fit>Aliases to the Rescue</Heading>
-          <Text textAlign="left" margin="1em 0">
-            <Code>fp.get(path, object) </Code></Text>
-          <Text textAlign="left" margin="1em 0">
-            <Code>fp.getOr(path, object, default) </Code></Text>
-        </Slide>
+            <Slide>
+              <Heading fit>Aliases to the Rescue</Heading>
+              <Text textAlign="left" margin="1em 0">
+                <Code>fp.get(path, object) </Code></Text>
+              <Text textAlign="left" margin="1em 0">
+                <Code>fp.getOr(path, object, default) </Code></Text>
+            </Slide>
 
-        <CodeSlide
-          bgColor="secondary"
-          transition={[]}
-          lang="javascript"
-          code={require("./sourceExamples/scalaCurry.scala.txt")}
-          ranges={[
-            { loc: [0,7], title: "Scala = 4 ways to do everything"},
-            { loc: [0,1], title: "Explicitly in a method"},
-            { loc: [2,3], title: "Explicitly in a function"},
-            { loc: [4,5], title: "Some magic"},
-            { loc: [6,7], title: "Placeholder magic"},
-          ]}
-        />
+            <CodeSlide
+              bgColor="secondary"
+              lang="javascript"
+              code={`
+const join = require('lodash/fp/join')
+
+const querystringify = pipe(
+  removeMissing,
+  urlEncode,
+  join("="), 
+  join("&")
+)
+`}
+              ranges={[
+                { loc: [1,2], title: "Require fp.join"},
+                { loc: [3,8] },
+                { loc: [6,8], title: "No change in usage"},
+              ]}
+              />
+
+            <Slide>
+              <Heading fit>What else?</Heading>
+            </Slide>
+
+            <CodeSlide
+              bgColor="secondary"
+              lang="javascript"
+              code={`
+const join = require('lodash/fp/join')
+const pipe = require('lodash/fp/pipe')
+
+const querystringify = pipe([
+  removeMissing,
+  urlEncode,
+  join("="), 
+  join("&")
+])
+            `}
+              ranges={[
+                { loc: [2,3], title: "fp.pipe"},
+                { loc: [4,5], title: "Wrap functions in array"},
+                { loc: [5,6], title: "Let's implement this"},
+              ]}
+            />
+
+            <CodeSlide
+              bgColor="secondary"
+              lang="javascript"
+              code={
+`const fp = require("lodash/fp")
+
+// {a: 1, b: null} → [[a,1]]
+const removeMissing = fp.pipe([
+  fp.pairs,
+  fp.filter(([k,v]) => ! fp.isNil(v))
+])
+
+const querystringify = fp.pipe([
+  removeMissing,
+  encode,
+  fp.join("="),
+  fp.join("&")
+]) `}
+              ranges={[
+                { loc: [0,1], title: "We're going to use more of fp"},
+                { loc: [3,7] },
+                { loc: [3,4], title: "fp.pipe is a almost everywhere"},
+                { loc: [4,5], title: "tuple the object"},
+                { loc: [5,6], title: "remove undefined values"}, 
+                { loc: [2,3], title: "func takes obj → arr"}, 
+                { loc: [3,7], title: "...but there's points"},
+                { loc: [5,7], title: "[k,v] are function parameters"},
+              ]}
+              />
+
+              <Slide><Heading fit>The Pointfree Version</Heading></Slide>
+
+              <CodeSlide
+                bgColor="secondary"
+                lang="javascript"
+                code={
+`const fp = require("lodash/fp")
+
+// {a: 1, b: null} → [[a,1]]
+const removeMissing = fp.pipe([
+  fp.pairs, 
+  fp.filter(
+    fp.negate(
+      fp.pipe(
+        fp.at(1),
+        fp.isNil)))
+])
+
+const querystringify = fp.pipe([
+  removeMissing,
+  encode,
+  fp.join("="),
+  fp.join("&")
+                ]) `}
+                ranges={[
+                  { loc: [3,11], title: "OMG! What?"},
+                ]}
+              />
+
+
+              <CodeSlide
+                bgColor="secondary"
+                lang="javascript"
+                code={
+`// [k,v] → Bool
+const valuePresent =
+  fp.negate(
+    fp.pipe(
+      fp.at(1),
+      fp.isNil)))
+
+const removeMissing = fp.pipe([
+  fp.pairs,
+  fp.filter(valuePresent)
+])
+
+const querystringify = fp.pipe([
+  removeMissing,
+  urlEncode,
+  fp.join("="),
+  fp.join("&")
+]) `}
+                ranges={[
+                  { loc: [0,4], title: "Make functions smaller"},
+                  { loc: [7,9], title: "Easier to understand"},
+                ]}
+                />
+
+              <Slide>
+                <Heading>Even Easier</Heading>
+                <CodePane
+                  lang="js"
+                  theme="light"
+                  textSize="1em"
+                  source={`
+    const removeMissing =
+      fp.pickBy(fp.negate(fp.isUndefined))
+                  `}
+                  />
+              </Slide>
+
+
+              <CodeSlide
+                bgColor="secondary"
+                lang="javascript"
+                code={
+                  `// {k: v, ...} → [[f(k): f(v)], ...]
+const encode =
+  fp.pipe(
+    fp.toPairs,
+    fp.map(
+      fp.map(lib.urlEncode)))
+                `}
+                ranges={[
+                  { loc: [0,6], title: "Our encode function"},
+                  { loc: [0,2], title: "take an object and return tuple"},
+                  { loc: [2,3], title: "familiar pipe"},
+                  { loc: [3,4], title: "convert to tuples"},
+                  { loc: [4,5], title: "for each pair"},
+                  { loc: [5,6], title: "apply the function to both sides"},
+                  { loc: [4,6], title: "common pattern"},
+                ]}
+                />
+
+              <CodeSlide
+                bgColor="secondary"
+                lang="javascript"
+                code={
+                  `// {k: v, ...} → [[f(k): f(v)], ...]
+const encode =
+  fp.pipe(
+    fp.toPairs,
+    fp.flatMap(lib.urlEncode),
+    fp.chunk(2))
+                `}
+                ranges={[
+                  { loc: [4,5], title: "that's why we have flatMap"},
+                  { loc: [5,6], title: "convert back to tuples"},
+                  { loc: [0,6]},
+                  { loc: [0,6], title: "The pattern is reusable"},
+                  { loc: [4,5], title: "except this..."},
+                ]}
+                />
+
+              <CodeSlide
+                bgColor="secondary"
+                lang="javascript"
+                code={
+                  `// {k: v, ...} → [[f(k): f(v)], ...]
+const mapKeyValue =
+  f => fp.pipe(
+        fp.toPairs,
+        fp.flatMap(f),
+        fp.chunk(2))
+
+const encode = mapKeyValue(lib.urlEncode) `}
+                ranges={[
+                  { loc: [0,6], title: "This is reusable"},
+                  { loc: [7,8], title: "...and this is readable"},
+                ]}
+                />
+
+                <Slide ><Heading >We're done!</Heading></Slide>
+
+                <CodeSlide
+                  bgColor="secondary"
+                  lang="javascript"
+                  code={
+  `// {a: 1, b: null} → {a: 1}
+const removeMissing =
+        fp.pickBy(fp.negate(fp.isNil))
+
+// f -> {k: v, ...} → [[f(k), f(v)], ...]
+const mapKeyValue =
+        f => fp.pipe(
+                fp.toPairs,
+                fp.flatMap(f),
+                fp.chunk(2))
+
+// Object → String
+const querystringify = fp.pipe([
+  removeMissing,
+  mapKeyValue(lib.urlEncode),
+  fp.join("="),
+  fp.join("&")
+])
+             ` }
+                  ranges={[
+                    { loc: [0,17] },
+                    { loc: [0,3] },
+                    { loc: [4,10] },
+                    { loc: [11,18] },
+                    { loc: [1,10], title: "All Library Code" },
+                    { loc: [11,18], title: "Business Code is 1 Function" },
+                  ]}
+                  />
 
       </Deck>
     );
