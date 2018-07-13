@@ -100,10 +100,10 @@ export default class Presentation extends React.Component {
         <Slide>
           <Heading>Unsuccessfully convinced people</Heading>
           <Text >  it's unfamiliar
-            
+
             | Familiarity can be acquired; complexity is intrinsic.
             - https://sanctuary.js.org
-            
+
             it feels less clear
           </Text>
         </Slide>
@@ -124,7 +124,7 @@ export default class Presentation extends React.Component {
         <Slide bgColor="secondary" textColor="primary">
           <Heading textColor="primary" size={4}>mandatory wikipedia quote: </Heading>
           <BlockQuote>
-            <Quote textSize="1em"> 
+            <Quote textSize="1em">
               Tacit programming, also called point-free style, is a programming paradigm in
               which function definitions do not identify the arguments (or "points") on which
               they operate. Instead the definitions merely compose other functions, among
@@ -285,7 +285,7 @@ export default class Presentation extends React.Component {
     querystringify = pipe(
       remove missing parameters,
       encode the keys and values,
-      join keys and values with equals, 
+      join keys and values with equals,
       join the parameters with ampersand
     ) `}
             />
@@ -301,7 +301,7 @@ export default class Presentation extends React.Component {
     querystringify = pipe(
       removeMissingParameters,
       encodeTheKeysAndValues,
-      joinKeysAndValuesWithEquals, 
+      joinKeysAndValuesWithEquals,
       joinParametersWithAmpersand
     ) `}
             />
@@ -310,7 +310,7 @@ export default class Presentation extends React.Component {
         <Slide>
           <Heading fit>Functional Composition in 30s</Heading>
           <Text>
-            <Code>pipe</Code> takes functions <Code>x→y</Code>,<Code>y→z</Code> 
+            <Code>pipe</Code> takes functions <Code>x→y</Code>,<Code>y→z</Code>
           </Text>
           <Text>and returns a new function <Code>x→z</Code></Text>
         </Slide>
@@ -355,7 +355,7 @@ export default class Presentation extends React.Component {
         querystringify = pipe(
           removeMissingParameters,
           encodeTheKeysAndValues,
-          joinKeysAndValuesWithEquals, 
+          joinKeysAndValuesWithEquals,
           joinParametersWithAmpersand
         ) `}
         />
@@ -397,7 +397,7 @@ f(10)
             theme="light"
             textSize="1em"
             source={`
-    val queryStringify = 
+    val queryStringify =
       removeMissingParameters
         .andThen(encodeTheKeysAndValues)
         .andThen(joinKeysAndValuesWithEquals)
@@ -413,8 +413,8 @@ f(10)
             theme="light"
             textSize="1em"
             source={`
-    "Elixir rocks"    |> 
-      String.upcase() |> 
+    "Elixir rocks"    |>
+      String.upcase() |>
       String.split()
                 `}
           />
@@ -459,7 +459,7 @@ f(10)
     querystringify = pipe(
       removeMissingParameters,
       encodeTheKeysAndValues,
-      joinKeysAndValuesWithEquals, 
+      joinKeysAndValuesWithEquals,
       joinParametersWithAmpersand
     ) `}
               />
@@ -473,7 +473,7 @@ f(10)
 `   querystringify = pipe(
       removeMissing,
       urlEncode,
-      joinEquals, 
+      joinEquals,
       joinAmpersand
     ) `}
         ranges={[
@@ -506,7 +506,7 @@ f(10)
     } `}
         />
         </Slide>
-      
+
         <Slide>
           <Heading>Curried join</Heading>
           <CodePane
@@ -640,9 +640,67 @@ f(10)
         </Slide>
 
         <Slide>
-          <Heading>Lodash's secret identity</Heading>
-          
+          <Heading fit>Lodash's secret identity</Heading>
         </Slide>
+
+        <Slide>
+          <Heading fit>Lodash FP</Heading>
+        </Slide>
+
+        <Slide>
+          <Text>show lodash fp button the lodash homepage</Text>
+        </Slide>
+
+        <Slide>
+          <Heading>Data Last</Heading>
+          <Text
+            textAlign="left"
+            margin="1em 0"
+          >
+            <Code>_.join(array, [separator = ","])</Code> </Text>
+          <Appear>
+            <Text textAlign="left"><Code>fp.join(separator, array)</Code> </Text>
+          </Appear>
+        </Slide>
+
+        <Slide>
+          <Heading>Simple Curry</Heading>
+          <Text
+            textAlign="left"
+            margin="1em 0" >
+            <Code> dashIt = _.curry(_.join)(_._, "-")</Code></Text>
+          <Appear><Text textAlign="left"><Code>dashIt = fp.join("-")</Code> </Text></Appear>
+        </Slide>
+
+        <Slide>
+          <Heading>Fixed Arity</Heading>
+          <Text>Fixed arity means no default args.</Text>
+          <Text textAlign="left" margin="1em 0">
+            <Code> _.get(object, path, [defaultValue])</Code>
+          </Text>
+        </Slide>
+
+        <Slide>
+          <Heading fit>Aliases to the Rescue</Heading>
+          <Text textAlign="left" margin="1em 0">
+            <Code>fp.get(path, object) </Code></Text>
+          <Text textAlign="left" margin="1em 0">
+            <Code>fp.getOr(path, object, default) </Code></Text>
+        </Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="javascript"
+          code={require("./sourceExamples/scalaCurry.scala.txt")}
+          ranges={[
+            { loc: [0,7], title: "Scala = 4 ways to do everything"},
+            { loc: [0,1], title: "Explicitly in a method"},
+            { loc: [2,3], title: "Explicitly in a function"},
+            { loc: [4,5], title: "Some magic"},
+            { loc: [6,7], title: "Placeholder magic"},
+          ]}
+        />
 
       </Deck>
     );
