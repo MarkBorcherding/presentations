@@ -18,6 +18,7 @@ import {
 } from "spectacle";
 
 import CodeSlide from 'spectacle-code-slide';
+import Terminal from "spectacle-terminal";
 
 // Import theme
 import createTheme from "spectacle/lib/themes/default";
@@ -270,9 +271,10 @@ export default class Presentation extends React.Component {
 
         <Slide>
           <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
-          <Code textSize="0.8em" padding="1em">
-            {`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `}
-          </Code>
+             <Terminal title="1: ~(zsh)" output={[
+              `ps -ef | grep "java" | awk '{ print \$1 }' | xargs kill -9 `
+             ]}
+            />
         </Slide>
 
         <Slide>
@@ -686,7 +688,7 @@ const join = require('lodash/fp/join')
 const querystringify = pipe(
   removeMissing,
   urlEncode,
-  join("="), 
+  join("="),
   join("&")
 )
 `}
@@ -711,7 +713,7 @@ const pipe = require('lodash/fp/pipe')
 const querystringify = pipe([
   removeMissing,
   urlEncode,
-  join("="), 
+  join("="),
   join("&")
 ])
             `}
@@ -745,8 +747,8 @@ const querystringify = fp.pipe([
                 { loc: [3,7] },
                 { loc: [3,4], title: "fp.pipe is a almost everywhere"},
                 { loc: [4,5], title: "tuple the object"},
-                { loc: [5,6], title: "remove undefined values"}, 
-                { loc: [2,3], title: "func takes obj → arr"}, 
+                { loc: [5,6], title: "remove undefined values"},
+                { loc: [2,3], title: "func takes obj → arr"},
                 { loc: [3,7], title: "...but there's points"},
                 { loc: [5,7], title: "[k,v] are function parameters"},
               ]}
@@ -762,7 +764,7 @@ const querystringify = fp.pipe([
 
 // {a: 1, b: null} → [[a,1]]
 const removeMissing = fp.pipe([
-  fp.pairs, 
+  fp.pairs,
   fp.filter(
     fp.negate(
       fp.pipe(
@@ -933,9 +935,9 @@ const querystringify = fp.pipe([
                       textSize="1em"
                       source={`
   fp.cond([
-    [predicateFunction, appliedWhenTrue], 
-    [ (x => x < 0), (x) => log(x, "is bad")], 
-    [ fp.equals(0), someOtherFunction ], 
+    [predicateFunction, appliedWhenTrue],
+    [ (x => x < 0), (x) => log(x, "is bad")],
+    [ fp.equals(0), someOtherFunction ],
     [ fp.T,         thisIsTheDefaultFunction ]
   ])
                       `}
@@ -960,8 +962,8 @@ const isAction =
 const incrementCount = (action, state) => state + 1
 
 export default = fp.cond([
-  [isAction("CLICK_UP"),   incrementCount], 
-  [isAction("CLICK_DOWN"), decrementCount], 
+  [isAction("CLICK_UP"),   incrementCount],
+  [isAction("CLICK_DOWN"), decrementCount],
   [fp.T,                   previousState ]
 ])
                         `}
@@ -980,7 +982,7 @@ export default = fp.cond([
                       source={
 `// [Number] → Number
 const average = fp.compose(
-                  fp.spread(fp.divide), 
+                  fp.spread(fp.divide),
                   fp.over([fp.sum, fp.size]))
 
 average([1,2]) // 1.5 `}
@@ -997,7 +999,7 @@ average([1,2]) // 1.5 `}
                       textSize="1em"
                       source={`
   // [(a→x), (b→y), ...] → a → [x,y]
-  
+
   fp.over([fp.sum, fp.size]) ([10, 5])
   // [15, 2]
                       `}
@@ -1015,7 +1017,7 @@ average([1,2]) // 1.5 `}
                       textSize="1em"
                       source={`
   // (x,y,z,... → A) → [x,y,z,...] → A
-  
+
   fp.divide(15,2) // 7.5
   fp.spread(fp.divide)([15,2]) // 7.5
                       `}
@@ -1032,7 +1034,7 @@ average([1,2]) // 1.5 `}
                       source={
 `// [Number] → Number
 const average = fp.compose(
-                  fp.spread(fp.divide), 
+                  fp.spread(fp.divide),
                   fp.over([fp.sum, fp.size]))
 
 average([1,2]) // 1.5

@@ -26,7 +26,13 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [{
+
+    loaders: [
+      {
+        test: /\.txt$/,
+        loader: "raw-loader"
+      },
+      {
       test: /\.md$/,
       loader: "html-loader!markdown-loader?gfm=false"
     }, {
