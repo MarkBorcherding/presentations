@@ -26,28 +26,31 @@ module.exports = {
     })
   ],
   module: {
-
     loaders: [
       {
         test: /\.txt$/,
         loader: "raw-loader"
       },
       {
-      test: /\.md$/,
-      loader: "html-loader!markdown-loader?gfm=false"
-    }, {
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: "babel-loader"
-    }, {
-      test: /\.css$/,
-      loader: "style-loader!css-loader"
-    }, {
-      test: /\.(png|jpg|gif)$/,
-      loader: "url-loader?limit=8192"
-    }, {
-      test: /\.svg$/,
-      loader: "url-loader?limit=10000&mimetype=image/svg+xml"
-    }]
+        test: /\.md$/,
+        loader: "html-loader!markdown-loader?gfm=false"
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: "babel-loader"
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: "url-loader?limit=8192"
+      },
+      {
+        test: /\.svg$/,
+        loader: "url-loader?limit=10000&mimetype=image/svg+xml"
+      }]
   }
 };

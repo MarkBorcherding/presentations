@@ -26,6 +26,10 @@ import createTheme from "spectacle/lib/themes/default";
 require('prismjs/components/prism-scala')
 
 
+const images = {
+  more: require('../assets/more.gif')
+};
+
 // Require CSS
 require("normalize.css");
 
@@ -270,11 +274,11 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide>
-          <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
-             <Terminal title="1: ~(zsh)" output={[
-              `ps -ef | grep "java" | awk '{ print \$1 }' | xargs kill -9 `
-             ]}
-            />
+          <Heading padding="1em " fit>What we need is pipe from Bash</Heading>
+          <Terminal
+            title="1: ~(zsh)"
+            output={[`ps -ef | grep "java" | awk '{ print \$1 }' | xargs kill -9 `]}
+          />
         </Slide>
 
         <Slide>
@@ -315,7 +319,7 @@ export default class Presentation extends React.Component {
             padding="1em"
             source={`
     const pipe = (f,g,h) => {
-      (x) => {
+      return (x) => {
         return h(g(f(x)))
       }
     }
@@ -375,9 +379,7 @@ f(10)
 
           <Slide>
             <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
-            <Code textSize="0.8em" padding="1em">
-              {`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `}
-            </Code>
+             <Terminal title="1: ~(zsh)" output={[`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `]} />
           </Slide>
 
 
@@ -428,10 +430,10 @@ f(10)
             <Heading fit>Why do we need two?</Heading>
             <Text >It depends on how someone would think about the problem.</Text>
             <Appear>
-              <Text margin="1em" textSize="0.7em"><Code>pipe(step1, step2, step3, step4)</Code></Text>
+              <Text margin="1em"><Code textSize="0.6em">pipe(step1, step2, step3, step4)</Code></Text>
             </Appear>
             <Appear>
-              <Text margin="1em" textSize="0.7em"><Code>compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
+              <Text margin="1em"><Code textSize="0.6em">compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
             </Appear>
           </Slide>
 
@@ -461,12 +463,12 @@ f(10)
             transition={[]}
             lang="js"
             code={
-              `   querystringify = pipe(
-      removeMissing,
-      urlEncode,
-      joinEquals,
-      joinAmpersand
-            ) `}
+              `querystringify = pipe(
+  removeMissing,
+  urlEncode,
+  joinEquals,
+  joinAmpersand
+) `}
             ranges={[
               { loc: [0,7], title: "With less obnoxious names"},
               { loc: [3,5], title: "These methods sound similar"},
@@ -485,18 +487,19 @@ f(10)
           </Slide>
 
 
-          <Slide>
-            <Heading>Normal join</Heading>
-            <CodePane
-              lang="js"
-              theme="light"
-              textSize="1em"
-              source={`
+        <Slide>
+          <Heading>Normal join</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
     const join = function(delim, list){
       return list.join(delim);
-              } `}
-              />
-          </Slide>
+    } 
+  `}
+          />
+        </Slide>
 
           <Slide>
             <Heading>Curried join</Heading>
@@ -559,9 +562,9 @@ f(10)
 
           <Slide>
             <Text textAlign="left">When would it </Text>
-            <Text textAlign="left"><Code>{`huh = _.curry((x, y=1) => x+y)`}</Code></Text>
+            <CodePane lang="js" theme="light" textSize="1em" source={`huh = _.curry((x, y=1) => x+y)`} />
             <Appear>
-              <Text textAlign="left"><Code>huh(1) // Function or 2 </Code></Text>
+              <CodePane lang="js" theme="light" textSize="1em" source={`huh(1) // Function or 2 `} />
             </Appear>
           </Slide>
 
@@ -667,7 +670,7 @@ f(10)
               <Heading>Fixed Arity</Heading>
               <Text>Fixed arity means no default args.</Text>
               <Text textAlign="left" margin="1em 0">
-                <Code> _.get(object, path, [defaultValue])</Code>
+                <Code textSize="0.9em"> _.get(object, path, [defaultValue])</Code>
               </Text>
             </Slide>
 
@@ -719,7 +722,7 @@ const querystringify = pipe([
             `}
               ranges={[
                 { loc: [2,3], title: "fp.pipe"},
-                { loc: [4,5], title: "Wrap functions in array"},
+                { loc: [4,10], title: "Wrap functions in array"},
                 { loc: [5,6], title: "Let's implement this"},
               ]}
             />
@@ -928,17 +931,18 @@ const querystringify = fp.pipe([
                   </Slide>
 
                   <Slide>
-                    <Heading>Even Easier</Heading>
+                    <Heading>fp.cond</Heading>
                     <CodePane
                       lang="js"
                       theme="light"
                       textSize="1em"
+                      textSize="0.9em"
                       source={`
   fp.cond([
     [predicateFunction, appliedWhenTrue],
-    [ (x => x < 0), (x) => log(x, "is bad")],
-    [ fp.equals(0), someOtherFunction ],
-    [ fp.T,         thisIsTheDefaultFunction ]
+    [ (x => x < 0),     (x) => log(x, "is bad")],
+    [ fp.equals(0),     someOtherFunction ],
+    [ fp.T,             thisIsTheDefaultFunction ]
   ])
                       `}
                       />
@@ -956,8 +960,7 @@ const querystringify = fp.pipe([
                       theme="light"
                       textSize="0.8em"
                       source={`
-const isAction =
-        name => (action, state) => name === action
+const isAction = fp.isEqual
 
 const incrementCount = (action, state) => state + 1
 
@@ -970,7 +973,11 @@ export default = fp.cond([
                         />
                   </Slide>
 
-                  <Slide><Heading>More. More! MORE!</Heading></Slide>
+        <Slide
+          bgImage={images.more}
+          bgDarken={0.3}
+        >
+        </Slide>
 
                   <Slide>
                     <Heading fit>Pointfree Average</Heading>
