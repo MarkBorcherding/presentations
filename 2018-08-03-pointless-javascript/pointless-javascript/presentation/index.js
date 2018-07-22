@@ -126,6 +126,7 @@ export default class Presentation extends React.Component {
           <Heading fit>What is tacit programming?</Heading>
           <Text> ...writing function that don't define arguments </Text>
         </Slide>
+
         <Slide bgColor="secondary" textColor="primary">
           <Heading textColor="primary" size={4}>mandatory wikipedia quote: </Heading>
           <BlockQuote>
@@ -353,7 +354,7 @@ export default class Presentation extends React.Component {
           joinKeysAndValuesWithEquals,
           joinParametersWithAmpersand
         ) `}
-            />
+          />
         </Slide>
 
         <CodeSlide
@@ -377,114 +378,113 @@ f(10)
             { loc: [4, 9], title: "And invoke it later" },
           ]}/>
 
-          <Slide>
-            <Heading padding="1em "fit>What we need is pipe from Bash</Heading>
-             <Terminal title="1: ~(zsh)" output={[`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `]} />
-          </Slide>
+        <Slide>
+          <Heading padding="1em " fit>What we need is pipe from Bash</Heading>
+          <Terminal title="1: ~(zsh)" output={[`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `]} />
+        </Slide>
 
-
-          <Slide>
-            <Heading fit>It's native in Scala</Heading>
-            <CodePane
-              lang="scala"
-              theme="light"
-              textSize="1em"
-              source={`
+        <Slide>
+          <Heading fit>It's native in Scala</Heading>
+          <CodePane
+            lang="scala"
+            theme="light"
+            textSize="1em"
+            source={`
     val queryStringify =
       removeMissingParameters
         .andThen(encodeTheKeysAndValues)
         .andThen(joinKeysAndValuesWithEquals)
         .andThen(joinParametersWithAmpersand)
               `}
-              />
-          </Slide>
+          />
+        </Slide>
 
-          <Slide>
-            <Heading>...and Elixir</Heading>
-            <CodePane
-              lang="elixir"
-              theme="light"
-              textSize="1em"
-              source={`
+        <Slide>
+          <Heading>...and Elixir</Heading>
+          <CodePane
+            lang="elixir"
+            theme="light"
+            textSize="1em"
+            source={`
     "Elixir rocks"    |>
       String.upcase() |>
       String.split()
       `}
-      />
-          </Slide>
+          />
+        </Slide>
 
-          <Slide>
-            <Text padding="1em"
-                  textAlign="left"><Code>pipe</Code> is left to right evaluation</Text>
-            <Code>pipe(a,b,c)(x) = c(b(a(x)))</Code>
-            <Appear>
-              <Text>
-                <Text padding="1em" textAlign="left">
-                  <Code>compose</Code> is right to left evaluation</Text>
-                <Code>compose(a,b,c)(x) = a(b(c(x)))</Code>
-              </Text>
-            </Appear>
-          </Slide>
+        <Slide>
+          <Text padding="1em"
+            textAlign="left"><Code>pipe</Code> is left to right evaluation</Text>
+          <Code>pipe(a,b,c)(x) = c(b(a(x)))</Code>
+          <Appear>
+            <Text>
+              <Text padding="1em" textAlign="left">
+                <Code>compose</Code> is right to left evaluation</Text>
+              <Code>compose(a,b,c)(x) = a(b(c(x)))</Code>
+            </Text>
+          </Appear>
+        </Slide>
 
-          <Slide>
-            <Heading fit>Why do we need two?</Heading>
-            <Text >It depends on how someone would think about the problem.</Text>
-            <Appear>
-              <Text margin="1em"><Code textSize="0.6em">pipe(step1, step2, step3, step4)</Code></Text>
-            </Appear>
-            <Appear>
-              <Text margin="1em"><Code textSize="0.6em">compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
-            </Appear>
-          </Slide>
+        <Slide>
+          <Heading fit>Why do we need two?</Heading>
+          <Text >It depends on how someone would think about the problem.</Text>
+          <Appear>
+            <Text margin="1em"><Code textSize="0.6em">pipe(step1, step2, step3, step4)</Code></Text>
+          </Appear>
+          <Appear>
+            <Text margin="1em"><Code textSize="0.6em">compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
+          </Appear>
+        </Slide>
 
-          <Slide >
-            <Heading >Some advice</Heading>
-            <Text >Pick one and stick with it.</Text>
-          </Slide>
+        <Slide >
+          <Heading >Some advice</Heading>
+          <Text >Pick one and stick with it.</Text>
+        </Slide>
 
-          <Slide>
-            <Heading fit>Back to our example</Heading>
-            <CodePane
-              lang="js"
-              theme="light"
-              textSize="1em"
-              source={`
+        <Slide>
+          <Heading fit>Back to our example</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
     querystringify = pipe(
       removeMissingParameters,
       encodeTheKeysAndValues,
       joinKeysAndValuesWithEquals,
       joinParametersWithAmpersand
     ) `}
-              />
-          </Slide>
+          />
+        </Slide>
 
-          <CodeSlide
-            bgColor="secondary"
-            transition={[]}
-            lang="js"
-            code={
-              `querystringify = pipe(
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+          code={
+            `querystringify = pipe(
   removeMissing,
   urlEncode,
   joinEquals,
   joinAmpersand
 ) `}
-            ranges={[
-              { loc: [0,7], title: "With less obnoxious names"},
-              { loc: [3,5], title: "These methods sound similar"},
-            ]}
-            />
+          ranges={[
+            { loc: [0, 7], title: "With less obnoxious names" },
+            { loc: [3, 5], title: "These methods sound similar" },
+          ]}
+        />
 
-          <Slide><Heading>Let's curry!</Heading></Slide>
+        <Slide><Heading>Let's curry!</Heading></Slide>
 
-          <Slide>
-            <Heading>Curry in 30s</Heading>
-            <Text>
-              Currying is taking a function that takes multiple arguments,
-              only supplying some and getting back a new function that takes
-              the rest.
+        <Slide>
+          <Heading>Curry in 30s</Heading>
+          <Text>
+            Currying is taking a function that takes multiple arguments,
+            only supplying some and getting back a new function that takes
+            the rest.
             </Text>
-          </Slide>
+        </Slide>
 
 
         <Slide>
@@ -501,93 +501,92 @@ f(10)
           />
         </Slide>
 
-          <Slide>
-            <Heading>Curried join</Heading>
-            <CodePane
-              lang="js"
-              theme="light"
-              textSize="1em"
-              source={`
+        <Slide>
+          <Heading>Curried join</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
     const join = function(delim){
       return function(list) {
         return list.join(delim);
     }
               `}
-              />
-          </Slide>
+          />
+        </Slide>
 
-          <Slide>
-            <Heading>Curried join</Heading>
-            <CodePane
-              lang="js"
-              theme="light"
-              textSize="1em"
-              margin="1em"
-              source={` const join = delim => list => list.join(delim) `}
-              />
-          </Slide>
-
-          <Slide><Heading fit>Why aren't we using Lodash?</Heading></Slide>
-
-          <CodeSlide
-            bgColor="secondary"
-            transition={[]}
+        <Slide>
+          <Heading>Curried join</Heading>
+          <CodePane
             lang="js"
-            code={require("./sourceExamples/lodashCurry.js.txt")}
-            textSize="0.7em"
-            ranges={[
-              { loc: [0,1], title: "The old school way"},
-              { loc: [2,3], title: "Let Lodash curry for us"},
-              { loc: [4,5], title: "Or curry the function inline"},
-              { loc: [6,7], title: "Call it with all the params "},
-              { loc: [6,8], title: "..and it evaluate immediately"},
-              { loc: [9,10], title: <span>Call it with <i>some</i> parameters</span>},
-              { loc: [9,10], title: <span>...and then with the rest</span>},
-              { loc: [9,11], title: "And it evaluates"},
-              { loc: [12,14], title: "Save that intermediary function"},
-              { loc: [15,17], title: "And evaluate it later"},
-              { loc: [18,20], title: "And reuse it"},
-            ]}
-            />
+            theme="light"
+            textSize="1em"
+            margin="1em"
+            source={` const join = delim => list => list.join(delim) `}
+          />
+        </Slide>
 
+        <Slide><Heading fit>Why aren't we using Lodash?</Heading></Slide>
 
-          <Slide>
-            <Heading fit>Limitations of _.curry</Heading>
-            <Appear><Text textAlign="left">Only fixed arity functions</Text></Appear>
-            <List>
-              <Appear><ListItem>No default parameters</ListItem></Appear>
-              <Appear><ListItem>No args collection</ListItem></Appear>
-            </List>
-          </Slide>
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="js"
+          code={require("./sourceExamples/lodashCurry.js.txt")}
+          textSize="0.7em"
+          ranges={[
+            { loc: [0, 1], title: "The old school way" },
+            { loc: [2, 3], title: "Let Lodash curry for us" },
+            { loc: [4, 5], title: "Or curry the function inline" },
+            { loc: [6, 7], title: "Call it with all the params " },
+            { loc: [6, 8], title: "..and it evaluate immediately" },
+            { loc: [9, 10], title: <span>Call it with <i>some</i> parameters</span> },
+            { loc: [9, 10], title: <span>...and then with the rest</span> },
+            { loc: [9, 11], title: "And it evaluates" },
+            { loc: [12, 14], title: "Save that intermediary function" },
+            { loc: [15, 17], title: "And evaluate it later" },
+            { loc: [18, 20], title: "And reuse it" },
+          ]}
+        />
 
-          <Slide>
-            <Text textAlign="left">When would it </Text>
-            <CodePane lang="js" theme="light" textSize="1em" source={`huh = _.curry((x, y=1) => x+y)`} />
-            <Appear>
-              <CodePane lang="js" theme="light" textSize="1em" source={`huh(1) // Function or 2 `} />
-            </Appear>
-          </Slide>
+        <Slide>
+          <Heading fit>Limitations of _.curry</Heading>
+          <Appear><Text textAlign="left">Only fixed arity functions</Text></Appear>
+          <List>
+            <Appear><ListItem>No default parameters</ListItem></Appear>
+            <Appear><ListItem>No args collection</ListItem></Appear>
+          </List>
+        </Slide>
 
-          <CodeSlide
-            bgColor="secondary"
-            transition={[]}
-            lang="scala"
-            code={require("./sourceExamples/scalaCurry.scala.txt")}
-            textSize="0.7em"
-            ranges={[
-              { loc: [0,7], title: "Scala = 4 ways to do everything"},
-              { loc: [0,1], title: "Explicitly in a method"},
-              { loc: [2,3], title: "Explicitly in a function"},
-              { loc: [4,5], title: "Some magic"},
-              { loc: [6,7], title: "Placeholder magic"},
-            ]}
-            />
+        <Slide>
+          <Text textAlign="left">When would it </Text>
+          <CodePane lang="js" theme="light" textSize="1em" source={`huh = _.curry((x, y=1) => x+y)`} />
+          <Appear>
+            <CodePane lang="js" theme="light" textSize="1em" source={`huh(1) // Function or 2 `} />
+          </Appear>
+        </Slide>
 
-          <CodeSlide
-            bgColor="secondary"
-            transition={[]}
-            lang="javascript"
-            code={`
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="scala"
+          code={require("./sourceExamples/scalaCurry.scala.txt")}
+          textSize="0.7em"
+          ranges={[
+            { loc: [0, 7], title: "Scala = 4 ways to do everything" },
+            { loc: [0, 1], title: "Explicitly in a method" },
+            { loc: [2, 3], title: "Explicitly in a function" },
+            { loc: [4, 5], title: "Some magic" },
+            { loc: [6, 7], title: "Placeholder magic" },
+          ]}
+        />
+
+        <CodeSlide
+          bgColor="secondary"
+          transition={[]}
+          lang="javascript"
+          code={`
   const join = j => list => list.join(j)
 
   const querystringify = pipe(
@@ -597,95 +596,95 @@ f(10)
     join("&")
   )
             `}
-            textSize="0.7em"
-            ranges={[
-              { loc: [1,2], title: "Now we have a curried join"},
-              { loc: [2,9], title: "Use it in our function"},
-              { loc: [6,8], title: "It replaces both usages"},
-            ]}
-            />
+          textSize="0.7em"
+          ranges={[
+            { loc: [1, 2], title: "Now we have a curried join" },
+            { loc: [2, 9], title: "Use it in our function" },
+            { loc: [6, 8], title: "It replaces both usages" },
+          ]}
+        />
 
-            <Slide>
-              <Heading fit>Y U No _.join ?</Heading>
-              <Text margin="2em 0">
-                <Code padding="1em"> _.join(array, [separator=',']) </Code>
-              </Text>
-            </Slide>
+        <Slide>
+          <Heading fit>Y U No _.join ?</Heading>
+          <Text margin="2em 0">
+            <Code padding="1em"> _.join(array, [separator=',']) </Code>
+          </Text>
+        </Slide>
 
-            <Slide>
-              <Heading>2 problems</Heading>
-              <List>
-                <Appear><ListItem>the data comes first</ListItem></Appear>
-                <Appear><ListItem>it isn't fixed arity</ListItem></Appear>
-              </List>
-            </Slide>
+        <Slide>
+          <Heading>2 problems</Heading>
+          <List>
+            <Appear><ListItem>the data comes first</ListItem></Appear>
+            <Appear><ListItem>it isn't fixed arity</ListItem></Appear>
+          </List>
+        </Slide>
 
-            <Slide>
-              <Text textAlign="left">Example problem</Text>
-              <CodePane
-                lang="js"
-                theme="light"
-                textSize="1em"
-                source={`
+        <Slide>
+          <Text textAlign="left">Example problem</Text>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
   const f = _.join([1,2,3])
   // [Function] or "1,2,3"
                 `}
-                />
-            </Slide>
+          />
+        </Slide>
 
-            <Slide>
-              <Heading fit>Lodash's secret identity</Heading>
-            </Slide>
+        <Slide>
+          <Heading fit>Lodash's secret identity</Heading>
+        </Slide>
 
-            <Slide>
-              <Heading fit>Lodash FP</Heading>
-            </Slide>
+        <Slide>
+          <Heading fit>Lodash FP</Heading>
+        </Slide>
 
-            <Slide>
-              <Text>show lodash fp button the lodash homepage</Text>
-            </Slide>
+        <Slide>
+          <Text>show lodash fp button the lodash homepage</Text>
+        </Slide>
 
-            <Slide>
-              <Heading>Data Last</Heading>
-              <Text
-                textAlign="left"
-                margin="1em 0"
-                >
-                <Code>_.join(array, [separator = ","])</Code> </Text>
-              <Appear>
-                <Text textAlign="left"><Code>fp.join(separator, array)</Code> </Text>
-              </Appear>
-            </Slide>
+        <Slide>
+          <Heading>Data Last</Heading>
+          <Text
+            textAlign="left"
+            margin="1em 0"
+          >
+            <Code>_.join(array, [separator = ","])</Code> </Text>
+          <Appear>
+            <Text textAlign="left"><Code>fp.join(separator, array)</Code> </Text>
+          </Appear>
+        </Slide>
 
-            <Slide>
-              <Heading>Simple Curry</Heading>
-              <Text
-                textAlign="left"
-                margin="1em 0" >
-                <Code> dashIt = _.curry(_.join)(_._, "-")</Code></Text>
-              <Appear><Text textAlign="left"><Code>dashIt = fp.join("-")</Code> </Text></Appear>
-            </Slide>
+        <Slide>
+          <Heading>Simple Curry</Heading>
+          <Text
+            textAlign="left"
+            margin="1em 0" >
+            <Code> dashIt = _.curry(_.join)(_._, "-")</Code></Text>
+          <Appear><Text textAlign="left"><Code>dashIt = fp.join("-")</Code> </Text></Appear>
+        </Slide>
 
-            <Slide>
-              <Heading>Fixed Arity</Heading>
-              <Text>Fixed arity means no default args.</Text>
-              <Text textAlign="left" margin="1em 0">
-                <Code textSize="0.9em"> _.get(object, path, [defaultValue])</Code>
-              </Text>
-            </Slide>
+        <Slide>
+          <Heading>Fixed Arity</Heading>
+          <Text>Fixed arity means no default args.</Text>
+          <Text textAlign="left" margin="1em 0">
+            <Code textSize="0.9em"> _.get(object, path, [defaultValue])</Code>
+          </Text>
+        </Slide>
 
-            <Slide>
-              <Heading fit>Aliases to the Rescue</Heading>
-              <Text textAlign="left" margin="1em 0">
-                <Code>fp.get(path, object) </Code></Text>
-              <Text textAlign="left" margin="1em 0">
-                <Code>fp.getOr(path, object, default) </Code></Text>
-            </Slide>
+        <Slide>
+          <Heading fit>Aliases to the Rescue</Heading>
+          <Text textAlign="left" margin="1em 0">
+            <Code>fp.get(path, object) </Code></Text>
+          <Text textAlign="left" margin="1em 0">
+            <Code>fp.getOr(path, object, default) </Code></Text>
+        </Slide>
 
-            <CodeSlide
-              bgColor="secondary"
-              lang="javascript"
-              code={`
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={`
 const join = require('lodash/fp/join')
 
 const querystringify = pipe(
@@ -695,21 +694,21 @@ const querystringify = pipe(
   join("&")
 )
 `}
-              ranges={[
-                { loc: [1,2], title: "Require fp.join"},
-                { loc: [3,8] },
-                { loc: [6,8], title: "No change in usage"},
-              ]}
-              />
+          ranges={[
+            { loc: [1, 2], title: "Require fp.join" },
+            { loc: [3, 8] },
+            { loc: [6, 8], title: "No change in usage" },
+          ]}
+        />
 
-            <Slide>
-              <Heading fit>What else?</Heading>
-            </Slide>
+        <Slide>
+          <Heading fit>What else?</Heading>
+        </Slide>
 
-            <CodeSlide
-              bgColor="secondary"
-              lang="javascript"
-              code={`
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={`
 const join = require('lodash/fp/join')
 const pipe = require('lodash/fp/pipe')
 
@@ -720,18 +719,18 @@ const querystringify = pipe([
   join("&")
 ])
             `}
-              ranges={[
-                { loc: [2,3], title: "fp.pipe"},
-                { loc: [4,10], title: "Wrap functions in array"},
-                { loc: [5,6], title: "Let's implement this"},
-              ]}
-            />
+          ranges={[
+            { loc: [2, 3], title: "fp.pipe" },
+            { loc: [4, 10], title: "Wrap functions in array" },
+            { loc: [5, 6], title: "Let's implement this" },
+          ]}
+        />
 
-            <CodeSlide
-              bgColor="secondary"
-              lang="javascript"
-              code={
-`const fp = require("lodash/fp")
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `const fp = require("lodash/fp")
 
 // {a: 1, b: null} → [[a,1]]
 const removeMissing = fp.pipe([
@@ -745,25 +744,25 @@ const querystringify = fp.pipe([
   fp.join("="),
   fp.join("&")
 ]) `}
-              ranges={[
-                { loc: [0,1], title: "We're going to use more of fp"},
-                { loc: [3,7] },
-                { loc: [3,4], title: "fp.pipe is a almost everywhere"},
-                { loc: [4,5], title: "tuple the object"},
-                { loc: [5,6], title: "remove undefined values"},
-                { loc: [2,3], title: "func takes obj → arr"},
-                { loc: [3,7], title: "...but there's points"},
-                { loc: [5,7], title: "[k,v] are function parameters"},
-              ]}
-              />
+          ranges={[
+            { loc: [0, 1], title: "We're going to use more of fp" },
+            { loc: [3, 7] },
+            { loc: [3, 4], title: "fp.pipe is a almost everywhere" },
+            { loc: [4, 5], title: "tuple the object" },
+            { loc: [5, 6], title: "remove undefined values" },
+            { loc: [2, 3], title: "func takes obj → arr" },
+            { loc: [3, 7], title: "...but there's points" },
+            { loc: [5, 7], title: "[k,v] are function parameters" },
+          ]}
+        />
 
-              <Slide><Heading fit>The Pointfree Version</Heading></Slide>
+        <Slide><Heading fit>The Pointfree Version</Heading></Slide>
 
-              <CodeSlide
-                bgColor="secondary"
-                lang="javascript"
-                code={
-`const fp = require("lodash/fp")
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `const fp = require("lodash/fp")
 
 // {a: 1, b: null} → [[a,1]]
 const removeMissing = fp.pipe([
@@ -781,17 +780,17 @@ const querystringify = fp.pipe([
   fp.join("="),
   fp.join("&")
                 ]) `}
-                ranges={[
-                  { loc: [3,11], title: "OMG! What?"},
-                ]}
-              />
+          ranges={[
+            { loc: [3, 11], title: "OMG! What?" },
+          ]}
+        />
 
 
-              <CodeSlide
-                bgColor="secondary"
-                lang="javascript"
-                code={
-`// [k,v] → Bool
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `// [k,v] → Bool
 const valuePresent =
   fp.negate(
     fp.pipe(
@@ -809,73 +808,73 @@ const querystringify = fp.pipe([
   fp.join("="),
   fp.join("&")
 ]) `}
-                ranges={[
-                  { loc: [0,6], title: "Make functions smaller"},
-                  { loc: [7,11], title: "Easier to understand"},
-                ]}
-                />
+          ranges={[
+            { loc: [0, 6], title: "Make functions smaller" },
+            { loc: [7, 11], title: "Easier to understand" },
+          ]}
+        />
 
-              <Slide>
-                <Heading>Even Easier</Heading>
-                <CodePane
-                  lang="js"
-                  theme="light"
-                  textSize="1em"
-                  source={`
+        <Slide>
+          <Heading>Even Easier</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
     const removeMissing =
       fp.pickBy(fp.negate(fp.isNil))
                   `}
-                  />
-              </Slide>
+          />
+        </Slide>
 
 
-              <CodeSlide
-                bgColor="secondary"
-                lang="javascript"
-                code={
-                  `// {k: v, ...} → [[f(k): f(v)], ...]
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `// {k: v, ...} → [[f(k): f(v)], ...]
 const encode =
   fp.pipe(
     fp.toPairs,
     fp.map(
       fp.map(lib.urlEncode)))
                 `}
-                ranges={[
-                  { loc: [0,6], title: "Our encode function"},
-                  { loc: [0,2], title: "take an object and return tuple"},
-                  { loc: [2,3], title: "familiar pipe"},
-                  { loc: [3,4], title: "convert to tuples"},
-                  { loc: [4,5], title: "for each tuple"},
-                  { loc: [5,6], title: "apply the function to both sides"},
-                  { loc: [4,6], title: "common pattern"},
-                ]}
-                />
+          ranges={[
+            { loc: [0, 6], title: "Our encode function" },
+            { loc: [0, 2], title: "take an object and return tuple" },
+            { loc: [2, 3], title: "familiar pipe" },
+            { loc: [3, 4], title: "convert to tuples" },
+            { loc: [4, 5], title: "for each tuple" },
+            { loc: [5, 6], title: "apply the function to both sides" },
+            { loc: [4, 6], title: "common pattern" },
+          ]}
+        />
 
-              <CodeSlide
-                bgColor="secondary"
-                lang="javascript"
-                code={
-                  `// {k: v, ...} → [[f(k): f(v)], ...]
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `// {k: v, ...} → [[f(k): f(v)], ...]
 const encode =
   fp.pipe(
     fp.toPairs,
     fp.flatMap(lib.urlEncode),
     fp.chunk(2))
                 `}
-                ranges={[
-                  { loc: [4,5], title: "that's why we have flatMap"},
-                  { loc: [5,6], title: "convert back to tuples"},
-                  { loc: [0,6]},
-                  { loc: [0,6], title: "The pattern is reusable"},
-                  { loc: [4,5], title: "except this..."},
-                ]}
-                />
+          ranges={[
+            { loc: [4, 5], title: "that's why we have flatMap" },
+            { loc: [5, 6], title: "convert back to tuples" },
+            { loc: [0, 6] },
+            { loc: [0, 6], title: "The pattern is reusable" },
+            { loc: [4, 5], title: "except this..." },
+          ]}
+        />
 
-              <CodeSlide
-                bgColor="secondary"
-                lang="javascript"
-                code={
-                  `// {k: v, ...} → [[f(k): f(v)], ...]
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `// {k: v, ...} → [[f(k): f(v)], ...]
 const mapKeyValue =
   f => fp.pipe(
         fp.toPairs,
@@ -883,61 +882,61 @@ const mapKeyValue =
         fp.chunk(2))
 
 const encode = mapKeyValue(lib.urlEncode) `}
-                ranges={[
-                  { loc: [0,6], title: "This is reusable"},
-                  { loc: [7,8], title: "...and this is readable"},
-                  { loc: [2,3], title: "We didn't remove all the points"},
-                ]}
-                />
+          ranges={[
+            { loc: [0, 6], title: "This is reusable" },
+            { loc: [7, 8], title: "...and this is readable" },
+            { loc: [2, 3], title: "We didn't remove all the points" },
+          ]}
+        />
 
-                <Slide ><Heading >We're done!</Heading></Slide>
+        <Slide ><Heading >We're done!</Heading></Slide>
 
-                <CodeSlide
-                  bgColor="secondary"
-                  lang="javascript"
-                  code={
-  `// {a: 1, b: null} → {a: 1}
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          code={
+            `// {a: 1, b: null} → {a: 1}
 const removeMissing =
-        fp.pickBy(fp.negate(fp.isNil))
+        pickBy(negate(isNil))
 
 // f → {k: v, ...} → [[f(k), f(v)], ...]
 const mapKeyValue =
-        f => fp.pipe(
-                fp.toPairs,
-                fp.flatMap(f),
-                fp.chunk(2))
+        f => pipe([
+                toPairs,
+                flatMap(f),
+                chunk(2)])
 
 // Object → String
-const querystringify = fp.pipe([
+const querystringify = pipe([
   removeMissing,
   mapKeyValue(lib.urlEncode),
-  fp.join("="),
-  fp.join("&")
+  join("="),
+  join("&")
 ])
              ` }
-                  ranges={[
-                    { loc: [0,17] },
-                    { loc: [0,3] },
-                    { loc: [4,10] },
-                    { loc: [11,18] },
-                    { loc: [1,10], title: "All Library Code" },
-                    { loc: [11,18], title: "Business Code is 1 Function" },
-                  ]}
-                  />
+          ranges={[
+            { loc: [0, 17] },
+            { loc: [0, 3] },
+            { loc: [4, 10] },
+            { loc: [11, 18] },
+            { loc: [1, 10], title: "All Library Code" },
+            { loc: [11, 18], title: "Business Code is 1 Function" },
+          ]}
+        />
 
 
-                  <Slide>
-                    <Heading>More fp!</Heading>
-                  </Slide>
+        <Slide>
+          <Heading>More fp!</Heading>
+        </Slide>
 
-                  <Slide>
-                    <Heading>fp.cond</Heading>
-                    <CodePane
-                      lang="js"
-                      theme="light"
-                      textSize="1em"
-                      textSize="0.9em"
-                      source={`
+        <Slide>
+          <Heading>fp.cond</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            textSize="0.9em"
+            source={`
   fp.cond([
     [predicateFunction, appliedWhenTrue],
     [ (x => x < 0),     (x) => log(x, "is bad")],
@@ -945,21 +944,21 @@ const querystringify = fp.pipe([
     [ fp.T,             thisIsTheDefaultFunction ]
   ])
                       `}
-                      />
-                  </Slide>
+          />
+        </Slide>
 
-                  <Slide>
-                    <Heading fit>Works like <code>switch</code></Heading>
-                    <Text>...but it returns</Text>
-                  </Slide>
+        <Slide>
+          <Heading fit>Works like <code>switch</code></Heading>
+          <Text>...but it returns</Text>
+        </Slide>
 
-                  <Slide>
-                    <Heading fit>I've seen this a time or two</Heading>
-                    <CodePane
-                      lang="js"
-                      theme="light"
-                      textSize="0.8em"
-                      source={`
+        <Slide>
+          <Heading fit>I've seen this a time or two</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="0.8em"
+            source={`
 const isAction = fp.isEqual
 
 const incrementCount = (action, state) => state + 1
@@ -970,8 +969,8 @@ export default = fp.cond([
   [fp.T,                   previousState ]
 ])
                         `}
-                        />
-                  </Slide>
+          />
+        </Slide>
 
         <Slide
           bgImage={images.more}
@@ -979,75 +978,75 @@ export default = fp.cond([
         >
         </Slide>
 
-                  <Slide>
-                    <Heading fit>Pointfree Average</Heading>
-                    <CodePane
-                      lang="js"
-                      theme="light"
-                      textSize="1em"
-                      margin="1em 0"
-                      source={
-`// [Number] → Number
+        <Slide>
+          <Heading fit>Pointfree Average</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            margin="1em 0"
+            source={
+              `// [Number] → Number
 const average = fp.compose(
                   fp.spread(fp.divide),
                   fp.over([fp.sum, fp.size]))
 
 average([1,2]) // 1.5 `}
-                        />
-                  </Slide>
+          />
+        </Slide>
 
-                  <Slide>
-                    <Heading><code>fp.over</code></Heading>
-                    <Text margin="1em 0">
-                      Apply a value over an array of functions</Text>
-                    <CodePane
-                      lang="js"
-                      theme="light"
-                      textSize="1em"
-                      source={`
+        <Slide>
+          <Heading><code>fp.over</code></Heading>
+          <Text margin="1em 0">
+            Apply a value over an array of functions</Text>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
   // [(a→x), (b→y), ...] → a → [x,y]
 
   fp.over([fp.sum, fp.size]) ([10, 5])
   // [15, 2]
                       `}
-                      />
-                  </Slide>
+          />
+        </Slide>
 
-                  <Slide>
-                    <Heading><code>fp.spread</code></Heading>
-                    <Text margin="1em 0">
-                      Apply an array to a function that takes multiple parameters
+        <Slide>
+          <Heading><code>fp.spread</code></Heading>
+          <Text margin="1em 0">
+            Apply an array to a function that takes multiple parameters
                     </Text>
-                    <CodePane
-                      lang="js"
-                      theme="light"
-                      textSize="1em"
-                      source={`
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            source={`
   // (x,y,z,... → A) → [x,y,z,...] → A
 
   fp.divide(15,2) // 7.5
   fp.spread(fp.divide)([15,2]) // 7.5
                       `}
-                      />
-                  </Slide>
+          />
+        </Slide>
 
-                  <Slide>
-                    <Heading fit>Pointfree Average</Heading>
-                    <CodePane
-                      lang="js"
-                      theme="light"
-                      textSize="1em"
-                      margin="1em 0"
-                      source={
-`// [Number] → Number
+        <Slide>
+          <Heading fit>Pointfree Average</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            margin="1em 0"
+            source={
+              `// [Number] → Number
 const average = fp.compose(
                   fp.spread(fp.divide),
                   fp.over([fp.sum, fp.size]))
 
 average([1,2]) // 1.5
                       `}
-                      />
-                  </Slide>
+          />
+        </Slide>
 
       </Deck>
     );
