@@ -1,0 +1,24 @@
+object Encoder {
+  val letters = 'a'.to('z').toSeq
+  val vowels = "aeiou".toSeq
+  val consonants = letters.filterNot(vowels.contains).toSeq
+  val prevChar = (_:Char).toInt.-(1).toChar
+  val asChar = (_:Int).toString.head
+
+  val swapVowel =
+    vowels
+      .zip(1 to vowels.length)
+      .map { case (c,i) => c -> asChar(i)}
+
+  val swapConsonant =
+    consonants
+      .filterNot(_ == 'y')
+      .map { c => c -> prevChar(c)}
+      
+  val yCraziness = ' ' -> 'y' ::  'y' -> ' ' :: Nil
+  val otherChar = Map(swapConsonant ++ swapVowel ++ yCraziness : _*)
+  val swapChars = (_:String).map{ c => otherChar.getOrElse(c,c) }
+  val reverseInt = raw"(\d+)".r.replaceAllIn(_:String, _.group(1).reverse)
+
+  val encode = reverseInt.andThen(swapChars)
+}

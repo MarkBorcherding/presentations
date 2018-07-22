@@ -1,0 +1,8 @@
+function part1(input) {
+  let checksum = 0;
+
+  input = input + input[0];
+  input.replace(/(.)(?=\1)/g, (_, nr) => checksum += +nr);
+
+  return checksum;
+}

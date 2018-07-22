@@ -1,0 +1,18 @@
+import R from 'ramda'
+
+const cycle = R.curry((n, list) => {
+  const [head, tail] = R.splitAt(n)(list)
+  return [...tail, ...head]
+})
+
+const first = R.map(R.head)
+const matching = R.filter(([a, b]) => a === b)
+const pairWith = f => R.converge(R.zip, [f, R.identity])
+const neighbors = cycle(1)
+
+export default R.compose(
+  sum,
+  first,
+  matching,
+  pairWith(neighbors),
+)

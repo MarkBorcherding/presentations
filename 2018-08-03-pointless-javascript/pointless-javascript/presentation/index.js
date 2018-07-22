@@ -10,6 +10,7 @@ import {
   CodePane,
   Deck,
   Heading,
+  Image,
   ListItem,
   List,
   Quote,
@@ -27,7 +28,9 @@ require('prismjs/components/prism-scala')
 
 
 const images = {
-  more: require('../assets/more.gif')
+  more: require('../assets/more.gif'),
+  maz: require('../assets/maz.gif'),
+  distracted: require('../assets/distracted.jpg')
 };
 
 // Require CSS
@@ -50,11 +53,13 @@ export default class Presentation extends React.Component {
   render() {
     return (
       <Deck theme={theme} transition={[]} transitionDuration={0} progress="number">
+
         <Slide bgColor="primary">
           <Heading size={1} fit lineHeight={1} textColor="secondary">
             Pointless JavaScript
           </Heading>
         </Slide>
+
         <Slide>
           <Heading size={1} fit>
             Mark Borcherding
@@ -64,16 +69,25 @@ export default class Presentation extends React.Component {
             :octocat:/markborcherding
           </Heading>
         </Slide>
+        
         <Slide bgColor="primary">
           <Heading size={1} fit lineHeight={1} textColor="secondary">
             Pointless JavaScript
           </Heading>
         </Slide>
+
+        <Slide>gif</Slide>
+        
+        <Slide>left-pad</Slide>
+
+        <Slide>all npm</Slide>
+
         <Slide bgColor="primary">
           <Heading size={2} fit lineHeight={1} textColor="secondary">
             Point-Free JavaScript
           </Heading>
         </Slide>
+
         <Slide bgColor="primary">
           <Heading size={4} lineHeight={1} textColor="secondary">
             Elevating the readability of JavaScript using functional
@@ -81,6 +95,7 @@ export default class Presentation extends React.Component {
             without function parameters.
           </Heading>
         </Slide>
+        
         <Slide bgColor="primary">
           <Heading size={4} lineHeight={1} textColor="secondary">
             Elevating the readability of JavaScript
@@ -1047,6 +1062,144 @@ average([1,2]) // 1.5
                       `}
           />
         </Slide>
+
+        <Slide>
+          <Heading fit>RTM</Heading>
+          <Text>Aliases, variadic replacements, rearranged arguments, oh my</Text>
+        </Slide>
+
+        <Slide>
+          <Heading>Eventually</Heading>
+          <Image src={images.distracted} />
+        </Slide>
+
+        <Slide>
+          <Heading>Ramda</Heading>
+          image
+        </Slide>
+
+        <Slide>
+          <Heading>Ramda</Heading>
+          image
+        </Slide>
+
+        <Slide>
+          <Heading>Why?</Heading>
+        </Slide>
+
+        <Slide>
+          <Heading fit>Useful Standard Libary</Heading>
+          <CodePane
+            lang="js"
+            theme="light"
+            textSize="1em"
+            margin="1em 0"
+            source={`
+  // same as fp.apply + fp.spread from earlier
+  R.converge(R.divide, [R.length, R.always(2)]) 
+              `}
+          />
+        </Slide>
+
+        <Slide bgImage={images.maz} bgDarken={0.4}>
+          <Heading fit textColor="primary">Lenses</Heading>
+          <Text textColor="white">Focus operations on parts of a data structure.</Text>
+        </Slide>
+
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          textSize="0.8em"
+          code={require("./sourceExamples/advent.of.code.js.txt")}
+          ranges={[
+            { loc: [0, 18], title:"Advent of Code" },
+            { loc: [12, 18] },
+            { loc: [13, 14] },
+            { loc: [15, 16] },
+            { loc: [16, 17] },
+            { loc: [12, 18] },
+          ]}
+          />
+
+        <CodeSlide
+          bgColor="secondary"
+          lang="javascript"
+          textSize="0.8em"
+          code={require("./sourceExamples/advent.of.code.someoneelse.js.txt")}
+          ranges={[
+            { loc: [0, 0], title: "High ★ version from Github"},
+            { loc: [0,9], title: "Huh?"},
+          ]}
+          />
+
+        <CodeSlide
+          bgColor="secondary"
+          lang="scala"
+          textSize="0.6em"
+          code={require("./sourceExamples/encoder.scala.txt")}
+          ranges={[
+            { loc: [0, 24], title: "String Encoder"},
+            { loc: [22, 23] },
+          ]}
+          />
+
+        <Slide>
+          <Heading fit>Sounds great!</Heading>
+        </Slide>
+
+        <Slide>
+          <Heading fit>What's the catch?</Heading>
+        </Slide>
+
+        <Slide bgImage={require("../assets/noidea.gif")} bgDarken={0.5}>
+          <Heading fit>Typescript Support</Heading>
+          <Text textSize="3em" margin="1em 0" textColor="primary" bold>¯\_(ツ)_/¯</Text>
+        </Slide>
+
+        <Slide bgColor="#2a2734">
+          <Heading>Debugging</Heading>
+          <Text textColor="primary">There is no where to place a breakpoint.</Text>
+          <CodePane
+            lang="js"
+            theme="dark"
+            textSize="1em"
+            margin="1em 0"
+            source={`
+    const querystringify = pipe([
+      removeMissing,
+      mapKeyValue(lib.urlEncode),
+      join("="),
+      join("&")
+    ])
+            `}
+            />
+        </Slide>
+
+        <Slide bgColor="#2a2734">
+          <Heading fit>Debugging Fixed</Heading>
+          <Text textColor="primary">Invoke the debugger directly</Text>
+          <CodePane
+            lang="js"
+            theme="dark"
+            textSize="1em"
+            margin="1em 0"
+            source={`
+    const querystringify = pipe([
+      removeMissing,
+      fp.tap(debugger), //<-- ESLint hates this
+      mapKeyValue(lib.urlEncode),
+      join("="),
+      join("&")
+    ])
+            `}
+            />
+        </Slide>
+
+        <Slide ><Heading >When not to use it</Heading></Slide>
+        
+        <Slide ><Heading >Questions</Heading></Slide>
+
+
 
       </Deck>
     );
