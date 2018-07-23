@@ -41,7 +41,8 @@ const theme = createTheme(
     primary: "white",
     secondary: "#1F2022",
     tertiary: "#03A9FC",
-    quarternary: "#CECECE"
+    quarternary: "#CECECE",
+    code: '#2a2734'
   },
   {
     primary: "Montserrat",
@@ -142,7 +143,7 @@ export default class Presentation extends React.Component {
           <Text> ...writing function that don't define arguments </Text>
         </Slide>
 
-        <Slide bgColor="secondary" textColor="primary">
+        <Slide bgColor="code" textColor="primary">
           <Heading textColor="primary" size={4}>mandatory wikipedia quote: </Heading>
           <BlockQuote>
             <Quote textSize="1em">
@@ -158,7 +159,7 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           theme="dark"
           transition={[]}
           lang="js"
@@ -171,7 +172,7 @@ export default class Presentation extends React.Component {
           ]}/>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           theme="dark"
           transition={[]}
           lang="js"
@@ -189,7 +190,7 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           theme="dark"
           transition={[]}
           lang="js"
@@ -210,7 +211,7 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           code={require("./sourceExamples/lodashFirst.js.txt")}
@@ -229,7 +230,7 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           code={require("./sourceExamples/lodasChain.js.txt")}
@@ -239,7 +240,7 @@ export default class Presentation extends React.Component {
           ]}/>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           code={require("./sourceExamples/lodashChainNamed.js.txt")}
@@ -265,7 +266,7 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           code={require("./sourceExamples/lodashChainNamed.js.txt")}
@@ -290,28 +291,28 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide>
-          <Heading padding="1em " fit>What we need is pipe from Bash</Heading>
+          <Heading fit>What we need is pipe from Bash</Heading>
           <Terminal
             title="1: ~(zsh)"
-            output={[`ps -ef | grep "java" | awk '{ print \$1 }' | xargs kill -9 `]}
+            output={[`$ ps -ef | grep "java" | awk '{ print \$1 }' | xargs kill -9 `]}
           />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>Let's makeup pipe</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={require("./sourceExamples/stepsAsText.txt")}
             />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>A little closer to JS</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={require("./sourceExamples/stepsAsJs.js.txt")}
             />
@@ -326,11 +327,11 @@ export default class Presentation extends React.Component {
           <Text>and returns a new function <Code>x&rarr;z</Code></Text>
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>A really dumb version</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             padding="1em"
             source={`
@@ -343,11 +344,11 @@ export default class Presentation extends React.Component {
             />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>A really dumb version</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     const pipe = (f,g,h) => x => h(g(f(x)))
@@ -356,11 +357,11 @@ export default class Presentation extends React.Component {
         </Slide>
 
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>Now pipe makes sense</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
         querystringify = pipe(
@@ -373,11 +374,12 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           textSize="0.8em"
           code={`
+// [(a→b), (b→c), ..., (y→z)] → a → z
 const pipe = funcs => x => funcs.reduce((v, f) => f(v), x)
 
 
@@ -388,14 +390,14 @@ f(10)
 // '110!'
           `}
           ranges={[
-            { loc: [1, 2], title: "Pipe is reduce over functions"},
-            { loc: [4, 7], title: "Pass pipe some functions"},
-            { loc: [4, 9], title: "And invoke it later" },
+            { loc: [1, 3], title: "Pipe is reduce over functions"},
+            { loc: [5, 8], title: "Pass pipe some functions"},
+            { loc: [5, 10], title: "And invoke it later" },
           ]}/>
 
         <Slide>
-          <Heading padding="1em " fit>What we need is pipe from Bash</Heading>
-          <Terminal title="1: ~(zsh)" output={[`ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `]} />
+          <Heading fit>What we need is pipe from Bash</Heading>
+          <Terminal title="1: ~(zsh)" output={[`$ ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `]} />
         </Slide>
 
         <Slide>
@@ -474,7 +476,7 @@ f(10)
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           code={
@@ -545,7 +547,7 @@ f(10)
         <Slide><Heading fit>Why aren't we using Lodash?</Heading></Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="js"
           code={require("./sourceExamples/lodashCurry.js.txt")}
@@ -583,7 +585,7 @@ f(10)
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="scala"
           code={require("./sourceExamples/scalaCurry.scala.txt")}
@@ -598,7 +600,7 @@ f(10)
         />
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           transition={[]}
           lang="javascript"
           code={`
@@ -697,7 +699,7 @@ f(10)
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={`
 const join = require('lodash/fp/join')
@@ -721,7 +723,7 @@ const querystringify = pipe(
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={`
 const join = require('lodash/fp/join')
@@ -742,7 +744,7 @@ const querystringify = pipe([
         />
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `const fp = require("lodash/fp")
@@ -774,7 +776,7 @@ const querystringify = fp.pipe([
         <Slide><Heading fit>The Pointfree Version</Heading></Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `const fp = require("lodash/fp")
@@ -802,7 +804,7 @@ const querystringify = fp.pipe([
 
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `// [k,v] → Bool
@@ -844,7 +846,7 @@ const querystringify = fp.pipe([
 
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `// {k: v, ...} → [[f(k): f(v)], ...]
@@ -866,7 +868,7 @@ const encode =
         />
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `// {k: v, ...} → [[f(k): f(v)], ...]
@@ -886,7 +888,7 @@ const encode =
         />
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `// {k: v, ...} → [[f(k): f(v)], ...]
@@ -907,7 +909,7 @@ const encode = mapKeyValue(lib.urlEncode) `}
         <Slide ><Heading >We're done!</Heading></Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           code={
             `// {a: 1, b: null} → {a: 1}
@@ -1107,7 +1109,7 @@ average([1,2]) // 1.5
         </Slide>
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           textSize="0.8em"
           code={require("./sourceExamples/advent.of.code.js.txt")}
@@ -1122,7 +1124,7 @@ average([1,2]) // 1.5
           />
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="javascript"
           textSize="0.8em"
           code={require("./sourceExamples/advent.of.code.someoneelse.js.txt")}
@@ -1133,7 +1135,7 @@ average([1,2]) // 1.5
           />
 
         <CodeSlide
-          bgColor="secondary"
+          bgColor="code"
           lang="scala"
           textSize="0.6em"
           code={require("./sourceExamples/encoder.scala.txt")}
@@ -1151,12 +1153,39 @@ average([1,2]) // 1.5
           <Heading fit>What's the catch?</Heading>
         </Slide>
 
+        <Slide bgColor="code">
+          <Heading fit>What is this?</Heading>
+          <CodePane
+            lang="js"
+            theme="dark"
+            textSize="1em"
+            margin="1em 0"
+            source={`
+    const foo = fp.getOr('name')
+            `}
+            />
+        </Slide>
+
+        <Slide bgColor="code">
+          <Heading fit>What is this?</Heading>
+          <CodePane
+            lang="js"
+            theme="dark"
+            textSize="1em"
+            margin="1em 0"
+            source={`
+    // default → {name: v} → v | default
+    const foo = fp.getOr('name')
+            `}
+            />
+        </Slide>
+
         <Slide bgImage={require("../assets/noidea.gif")} bgDarken={0.5}>
           <Heading fit>Typescript Support</Heading>
           <Text textSize="3em" margin="1em 0" textColor="primary" bold>¯\_(ツ)_/¯</Text>
         </Slide>
 
-        <Slide bgColor="#2a2734">
+        <Slide bgColor="code">
           <Heading>Debugging</Heading>
           <Text textColor="primary">There is no where to place a breakpoint.</Text>
           <CodePane
@@ -1175,7 +1204,7 @@ average([1,2]) // 1.5
             />
         </Slide>
 
-        <Slide bgColor="#2a2734">
+        <Slide bgColor="code">
           <Heading fit>Debugging Fixed</Heading>
           <Text textColor="primary">Invoke the debugger directly</Text>
           <CodePane
@@ -1186,7 +1215,7 @@ average([1,2]) // 1.5
             source={`
     const querystringify = pipe([
       removeMissing,
-      fp.tap(debugger), //<-- ESLint hates this
+      fp.tap(debugger), // eslint-disable-line
       mapKeyValue(lib.urlEncode),
       join("="),
       join("&")
@@ -1195,11 +1224,34 @@ average([1,2]) // 1.5
             />
         </Slide>
 
-        <Slide ><Heading >When not to use it</Heading></Slide>
-        
-        <Slide ><Heading >Questions</Heading></Slide>
+        <Slide>
+          <Heading fit>When not to use it</Heading>
+          <Text>Whenever it doesn't make sense.</Text>
+        </Slide>
+
+        <Slide>
+          <Heading fit italic>TL;DR;</Heading>
+          <Appear>
+            <Text>Favor&nbsp;
+              <span style={{background: "#bada55"}}>functional composition</span> over&nbsp;
+              <span style={{background: "#f66"}}>chaining</span> to give meaningful names to your transformations.
+            </Text>
+          </Appear>
+        </Slide>
+
+        <Slide>
+          <Heading fit italic>TL;DR;</Heading>
+          <Text>
+            Break
+            <span style={{background: '#f66'}}>larger functions</span> into&nbsp;
+            <span style={{background: '#bada55'}}>smaller</span>,&nbsp;
+            <span style={{background: '#bada55'}}>composible</span> functions with&nbsp;
+            <span style={{background: '#bada55'}}>meaningful&nbsp;names</span>.
+          </Text>
+        </Slide>
 
 
+        <Slide><Heading fit>Questions?</Heading></Slide>
 
       </Deck>
     );
