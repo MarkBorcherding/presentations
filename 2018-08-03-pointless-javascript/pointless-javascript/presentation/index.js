@@ -217,7 +217,7 @@ export default class Presentation extends React.Component {
           textSize="0.9em"
           ranges={[
             { loc: [0, 11], title: "What does this do?" },
-            { loc: [0, 11], title: "No one knows" },
+            { loc: [0, 11], title: "Unknowable" },
           ]}/>
 
 
@@ -411,9 +411,9 @@ const pipe = funcs => x => funcs.reduce((v, f) => f(v), x)
 
 const f = pipe([x=>x+1,
                 x=>x*10,
-                x=>x +"!"])
+                x=>x +"% awesome"])
 f(10)
-// '110!'
+// '110% awesome'
           `}
           ranges={[
             { loc: [1, 3], title: "Pipe is reduce over functions"},
@@ -498,10 +498,10 @@ f(10)
           <Heading fit>Why do we need two?</Heading>
           <Text >It depends on how someone would think about the problem.</Text>
           <Appear>
-            <Text margin="1em"><Code textSize="0.6em">pipe(step1, step2, step3, step4)</Code></Text>
+            <Text margin="1em"><Code textSize="0.9em">pipe(step1, step2, step3, step4)</Code></Text>
           </Appear>
           <Appear>
-            <Text margin="1em"><Code textSize="0.6em">compose(avg, hits, top10, nationalLeague, catchers)</Code></Text>
+            <Text margin="1em"><Code textSize="0.9em">compose(avg, top10, hits, catchers)</Code></Text>
           </Appear>
         </Slide>
 
