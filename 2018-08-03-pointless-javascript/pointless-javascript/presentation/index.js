@@ -13,6 +13,7 @@ import {
   Image,
   ListItem,
   List,
+  Notes,
   Quote,
   Slide,
   Text
@@ -55,78 +56,94 @@ export default class Presentation extends React.Component {
     return (
       <Deck theme={theme} transition={[]} transitionDuration={0} progress="number">
 
-        <Slide bgColor="primary">
-          <Heading size={1} fit lineHeight={1} textColor="secondary">
+        <Slide bgColor="code">
+          <Heading size={1} fit lineHeight={1}>
+            Pointless JavaScript
+          </Heading>
+        </Slide>
+
+        <Slide bgImage={require("../assets/hi.gif")} bgPosition="top"> 
+          <Heading size={1} fit>
+            Mark Borcherding
+          </Heading>
+            
+            <Text textSize="2em" bold textColor="primary" textAlign="left">
+              <img
+                src={require("../assets/slack.png")}
+                style={{
+                  height: "1.5em",
+                  width: "1.5em",
+                  display: "inline-block",
+                  verticalAlign: "middle"
+                }}
+                /> 
+                @mark.borcherding
+            </Text>
+            <Text textSize="2em" bold textColor="primary" textAlign="left">
+              <img
+                src={require("../assets/octocat.png")}
+                style={{
+                  height: "1.5em",
+                  width: "1.5em",
+                  display: "inline-block",
+                  verticalAlign: "middle"
+                }}
+                /> 
+              markborcherding
+            </Text>
+        </Slide>
+        
+        <Slide>
+          <Heading size={1} fit lineHeight={1}>
+            Pointless JavaScript
+          </Heading>
+        </Slide>
+
+        <Slide bgImage={ require("../assets/pointless.gif") } ></Slide>
+        
+        <Slide bgImage={ require("../assets/leftpad.png") } bgPosition="top" ></Slide>
+
+        <Slide>
+          <Heading size={1} fit lineHeight={1}>
             Pointless JavaScript
           </Heading>
         </Slide>
 
         <Slide>
-          <Heading size={1} fit>
-            Mark Borcherding
-          </Heading>
-          <Heading size={4} textColor="secondary">
-            :slack @mark.borcherding
-            :octocat:/markborcherding
-          </Heading>
-        </Slide>
-        
-        <Slide bgColor="primary">
-          <Heading size={1} fit lineHeight={1} textColor="secondary">
-            Pointless JavaScript
-          </Heading>
-        </Slide>
-
-        <Slide>gif</Slide>
-        
-        <Slide>left-pad</Slide>
-
-        <Slide>all npm</Slide>
-
-        <Slide bgColor="primary">
-          <Heading size={2} fit lineHeight={1} textColor="secondary">
-            Point-Free JavaScript
+          <Heading size={1} fit lineHeight={1}>
+            Point-free JavaScript
           </Heading>
         </Slide>
 
         <Slide bgColor="primary">
-          <Heading size={4} lineHeight={1} textColor="secondary">
+          <Heading textSize="2em">
             Elevating the readability of JavaScript using functional
             composition, partial function application and currying....and
             without function parameters.
           </Heading>
         </Slide>
         
-        <Slide bgColor="primary">
-          <Heading size={4} lineHeight={1} textColor="secondary">
-            Elevating the readability of JavaScript
-            <span>and Scala</span> using
+        <Slide>
+          <Heading textSize="2em">
+            Elevating the readability of JavaScript <span style={{color: "red"}}>and Scala</span> using
             functional composition, partial function application and
             currying....and without function parameters.
           </Heading>
         </Slide>
 
-        <Slide bgColor="primary">
-          <Heading size={4} lineHeight={1} textColor="secondary">
+        <Slide bgColor="primary" bgImage={require("../assets/fly.gif")}>
+          <Heading>
             Disclaimer
           </Heading>
-          <Text textColor="secondary" textAlign="left">I am not...</Text>
-          <List>
+          <Text textSize="2em" bold textAlign="left" textColor="primary">
+            I am not
+          </Text>
+
+          <List textColor="primary" bold>
             <Appear><ListItem>a JavaScript expert</ListItem></Appear>
             <Appear><ListItem>a functional programming expert</ListItem></Appear>
             <Appear><ListItem>an expert</ListItem></Appear>
           </List>
-        </Slide>
-
-        <Slide>
-          <Heading>Unsuccessfully convinced people</Heading>
-          <Text >  it's unfamiliar
-
-            | Familiarity can be acquired; complexity is intrinsic.
-            - https://sanctuary.js.org
-
-            it feels less clear
-          </Text>
         </Slide>
 
         <Slide>
@@ -169,7 +186,9 @@ export default class Presentation extends React.Component {
             { loc: [4, 5], title: "The dots?" },
             { loc: [3, 4], title: "The stabby arrows?" },
             { loc: [1, 2], title: "The function parameters!" },
-          ]}/>
+          ]}>
+
+        </CodeSlide>
 
         <CodeSlide
           bgColor="code"
@@ -201,11 +220,18 @@ export default class Presentation extends React.Component {
             { loc: [0, 11], title: "No one knows" },
           ]}/>
 
+
+        <Slide bgImage={require("../assets/head.explode.gif")} />
+
         <Slide>
-          <Text>Who doesn't love Lodash?</Text>
+          <Text>...so let's make it better</Text>
+        </Slide>
+
+        <Slide>
+          <Text margin="1em 0">Who doesn't love Lodash?</Text>
           <Appear>
             <Text fit>
-              :octocat:/you-dont-need/You-Dont-Need-Lodash-Underscore
+              <img src={require("../assets/octocat.dark.png")} style={{height: "1em", width: "1em", }}/>/you-dont-need/You-Dont-Need-Lodash-Underscore
             </Text>
           </Appear>
         </Slide>
@@ -396,15 +422,15 @@ f(10)
           ]}/>
 
         <Slide>
-          <Heading fit>What we need is pipe from Bash</Heading>
+          <Heading fit>We use it in Bash all the time</Heading>
           <Terminal title="1: ~(zsh)" output={[`$ ps -ef | grep "java" | awk '{ print \$2 }' | xargs kill -9 `]} />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>It's native in Scala</Heading>
           <CodePane
             lang="scala"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     val queryStringify =
@@ -416,11 +442,11 @@ f(10)
           />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading>...and Elixir</Heading>
           <CodePane
             lang="elixir"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     "Elixir rocks"    |>
@@ -429,6 +455,31 @@ f(10)
       `}
           />
         </Slide>
+
+        <Slide bgColor="code">
+          <Heading>...and Elm</Heading>
+          <CodePane
+            lang="haskell"
+            theme="external"
+            textSize="1em"
+            source={`
+      viewNames names =
+        names
+          |> List.sort
+          |> String.join ", "
+`}
+      />
+        </Slide>
+
+        <Slide>
+          <Heading fit>...maybe someday in JavaScript</Heading>
+          <Text margin="1em 0">
+            <img src={require("../assets/octocat.dark.png")} style={{height: "1em", width: "1em", }}/>
+            /tc39/proposal-pipeline-operator
+          </Text>
+        </Slide>
+
+
 
         <Slide>
           <Text padding="1em"
@@ -459,11 +510,11 @@ f(10)
           <Text >Pick one and stick with it.</Text>
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>Back to our example</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     querystringify = pipe(
@@ -504,11 +555,11 @@ f(10)
         </Slide>
 
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading>Normal join</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     const join = function(delim, list){
@@ -518,11 +569,11 @@ f(10)
           />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading>Curried join</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     const join = function(delim){
@@ -533,11 +584,11 @@ f(10)
           />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading>Curried join</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             margin="1em"
             source={` const join = delim => list => list.join(delim) `}
@@ -577,11 +628,9 @@ f(10)
         </Slide>
 
         <Slide>
-          <Text textAlign="left">When would it </Text>
+          <Text textAlign="left">What would this return? </Text>
           <CodePane lang="js" theme="light" textSize="1em" source={`huh = _.curry((x, y=1) => x+y)`} />
-          <Appear>
-            <CodePane lang="js" theme="light" textSize="1em" source={`huh(1) // Function or 2 `} />
-          </Appear>
+          <CodePane lang="js" theme="light" textSize="1em" source={`huh(1) // Function or 2 `} />
         </Slide>
 
         <CodeSlide
@@ -636,11 +685,11 @@ f(10)
           </List>
         </Slide>
 
-        <Slide>
-          <Text textAlign="left">Example problem</Text>
+        <Slide bgColor="code">
+          <Heading fit>Example problem</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
   const f = _.join([1,2,3])
@@ -657,8 +706,10 @@ f(10)
           <Heading fit>Lodash FP</Heading>
         </Slide>
 
-        <Slide>
-          <Text>show lodash fp button the lodash homepage</Text>
+        <Slide bgImage={require("../assets/lodash.png")}>
+        </Slide>
+
+        <Slide bgImage={require("../assets/fpbutton.png")}>
         </Slide>
 
         <Slide>
@@ -763,7 +814,7 @@ const querystringify = fp.pipe([
 ]) `}
           ranges={[
             { loc: [0, 1], title: "We're going to use more of fp" },
-            { loc: [3, 7] },
+            { loc: [2, 7] },
             { loc: [3, 4], title: "fp.pipe is a almost everywhere" },
             { loc: [4, 5], title: "tuple the object" },
             { loc: [5, 6], title: "remove undefined values" },
@@ -831,11 +882,11 @@ const querystringify = fp.pipe([
           ]}
         />
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading>Even Easier</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             source={`
     const removeMissing =
@@ -851,10 +902,10 @@ const querystringify = fp.pipe([
           code={
             `// {k: v, ...} → [[f(k): f(v)], ...]
 const encode =
-  fp.pipe(
+  fp.pipe([
     fp.toPairs,
     fp.map(
-      fp.map(lib.urlEncode)))
+      fp.map(lib.urlEncode))])
                 `}
           ranges={[
             { loc: [0, 6], title: "Our encode function" },
@@ -873,10 +924,10 @@ const encode =
           code={
             `// {k: v, ...} → [[f(k): f(v)], ...]
 const encode =
-  fp.pipe(
+  fp.pipe([
     fp.toPairs,
     fp.flatMap(lib.urlEncode),
-    fp.chunk(2))
+    fp.chunk(2)])
                 `}
           ranges={[
             { loc: [4, 5], title: "that's why we have flatMap" },
@@ -893,10 +944,10 @@ const encode =
           code={
             `// {k: v, ...} → [[f(k): f(v)], ...]
 const mapKeyValue =
-  f => fp.pipe(
+  f => fp.pipe([
         fp.toPairs,
         fp.flatMap(f),
-        fp.chunk(2))
+        fp.chunk(2)])
 
 const encode = mapKeyValue(lib.urlEncode) `}
           ranges={[
@@ -906,7 +957,7 @@ const encode = mapKeyValue(lib.urlEncode) `}
           ]}
         />
 
-        <Slide ><Heading >We're done!</Heading></Slide>
+        <Slide><Heading >We're done!</Heading></Slide>
 
         <CodeSlide
           bgColor="code"
@@ -940,25 +991,29 @@ const querystringify = pipe([
             { loc: [11, 18], title: "Business Code is 1 Function" },
           ]}
         />
-
+          <Slide
+            bgImage={images.more}
+            bgDarken={0.3}
+            >
+          </Slide>
 
         <Slide>
           <Heading>More fp!</Heading>
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading>fp.cond</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             textSize="0.9em"
             source={`
   fp.cond([
     [predicateFunction, appliedWhenTrue],
-    [ (x => x < 0),     (x) => log(x, "is bad")],
-    [ fp.equals(0),     someOtherFunction ],
-    [ fp.T,             thisIsTheDefaultFunction ]
+    [(x => x < 0),      (x) => log(x, "is bad")],
+    [fp.equals(0),      someOtherFunction ],
+    [fp.T,              thisIsTheDefaultFunction ]
   ])
                       `}
           />
@@ -969,11 +1024,11 @@ const querystringify = pipe([
           <Text>...but it returns</Text>
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>I've seen this a time or two</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="0.8em"
             source={`
 const isAction = fp.isEqual
@@ -989,17 +1044,12 @@ export default = fp.cond([
           />
         </Slide>
 
-        <Slide
-          bgImage={images.more}
-          bgDarken={0.3}
-        >
-        </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>Pointfree Average</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             margin="1em 0"
             source={
@@ -1047,11 +1097,11 @@ average([1,2]) // 1.5 `}
           />
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>Pointfree Average</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             margin="1em 0"
             source={
@@ -1075,25 +1125,18 @@ average([1,2]) // 1.5
           <Image src={images.distracted} />
         </Slide>
 
-        <Slide>
-          <Heading>Ramda</Heading>
-          image
-        </Slide>
-
-        <Slide>
-          <Heading>Ramda</Heading>
-          image
+        <Slide bgImage={require("../assets/ramda.png")}>
         </Slide>
 
         <Slide>
           <Heading>Why?</Heading>
         </Slide>
 
-        <Slide>
+        <Slide bgColor="code">
           <Heading fit>Useful Standard Libary</Heading>
           <CodePane
             lang="js"
-            theme="light"
+            theme="external"
             textSize="1em"
             margin="1em 0"
             source={`
@@ -1149,7 +1192,7 @@ average([1,2]) // 1.5
           <Heading fit>Sounds great!</Heading>
         </Slide>
 
-        <Slide>
+        <Slide bgImage={require("../assets/skeptical.gif")}>
           <Heading fit>What's the catch?</Heading>
         </Slide>
 
@@ -1242,12 +1285,46 @@ average([1,2]) // 1.5
         <Slide>
           <Heading fit italic>TL;DR;</Heading>
           <Text>
-            Break
+            Break&nbsp;
             <span style={{background: '#f66'}}>larger functions</span> into&nbsp;
-            <span style={{background: '#bada55'}}>smaller</span>,&nbsp;
+            <span style={{background: '#bada55'}}>smaller</span>, &nbsp;
             <span style={{background: '#bada55'}}>composible</span> functions with&nbsp;
             <span style={{background: '#bada55'}}>meaningful&nbsp;names</span>.
           </Text>
+        </Slide>
+
+        <Slide>
+          <Heading>Basically...</Heading>
+        </Slide>
+
+        <Slide bgColor="code">
+          <Heading >Don't write this</Heading>
+          <CodePane
+            lang="js"
+            theme="external"
+            textSize="1em"
+            margin="1em 0"
+            source={require("./sourceExamples/badExample.js.txt")}
+        />
+        </Slide>
+
+        <Slide bgColor="code">
+          <Heading >Write this</Heading>
+          <CodePane
+            lang="js"
+            theme="dark"
+            textSize="1em"
+            margin="1em 0"
+            source={`
+    // Object → String
+    const querystringify = pipe([
+      removeMissing,
+      mapKeyValue(lib.urlEncode),
+      join("="),
+      join("&")
+    ])
+`}
+          />
         </Slide>
 
 
