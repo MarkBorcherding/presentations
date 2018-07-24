@@ -1,32 +1,12 @@
-# Spectacle Boilerplate
-
-## Contents
-
-- [Reference](#reference)
-- [Getting Started](#getting-started)
-- [Build & Deployment](#build-deployment)
-
 ## Reference
 
 The Spectacle core API is available at [https://github.com/FormidableLabs/spectacle/blob/master/README.md](https://github.com/FormidableLabs/spectacle/blob/master/README.md).
 
 ## Getting Started
 
-After downloading the boilerplate, your first order of business is to open a terminal and run 
-```bash
-yarn
-```
-or 
 ```bash
 npm install
 ```
-if you're about that life.
-
-Next, run 
-```bash
-rm -R .git
-```
-to remove the existing version control.
 
 Then, to start up the local server, run
 ```bash
@@ -35,14 +15,26 @@ npm start
 
 Open a browser and hit [http://localhost:3000](http://localhost:3000), and we are ready to roll.
 
-## Build & Deployment
+## Controls
 
-Building the dist version of the project is as easy as running
-```bash
-npm run build
-```
+| Key Combination | Function                       |
+| --------------- | ------------------------------ |
+| Right Arrow     | Next Slide                     |
+| Left Arrow      | Previous Slide                 |
+| Space           | Next Slide                     |
+| Down Arrow      | Next Code Highlight            |
+| Up Arrow        | Previous Code Highlight        |
+| Shift+Space     | Previous Slide                 |
+| Alt/Option + O  | Toggle Overview Mode           |
+| Alt/Option + P  | Toggle Presenter Mode          |
+| Alt/Option + T  | Toggle Timer in Presenter Mode |
+| Alt/Option + A  | Start autoplay (if enabled)    |
 
-If you want to deploy the slideshow to surge, run 
-```bash
-npm run deploy
-```
+
+
+## Presenter View
+
+Open a browser to [http://localhost:3000/#/0?presenter&timer](http://localhost:3000/#/0?presenter&timer) and another window on the presentation display to [http://localhost:3000](http://localhost:3000).
+
+
+
