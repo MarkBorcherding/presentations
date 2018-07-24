@@ -30,6 +30,23 @@ Open a browser and hit [http://localhost:3000](http://localhost:3000), and we ar
 | Alt/Option + T  | Toggle Timer in Presenter Mode |
 | Alt/Option + A  | Start autoplay (if enabled)    |
 
+## Code Slides
+
+There are two types of code slides; static and interactive.
+
+### Static Code
+
+Static code slides have no interactions. They behave like normal slides
+
+![](./docs/example.static.code.slide.png)
+
+
+### Interactive Code Slides
+
+Interactive code slides highlight regions of the code using the up and down arrows. 
+
+![](./docs/example.code.slide.png)
+
 
 
 ## Presenter View
