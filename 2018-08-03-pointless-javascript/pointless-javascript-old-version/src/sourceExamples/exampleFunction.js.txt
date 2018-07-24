@@ -1,1 +1,0 @@
-const struckOut = (pitches) => { return pitches.filter( x => x === 'K').length === 3 };
