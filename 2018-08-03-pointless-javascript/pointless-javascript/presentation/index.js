@@ -111,7 +111,7 @@ export default class Presentation extends React.Component {
 
         <Slide>
           <Heading size={1} fit lineHeight={1}>
-            Point-free JavaScript
+            Point-<i>free</i> JavaScript
           </Heading>
         </Slide>
 
@@ -130,6 +130,8 @@ export default class Presentation extends React.Component {
             currying....and without function parameters.
           </Heading>
         </Slide>
+
+        <Slide bgImage={require("../assets/yawn.gif")} />
 
         <Slide bgColor="primary" bgImage={require("../assets/fly.gif")}>
           <Heading>
@@ -361,8 +363,8 @@ export default class Presentation extends React.Component {
             textSize="1em"
             padding="1em"
             source={`
-    const pipe = (f,g,h) => {
-      return (x) => {
+    const pipe = function(f,g,h){
+      return function(x){
         return h(g(f(x)))
       }
     }
@@ -526,6 +528,22 @@ f(10)
           />
         </Slide>
 
+        <Slide bgColor="code">
+          <Heading fit>...with less obnoxious names</Heading>
+          <CodePane
+            lang="js"
+            theme="external"
+            textSize="1em"
+            source={`
+  querystringify = pipe(
+    removeMissing,
+    urlEncode,
+    joinEquals,
+    joinAmpersand
+  ) `}
+            />
+        </Slide>
+
         <CodeSlide
           bgColor="code"
           transition={[]}
@@ -538,7 +556,6 @@ f(10)
   joinAmpersand
 ) `}
           ranges={[
-            { loc: [0, 7], title: "With less obnoxious names" },
             { loc: [3, 5], title: "These methods sound similar" },
           ]}
         />
@@ -548,12 +565,10 @@ f(10)
         <Slide>
           <Heading>Curry in 30s</Heading>
           <Text>
-            Currying is taking a function that takes multiple arguments,
-            only supplying some and getting back a new function that takes
-            the rest.
-            </Text>
+            Currying is taking a function that takes multiple arguments and evaluating
+            it as a series of functions, that return other functions
+          </Text>
         </Slide>
-
 
         <Slide bgColor="code">
           <Heading>Normal join</Heading>
@@ -692,9 +707,9 @@ f(10)
             theme="external"
             textSize="1em"
             source={`
+  // _.join(array, [separator=','])
   const f = _.join([1,2,3])
-  // [Function] or "1,2,3"
-                `}
+  // [Function] or "1,2,3" `}
           />
         </Slide>
 
@@ -713,6 +728,16 @@ f(10)
         </Slide>
 
         <Slide>
+          <Heading>How it helps</Heading>
+          <List>
+            <ListItem>Moves the data to the last argument</ListItem>
+            <ListItem>Fixes the arity of the function.</ListItem>
+            <ListItem>Aliases as needed for default values</ListItem>
+            <ListItem>Better names for function</ListItem>
+          </List>
+        </Slide>
+
+        <Slide>
           <Heading>Data Last</Heading>
           <Text
             textAlign="left"
@@ -725,12 +750,14 @@ f(10)
         </Slide>
 
         <Slide>
-          <Heading>Simple Curry</Heading>
+          <Heading fit>Simplifies  Curry</Heading>
           <Text
             textAlign="left"
             margin="1em 0" >
-            <Code> dashIt = _.curry(_.join)(_._, "-")</Code></Text>
-          <Appear><Text textAlign="left"><Code>dashIt = fp.join("-")</Code> </Text></Appear>
+            <Code
+              textSize="0.9em"
+              > hyphenate = _.curry(_.join)(_._, "-")</Code></Text>
+          <Appear><Text textAlign="left"><Code textSize="0.9em">hyphenate = fp.join("-")</Code> </Text></Appear>
         </Slide>
 
         <Slide>
@@ -824,7 +851,7 @@ const querystringify = fp.pipe([
           ]}
         />
 
-        <Slide><Heading fit>The Pointfree Version</Heading></Slide>
+        <Slide><Heading fit>The Point-free Version</Heading></Slide>
 
         <CodeSlide
           bgColor="code"
@@ -1046,7 +1073,7 @@ export default = fp.cond([
 
 
         <Slide bgColor="code">
-          <Heading fit>Pointfree Average</Heading>
+          <Heading fit>Point-free Average</Heading>
           <CodePane
             lang="js"
             theme="external"
@@ -1065,13 +1092,13 @@ average([1,2]) // 1.5 `}
         <Slide>
           <Heading><code>fp.over</code></Heading>
           <Text margin="1em 0">
-            Apply a value over an array of functions</Text>
+            Apply a value over a list of functions</Text>
           <CodePane
             lang="js"
             theme="light"
             textSize="1em"
             source={`
-  // [(a→x), (b→y), ...] → a → [x,y]
+  // [(a→x), (a→y), ...] → a → [x,y]
 
   fp.over([fp.sum, fp.size]) ([10, 5])
   // [15, 2]
@@ -1083,7 +1110,7 @@ average([1,2]) // 1.5 `}
           <Heading><code>fp.spread</code></Heading>
           <Text margin="1em 0">
             Apply an array to a function that takes multiple parameters
-                    </Text>
+          </Text>
           <CodePane
             lang="js"
             theme="light"
@@ -1098,7 +1125,7 @@ average([1,2]) // 1.5 `}
         </Slide>
 
         <Slide bgColor="code">
-          <Heading fit>Pointfree Average</Heading>
+          <Heading fit>Point-free Average</Heading>
           <CodePane
             lang="js"
             theme="external"
@@ -1141,7 +1168,7 @@ average([1,2]) // 1.5
             margin="1em 0"
             source={`
   // same as fp.apply + fp.spread from earlier
-  R.converge(R.divide, [R.length, R.always(2)]) 
+  R.converge(R.divide, [R.sum, R.length]) 
               `}
           />
         </Slide>
@@ -1173,7 +1200,7 @@ average([1,2]) // 1.5
           code={require("./sourceExamples/advent.of.code.someoneelse.js.txt")}
           ranges={[
             { loc: [0, 0], title: "High ★ version from Github"},
-            { loc: [0,9], title: "Huh?"},
+            { loc: [0,8], title: "Huh?"},
           ]}
           />
 

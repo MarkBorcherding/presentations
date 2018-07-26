@@ -1,7 +1,7 @@
 def join(j: String)(list: Seq[String]) = list.mkString(j)
 
-val join = (j:String) => (list:Seq[String]) = list.mkString(j)
+val join = (j:String) => (list:Seq[String]) => list.mkString(j)
 
-val join = ((j:String, list:Seq[String]) = list.mkString(j)).curried
+val join = ((j:String, list:Seq[String]) => list.mkString(j)).curried
 
 val join = (_:Seq[String]).mkString(_:String)
